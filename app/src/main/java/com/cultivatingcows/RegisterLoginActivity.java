@@ -64,7 +64,6 @@ public class RegisterLoginActivity extends AppCompatActivity {
             }
         });
 
-
         mSignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

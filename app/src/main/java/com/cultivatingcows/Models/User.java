@@ -23,7 +23,7 @@ public class User extends ParseUser {
     private String mEmail;
     private String mUsername;
     private String[] mGameNameStringArray;
-    private static List<Game> mUserGames;
+    private static List<String> mUserGames;
 
     public User(){
         super();
@@ -36,7 +36,7 @@ public class User extends ParseUser {
         context.runOnUiThread(runnable);
     }
 
-    public static List<Game> getUserGames(){
+    public static List<String> getUserGames(){
         return mUserGames;
     }
 
