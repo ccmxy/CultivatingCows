@@ -111,6 +111,7 @@ public class MainActivity extends AppCompatActivity {
                     String gameName = Game.getString("name");
                     gamesStringList.add(gameName);
                     setThatList(gamesStringList, mArrayAdapter, mGamesList);
+                    makeListClickable(mGamesList);
                 }
             }
         });
@@ -132,8 +133,15 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(arrayAdapter);
        // makeListClickable(listView);
     }
-
-
+    public void makeListClickable(ListView listView) {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                String gameName = (String) arg0.getItemAtPosition(position);
+                Toast.makeText(MainActivity.this, "Congradulations on clicking " + gameName + "!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
 
 
