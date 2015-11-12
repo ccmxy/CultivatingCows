@@ -38,9 +38,7 @@ public class Game extends ParseObject {
                 .orderByAscending("name");
     }
 
-
     public static void findAllGames(final String tag, final Activity context, final Runnable runnable) {
-        //ParseQuery<Game> gameQuery = gamesListQuery();
         gamesListQuery().findInBackground(new FindCallback<Game>() {
             @Override
             public void done(List<Game> games, com.parse.ParseException e) {
@@ -58,6 +56,17 @@ public class Game extends ParseObject {
             }
         });
     }
+
+    public static ParseQuery<Game> specificGameQuery(String gameName) {
+        return ParseQuery.getQuery(Game.class)
+                .whereEqualTo("name", gameName);
+    }
+
+
+    public static void findGameByName(final String tag, final Activity context, final Runnable runnable){
+
+    }
+
     public static List<Game> getGames() {
         return mGames;
     }

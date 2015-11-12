@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Game.class);
         setSupportActionBar(toolbar);
 
@@ -85,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
                                 String gameName = gameNameInput.getText().toString();
                                 Game newGame = new Game(gameName, players);
                                 newGame.saveGame();
+                                currentUser.add("game", gameName);
+                                currentUser.saveInBackground();
                                 Intent intent = getIntent();
                                 finish();
                                 startActivity(intent);
@@ -139,6 +142,9 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 String gameName = (String) arg0.getItemAtPosition(position);
                 Toast.makeText(MainActivity.this, "Congradulations on clicking " + gameName + "!", Toast.LENGTH_SHORT).show();
+                currentUser.add("game", gameName);
+                currentUser.saveInBackground();
+               // currentUser.addGame(gameName);
             }
         });
     }

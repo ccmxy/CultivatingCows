@@ -26,6 +26,11 @@ public class User extends ParseUser {
         setEmail(email);
     }
 
+//    public void addGame(String gameName){
+//
+//
+//    }
+
     public void register(final String tag, final Activity context, final Runnable runnable){
         signUpInBackground(new SignUpCallback() {
             @Override
