@@ -64,14 +64,13 @@ public class User extends ParseUser {
             }
         });
     }
-
     public static void logIn(final String username, final String password, final String tag, final Activity context, final Runnable runnable) {
-        ParseUser.logInInBackground(username, password, new LogInCallback() {
-            @Override
-            public void done(ParseUser parseUser, ParseException e) {
-                if (e != null) {
-                    ErrorHelper.handleError(tag, context, e.getMessage());
-                } else {
+                  ParseUser.logInInBackground(username, password, new LogInCallback() {
+                        @Override
+                        public void done(ParseUser parseUser, ParseException e) {
+                            if (e != null) {
+                                ErrorHelper.handleError(tag, context, e.getMessage());
+                            } else {
                     context.runOnUiThread(runnable);
                 }
             }

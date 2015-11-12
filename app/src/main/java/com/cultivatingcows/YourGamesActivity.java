@@ -29,7 +29,7 @@ public class YourGamesActivity extends AppCompatActivity {
     //private List<Game> mUserGames;
     private static final String TAG = YourGamesActivity.class.getSimpleName();
 
-    @Bind(R.id.listView)
+    @Bind(R.id.yourGamesList)
     ListView mGamesList;
 
     private ArrayAdapter<String> mArrayAdapter;
