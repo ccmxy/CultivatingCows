@@ -37,8 +37,8 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    @Bind(R.id.greetingText)
-    TextView mGreetingText;
+    @Bind(R.id.yourGamesButton)
+    Button mYourGamesButton;
 
     @Bind(R.id.newGameButton)
     Button mNewGameButton;
@@ -66,6 +66,14 @@ public class MainActivity extends AppCompatActivity {
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Game.class);
         setSupportActionBar(toolbar);
+
+        mYourGamesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, YourGamesActivity.class);
+                startActivity(intent);
+            }
+        });
 
         mNewGameButton.setOnClickListener(new View.OnClickListener() {
             @Override

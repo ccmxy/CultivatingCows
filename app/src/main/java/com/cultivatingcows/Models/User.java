@@ -4,10 +4,13 @@ import android.app.Activity;
 
 import com.cultivatingcows.ErrorHelper;
 import com.parse.LogInCallback;
+import com.parse.Parse;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
+
+import java.util.List;
 
 /**
  * Created by colleenminor on 11/11/15.
@@ -16,20 +19,34 @@ import com.parse.SignUpCallback;
 @ParseClassName("_User")
 public class User extends ParseUser {
 
+    private ParseUser mParseUser;
+    private String mEmail;
+    private String mUsername;
+    private String[] mGameNameStringArray;
+    private static List<Game> mUserGames;
+
     public User(){
         super();
     }
 
-    public User(String username, String password, String email){
-        setUsername(username);
-        setPassword(password);
-        setEmail(email);
+    public User(ParseUser thisUser, final String TAG, final Activity context, final Runnable runnable){
+        mUsername = thisUser.getUsername();
+        mEmail = thisUser.getEmail();
+        mUserGames = thisUser.getList("game");
+        context.runOnUiThread(runnable);
     }
 
-//    public void addGame(String gameName){
-//
-//
-//    }
+    public static List<Game> getUserGames(){
+        return mUserGames;
+    }
+
+    public User(String username, String password, String email){
+        setUsername(username);
+        mUsername = username;
+        setPassword(password);
+        setEmail(email);
+        mEmail = email;
+    }
 
     public void register(final String tag, final Activity context, final Runnable runnable){
         signUpInBackground(new SignUpCallback() {
