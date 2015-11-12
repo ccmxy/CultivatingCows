@@ -81,6 +81,31 @@ public class RegisterLoginActivity extends AppCompatActivity {
                     }
                 });
             }
+
+        });
+
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username = mUsernameLogin.getText().toString().trim();
+                String password = mPasswordLogin.getText().toString().trim();
+                if (username.isEmpty() || password.isEmpty()) {
+                    ErrorHelper.displayAlertDialog(RegisterLoginActivity.this, getString(R.string
+                            .login_error_message));
+                } else {
+                    // Login
+                    User.logIn(username, password, TAG, RegisterLoginActivity.this, new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(RegisterLoginActivity.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
+                    });
+                }
+
+            }
         });
 
     }

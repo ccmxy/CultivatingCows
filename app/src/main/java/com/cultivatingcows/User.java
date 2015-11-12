@@ -2,6 +2,7 @@ package com.cultivatingcows;
 
 import android.app.Activity;
 
+import com.parse.LogInCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -39,6 +40,19 @@ public class User extends ParseUser {
                     // to figure out what went wrong
                 }
 
+            }
+        });
+    }
+
+    public static void logIn(final String username, final String password, final String tag, final Activity context, final Runnable runnable) {
+        ParseUser.logInInBackground(username, password, new LogInCallback() {
+            @Override
+            public void done(ParseUser parseUser, ParseException e) {
+                if (e != null) {
+                    ErrorHelper.handleError(tag, context, e.getMessage());
+                } else {
+                    context.runOnUiThread(runnable);
+                }
             }
         });
     }
