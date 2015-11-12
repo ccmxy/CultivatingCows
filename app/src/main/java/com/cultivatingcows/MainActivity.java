@@ -118,14 +118,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-//        List<String> gamesStringList = new ArrayList<>();
-//        for (ParseObject Game : mAllGames) {
-//            String gameName = Game.getString("name");
-//            gamesStringList.add(gameName);
-//        }//End of for loop
-//
-//        setThatList(gamesStringList, mArrayAdapter, mGamesList);
-
     } //End of onCreate
 
         public void setThatList(List<String> stringList, ArrayAdapter<String> arrayAdapter, ListView listView) {
@@ -144,86 +136,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Congradulations on clicking " + gameName + "!", Toast.LENGTH_SHORT).show();
                 currentUser.add("game", gameName);
                 currentUser.saveInBackground();
-               // currentUser.addGame(gameName);
             }
         });
     }
 }
 
 
-
-
-//        ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Game");
-//        //Note: Specify here, with, ie, query2.whereEqualTo("G", "Dan Stemkoski");
-//        query2.findInBackground(new FindCallback<ParseObject>() {
-//            public void done(final List<ParseObject> gameList, ParseException e) {
-//                if (e == null) {
-//                    Log.d("game", "Retrieved " + gameList.size() + " games");
-//
-//                    List<String> gamesStringList = new ArrayList<>();
-//
-//                    for (ParseObject Game : gameList) {
-//                        String gameName = Game.getString("name");
-//                        gamesStringList.add(gameName);
-//
-//                        /*Here is how you would get the usernames of the owners (from the relational "owner"):
-//                        Game.getParseObject("owner")
-//                                .fetchIfNeededInBackground(new GetCallback<ParseUser>() {
-//                                    public void done(ParseUser gameOwner, ParseException e) {
-//                                        String gameOwnerName = gameOwner.getString("username");
-//                                    }
-//                                });
-//                                */
-//
-//                    }//End of for loop
-//                    setThatList(gamesStringList, mArrayAdapter, mGamesList);
-//                } else {
-//                    Log.d("game", "Error: " + e.getMessage());
-//                }
-//            }
-//        });
-  //  }//End of onCreate method
-
-//    public void setThatList(List<String> stringList, ArrayAdapter<String> arrayAdapter, ListView listView) {
-//        arrayAdapter = new ArrayAdapter<String>(
-//                MainActivity.this,
-//                android.R.layout.simple_list_item_1,
-//                stringList);
-//        listView.setAdapter(arrayAdapter);
-//        makeListClickable(listView);
-//    }
-
-//    public void makeListClickable(ListView listView) {
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-//                String line = (String) arg0.getItemAtPosition(position);
-//
-//                //Specific to this program:
-//                ParseQuery<ParseObject> query = ParseQuery.getQuery("Game").whereEqualTo("name", line);
-//                query.findInBackground(new FindCallback<ParseObject>() {
-//                    @Override
-//                    public void done(List<ParseObject> objects, ParseException e) {
-//                        ParseObject thisGame = objects.get(0);
-//                        mGameId = thisGame.getObjectId();
-//                    }
-//                });
-//                query.getInBackground(mGameId, new GetCallback<ParseObject>() {
-//                    public void done(ParseObject game, ParseException e) {
-//                        if (e == null) {
-//                            List<ParseUser> players = game.getList("players");
-//                            players.add(currentUser);
-//                            game.put("players", players);
-//                            game.saveInBackground();
-//                        } else {
-//                            Toast.makeText(MainActivity.this, "MAYDAY", Toast.LENGTH_SHORT).show();
-//
-//                        }
-//                    }
-//
-//                });
-//            }
-//        });
-//
-//    }
-//}
