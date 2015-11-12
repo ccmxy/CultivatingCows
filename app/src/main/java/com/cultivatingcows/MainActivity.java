@@ -35,6 +35,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = MainActivity.class.getSimpleName();
+
     @Bind(R.id.greetingText)
     TextView mGreetingText;
 
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> mArrayAdapter;
     private String mGameId;
     private ParseUser currentUser = ParseUser.getCurrentUser();
+    private List<Game> mAllGames;
 
 
     @Override
@@ -99,6 +102,43 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Game.findAllGames(TAG, MainActivity.this, new Runnable() {
+            @Override
+            public void run() {
+                mAllGames = Game.getGames();
+                List<String> gamesStringList = new ArrayList<>();
+                for (ParseObject Game : mAllGames) {
+                    String gameName = Game.getString("name");
+                    gamesStringList.add(gameName);
+                    setThatList(gamesStringList, mArrayAdapter, mGamesList);
+                }
+            }
+        });
+//        List<String> gamesStringList = new ArrayList<>();
+//        for (ParseObject Game : mAllGames) {
+//            String gameName = Game.getString("name");
+//            gamesStringList.add(gameName);
+//        }//End of for loop
+//
+//        setThatList(gamesStringList, mArrayAdapter, mGamesList);
+
+    } //End of onCreate
+
+        public void setThatList(List<String> stringList, ArrayAdapter<String> arrayAdapter, ListView listView) {
+        arrayAdapter = new ArrayAdapter<String>(
+                MainActivity.this,
+                android.R.layout.simple_list_item_1,
+                stringList);
+        listView.setAdapter(arrayAdapter);
+       // makeListClickable(listView);
+    }
+
+
+}
+
+
+
+
 //        ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Game");
 //        //Note: Specify here, with, ie, query2.whereEqualTo("G", "Dan Stemkoski");
 //        query2.findInBackground(new FindCallback<ParseObject>() {
@@ -128,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //            }
 //        });
-    }//End of onCreate method
+  //  }//End of onCreate method
 
 //    public void setThatList(List<String> stringList, ArrayAdapter<String> arrayAdapter, ListView listView) {
 //        arrayAdapter = new ArrayAdapter<String>(
@@ -172,4 +212,4 @@ public class MainActivity extends AppCompatActivity {
 //        });
 //
 //    }
-}
+//}
