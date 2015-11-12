@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.cultivatingcows.Models.User;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
@@ -107,7 +108,6 @@ public class RegisterLoginActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     @Override

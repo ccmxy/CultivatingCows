@@ -1,7 +1,8 @@
-package com.cultivatingcows;
+package com.cultivatingcows.Models;
 
 import android.app.Activity;
 
+import com.cultivatingcows.ErrorHelper;
 import com.parse.LogInCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
@@ -30,12 +31,10 @@ public class User extends ParseUser {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
-
                     context.runOnUiThread(runnable);
                 } else {
                     ErrorHelper.handleError(tag, context, e.getMessage());
-
-                    int x = 2;
+                    //int x = 2;
                     // Sign up didn't succeed. Look at the ParseException
                     // to figure out what went wrong
                 }
