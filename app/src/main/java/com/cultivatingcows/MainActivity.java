@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 gameNameInput.setHint("Name your new game");
                 gameNameInput.setInputType(InputType.TYPE_CLASS_TEXT);
                 builder.setView(gameNameInput);
-                builder.setMessage("Note: This will create a new game with you as the owner.")
+                builder.setMessage("Note: This will create a new game.")
                         .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
@@ -132,13 +132,32 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                String gameName = (String) arg0.getItemAtPosition(position);
-                Toast.makeText(MainActivity.this, "Congradulations on clicking " + gameName + "!", Toast.LENGTH_SHORT).show();
-                currentUser.add("game", gameName);
-                currentUser.saveInBackground();
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("Join Game");
+                final String gameName = (String) arg0.getItemAtPosition(position);
+
+                builder.setMessage("By clicking okay, you are agreeing to join this game.").
+                setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        currentUser.add("game", gameName);
+                        currentUser.saveInBackground();
+                        Toast.makeText(MainActivity.this, "Congradulations on joining " + gameName + "!", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
+
     }
+
 }
 
 
