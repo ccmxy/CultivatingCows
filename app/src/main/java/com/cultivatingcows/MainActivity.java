@@ -143,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("Join Game");
                 final String gameName = (String) arg0.getItemAtPosition(position);
-
                 builder.setMessage("By clicking okay, you are agreeing to join this game.").
                 setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                     @Override

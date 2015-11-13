@@ -64,7 +64,9 @@ public class YourGamesActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+                final String gameName = (String) arg0.getItemAtPosition(position);
                 Intent intent = new Intent(YourGamesActivity.this, GameHomeActivity.class);
+                intent.putExtra("gameName", gameName);
                 startActivity(intent);
 //                int three = 4;
 //              Toast.makeText(YourGamesActivity.this, "Waka waka", Toast.LENGTH_LONG);

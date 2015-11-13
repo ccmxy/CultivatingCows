@@ -1,16 +1,31 @@
 package com.cultivatingcows;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class GameHomeActivity extends AppCompatActivity {
+    @Bind(R.id.gameNameTextView)
+    TextView gameNameText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_home);
+        ButterKnife.bind(this);
+
+        Intent intent = getIntent();
+        String gameName = intent.getStringExtra("gameName");
+        gameNameText.setText(gameName);
+
+
+
     }
 
     @Override
