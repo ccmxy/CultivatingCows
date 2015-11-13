@@ -1,4 +1,4 @@
-package com.cultivatingcows;
+package com.cultivatingcows.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.cultivatingcows.ErrorHelper;
 import com.cultivatingcows.Models.User;
+import com.cultivatingcows.R;
 import com.parse.Parse;
 import com.parse.ParseObject;
 

@@ -1,4 +1,4 @@
-package com.cultivatingcows;
+package com.cultivatingcows.UI;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.cultivatingcows.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,8 +25,6 @@ public class GameHomeActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String gameName = intent.getStringExtra("gameName");
         gameNameText.setText(gameName);
-
-
 
     }
 

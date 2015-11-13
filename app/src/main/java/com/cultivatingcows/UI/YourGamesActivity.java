@@ -1,24 +1,17 @@
-package com.cultivatingcows;
+package com.cultivatingcows.UI;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.cultivatingcows.Models.Game;
 import com.cultivatingcows.Models.User;
-import com.parse.ParseObject;
+import com.cultivatingcows.R;
 import com.parse.ParseUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
