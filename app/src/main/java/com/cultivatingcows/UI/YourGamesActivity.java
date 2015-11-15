@@ -30,7 +30,6 @@ public class YourGamesActivity extends AppCompatActivity {
     private ParseUser currentUser = ParseUser.getCurrentUser();
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +50,6 @@ public class YourGamesActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1,
                 stringList);
         listView.setAdapter(arrayAdapter);
-        //makeListClickable(listView);
     }
     public void makeListClickable(ListView listView) {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -61,10 +59,6 @@ public class YourGamesActivity extends AppCompatActivity {
                 Intent intent = new Intent(YourGamesActivity.this, GameHomeActivity.class);
                 intent.putExtra("gameName", gameName);
                 startActivity(intent);
-//                int three = 4;
-//              Toast.makeText(YourGamesActivity.this, "Waka waka", Toast.LENGTH_LONG);
-//                final String gameName = (String) arg0.getItemAtPosition(position);
-//                Toast.makeText(YourGamesActivity.this, "You are a player in " + gameName, Toast.LENGTH_SHORT);
             }
         });
     }

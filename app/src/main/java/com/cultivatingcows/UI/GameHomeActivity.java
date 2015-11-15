@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
+import com.cultivatingcows.Models.Game;
 import com.cultivatingcows.Models.User;
 import com.cultivatingcows.R;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.util.List;
@@ -23,8 +25,15 @@ public class GameHomeActivity extends AppCompatActivity {
     @Bind(R.id.playerNamesTextView)
     TextView mPlayerNamesText;
 
+    @Bind(R.id.readyToPlayTextView)
+    TextView mCanWePlay;
+
     private List<ParseUser> mPlayers;
     private String mPlayerNames;
+    private ParseObject mGame;
+    private String enoughPlayersText;
+    private int mMaxNumPlayers;
+    private int mCurNumPlayers;
 
 
     @Override
@@ -34,8 +43,9 @@ public class GameHomeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        String gameName = intent.getStringExtra("gameName");
+        final String gameName = intent.getStringExtra("gameName");
         gameNameText.setText(gameName);
+
 
         User.findPlayers(gameName, TAG, GameHomeActivity.this, new Runnable() {
             @Override
@@ -43,6 +53,24 @@ public class GameHomeActivity extends AppCompatActivity {
                 mPlayers = User.getPlayers();
                 mPlayerNames = getPlayersList();
                 mPlayerNamesText.setText(mPlayerNames);
+            }
+        });
+
+        Game.findGameByName(gameName, TAG, GameHomeActivity.this, new Runnable() {
+            @Override
+            public void run() {
+
+                mGame = Game.getThisGame();
+                mMaxNumPlayers = mGame.getInt("numPlayers");
+                mCurNumPlayers = mPlayers.size();
+                enoughPlayersText = ("This game needs " + mMaxNumPlayers + " players and we have " + mCurNumPlayers + ". ");
+                mGame.put("curNumPlayers", mCurNumPlayers);
+                if (mMaxNumPlayers > mCurNumPlayers) {
+                    enoughPlayersText += "Find some more players so we can start! ";
+                } else {
+                    enoughPlayersText += "Let's play!";
+                }
+                mCanWePlay.setText(enoughPlayersText);
             }
         });
     }

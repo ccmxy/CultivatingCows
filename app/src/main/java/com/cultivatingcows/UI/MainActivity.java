@@ -13,8 +13,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.cultivatingcows.Models.Game;
 import com.cultivatingcows.Models.User;
@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private String mGameId;
     private ParseUser currentUser = ParseUser.getCurrentUser();
     private List<Game> mAllGames;
+    private ParseObject mThisGame;
 
 
     @Override
@@ -78,6 +79,16 @@ public class MainActivity extends AppCompatActivity {
                 gameNameInput.setHint("Name your new game");
                 gameNameInput.setInputType(InputType.TYPE_CLASS_TEXT);
                 builder.setView(gameNameInput);
+                final EditText numPlayersInput = new EditText(MainActivity.this);
+                numPlayersInput.setHint("Number of players for this game (2-4)");
+                numPlayersInput.setInputType(InputType.TYPE_CLASS_NUMBER);
+                LinearLayout ll = new LinearLayout(MainActivity.this);
+                ll.setOrientation(LinearLayout.VERTICAL);
+                ll.addView(gameNameInput);
+                ll.addView(numPlayersInput);
+                builder.setView(ll);
+
+                //builder.setView(numPlayersInput);
                 builder.setMessage("Note: This will create a new game.")
                         .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                             @Override
@@ -86,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
                                 List<ParseUser> players = new ArrayList<ParseUser>();
                                 players.add(currentUser);
                                 String gameName = gameNameInput.getText().toString();
-                                Game newGame = new Game(gameName, players);
+                                int numPlayers = Integer.parseInt(numPlayersInput.getText().toString());
+                                Game newGame = new Game(gameName, players, numPlayers);
                                 newGame.saveGame();
                                 currentUser.add("game", gameName);
                                 currentUser.saveInBackground();
@@ -123,51 +135,54 @@ public class MainActivity extends AppCompatActivity {
     } //End of onCreate
 
         public void setThatList(List<String> stringList, ArrayAdapter<String> arrayAdapter, ListView listView) {
-        arrayAdapter = new ArrayAdapter<String>(
+        arrayAdapter = new ArrayAdapter<>(
                 MainActivity.this,
                 android.R.layout.simple_list_item_1,
                 stringList);
         listView.setAdapter(arrayAdapter);
-       // makeListClickable(listView);
     }
     public void makeListClickable(ListView listView) {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("Join Game");
                 final String gameName = (String) arg0.getItemAtPosition(position);
-                builder.setMessage("By clicking okay, you are agreeing to join this game.").
-                setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        boolean alreadyHas = false;
-                        List<String> userGames = currentUser.getList("game");
-                        for(String s : userGames){
-                            if(s.contains(gameName)){
-                                alreadyHas = true;
-                                Toast.makeText(MainActivity.this, "You are already playing " + gameName + "!", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        if(!alreadyHas) {
-                            currentUser.add("game", gameName);
-                            currentUser.saveInBackground();
-                            Toast.makeText(MainActivity.this, "Congradulations on joining " + gameName + "!", Toast.LENGTH_SHORT).show();
-                        }
-                        dialog.dismiss();
-                    }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.dismiss();
-                    }
-                });
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                Intent intent = new Intent(MainActivity.this, GameHomeActivity.class);
+                intent.putExtra("gameName", gameName);
+                startActivity(intent);
             }
         });
-
     }
+
+
+
+//    public void makeListClickable(ListView listView) {
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+//                builder.setTitle("Join Game");
+//                final String gameName = (String) arg0.getItemAtPosition(position);
+//                builder.setMessage("By clicking okay, you are agreeing to join this game.").
+//                setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        currentUser.add("game", gameName);
+//                            currentUser.saveInBackground();
+//                            Toast.makeText(MainActivity.this, "Congratulations on joining " + gameName + "!", Toast.LENGTH_SHORT).show();
+//                        dialog.dismiss();
+//                    }
+//                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int id) {
+//                        dialog.dismiss();
+//                    }
+//                });
+//                AlertDialog dialog = builder.create();
+//                dialog.show();
+//            }
+//        });
+//
+//    }
 
 }
 
