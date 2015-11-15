@@ -1,11 +1,14 @@
 package com.cultivatingcows.UI;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cultivatingcows.Models.Game;
 import com.cultivatingcows.Models.User;
@@ -65,24 +68,23 @@ public class GameHomeActivity extends AppCompatActivity {
                 mPlayerNames = getPlayersList();
                 mPlayerNamesText.setText(mPlayerNames);
                 curUserIsPlaying = checkIfUserInGame(currentUser);
-                if(curUserIsPlaying){
+                if (curUserIsPlaying) {
                     mJoinGameButton.setVisibility(View.INVISIBLE);
-                }
-                else{
+                } else {
                     mBeginGameButton.setVisibility(View.INVISIBLE);
                 }
             }
         });
+
 
         Game.findGameByName(gameName, TAG, GameHomeActivity.this, new Runnable() {
             @Override
             public void run() {
                 mGame = Game.getThisGame();
                 mMaxNumPlayers = mGame.getInt("numPlayers");
-                if(mPlayers != null) {
+                if (mPlayers != null) {
                     mCurNumPlayers = mPlayers.size();
-                }
-                else{
+                } else {
                     mCurNumPlayers = 0;
                 }
                 mEnoughPlayersText = ("This game needs " + mMaxNumPlayers + " players and we have " + mCurNumPlayers + ". ");
@@ -92,8 +94,39 @@ public class GameHomeActivity extends AppCompatActivity {
                     mBeginGameButton.setVisibility(View.INVISIBLE);
                 } else {
                     mEnoughPlayersText += '\n' + "Let's play!";
+                    mGame.put("inProgress", true);
                 }
                 mCanWePlay.setText(mEnoughPlayersText);
+            }
+        });
+
+        mJoinGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(GameHomeActivity.this);
+                builder.setTitle("Join Game");
+                builder.setMessage("By clicking okay, you are agreeing to join this game.").
+                setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        currentUser.add("game", gameName);
+                        currentUser.saveInBackground();
+                        mGame.add("players", currentUser);
+                        mGame.saveInBackground();
+                        Toast.makeText(GameHomeActivity.this, "Congratulations on joining " + gameName + "!", Toast.LENGTH_SHORT).show();
+                        Intent intent = getIntent();
+                        finish();
+                        startActivity(intent);
+                        dialog.dismiss();
+                    }
+                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
     }
@@ -107,6 +140,7 @@ public class GameHomeActivity extends AppCompatActivity {
             return false;
         }
     }
+
     public String getPlayersList(){
         String playerNameString = "Players: ";
         for(ParseUser player: mPlayers){

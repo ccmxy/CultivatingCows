@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         ParseObject.registerSubclass(Game.class);
         setSupportActionBar(toolbar);
 
+
         mYourGamesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Game.findAllGames(TAG, MainActivity.this, new Runnable() {
+        Game.findAllGamesNotInProgress(TAG, MainActivity.this, new Runnable() {
             @Override
             public void run() {
                 mAllGames = Game.getGames();

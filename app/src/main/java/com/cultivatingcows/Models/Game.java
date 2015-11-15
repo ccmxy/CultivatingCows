@@ -48,7 +48,23 @@ public class Game extends ParseObject {
             public void done(List<Game> games, com.parse.ParseException e) {
                 if (e == null) {
                     mGames = games;
-                   context.runOnUiThread(runnable);
+                    context.runOnUiThread(runnable);
+                } else {
+                    ErrorHelper.handleError(tag, context, e.getMessage());
+                }
+
+
+            }
+        });
+    }
+
+    public static void findAllGamesNotInProgress(final String tag, final Activity context, final Runnable runnable) {
+        gamesListQuery().whereEqualTo("inProgress", false).findInBackground(new FindCallback<Game>() {
+            @Override
+            public void done(List<Game> games, com.parse.ParseException e) {
+                if (e == null) {
+                    mGames = games;
+                    context.runOnUiThread(runnable);
                 } else {
                     ErrorHelper.handleError(tag, context, e.getMessage());
                 }

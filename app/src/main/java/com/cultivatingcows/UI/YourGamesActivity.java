@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.cultivatingcows.Models.User;
@@ -26,6 +27,9 @@ public class YourGamesActivity extends AppCompatActivity {
     @Bind(R.id.yourGamesList)
     ListView mGamesList;
 
+    @Bind(R.id.allGamesButton)
+    Button mAllGamesButton;
+
     private ArrayAdapter<String> mArrayAdapter;
     private ParseUser currentUser = ParseUser.getCurrentUser();
 
@@ -39,10 +43,20 @@ public class YourGamesActivity extends AppCompatActivity {
             @Override
             public void run() {
                 mUserGamesStrings = User.getUserGames();
-                setThatList(mUserGamesStrings, mArrayAdapter, mGamesList);
-                makeListClickable(mGamesList);
+                    if(mUserGamesStrings != null) {
+                        setThatList(mUserGamesStrings, mArrayAdapter, mGamesList);
+                        makeListClickable(mGamesList);
+                    }
                 }
             });
+
+        mAllGamesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(YourGamesActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }//END OF ONCREATE
     public void setThatList(List<String> stringList, ArrayAdapter<String> arrayAdapter, ListView listView) {
         arrayAdapter = new ArrayAdapter<String>(
