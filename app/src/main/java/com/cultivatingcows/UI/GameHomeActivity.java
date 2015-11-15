@@ -3,6 +3,8 @@ package com.cultivatingcows.UI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.cultivatingcows.Models.Game;
@@ -28,12 +30,21 @@ public class GameHomeActivity extends AppCompatActivity {
     @Bind(R.id.readyToPlayTextView)
     TextView mCanWePlay;
 
+    @Bind(R.id.joinGameButton)
+    Button mJoinGameButton;
+
+    @Bind(R.id.beginGameButton)
+    Button mBeginGameButton;
+
+    private ParseUser currentUser = ParseUser.getCurrentUser();
     private List<ParseUser> mPlayers;
     private String mPlayerNames;
     private ParseObject mGame;
-    private String enoughPlayersText;
+    private String mEnoughPlayersText;
     private int mMaxNumPlayers;
     private int mCurNumPlayers;
+    private boolean curUserIsPlaying;
+
 
 
     @Override
@@ -53,28 +64,49 @@ public class GameHomeActivity extends AppCompatActivity {
                 mPlayers = User.getPlayers();
                 mPlayerNames = getPlayersList();
                 mPlayerNamesText.setText(mPlayerNames);
+                curUserIsPlaying = checkIfUserInGame(currentUser);
+                if(curUserIsPlaying){
+                    mJoinGameButton.setVisibility(View.INVISIBLE);
+                }
+                else{
+                    mBeginGameButton.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
         Game.findGameByName(gameName, TAG, GameHomeActivity.this, new Runnable() {
             @Override
             public void run() {
-
                 mGame = Game.getThisGame();
                 mMaxNumPlayers = mGame.getInt("numPlayers");
-                mCurNumPlayers = mPlayers.size();
-                enoughPlayersText = ("This game needs " + mMaxNumPlayers + " players and we have " + mCurNumPlayers + ". ");
+                if(mPlayers != null) {
+                    mCurNumPlayers = mPlayers.size();
+                }
+                else{
+                    mCurNumPlayers = 0;
+                }
+                mEnoughPlayersText = ("This game needs " + mMaxNumPlayers + " players and we have " + mCurNumPlayers + ". ");
                 mGame.put("curNumPlayers", mCurNumPlayers);
                 if (mMaxNumPlayers > mCurNumPlayers) {
-                    enoughPlayersText += "Find some more players so we can start! ";
+                    mEnoughPlayersText += '\n' + "Find some more players so we can start! ";
+                    mBeginGameButton.setVisibility(View.INVISIBLE);
                 } else {
-                    enoughPlayersText += "Let's play!";
+                    mEnoughPlayersText += '\n' + "Let's play!";
                 }
-                mCanWePlay.setText(enoughPlayersText);
+                mCanWePlay.setText(mEnoughPlayersText);
             }
         });
     }
 
+    public boolean checkIfUserInGame(ParseUser currentUser){
+        String username = currentUser.getUsername();
+        if (mPlayers.contains(currentUser)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     public String getPlayersList(){
         String playerNameString = "Players: ";
         for(ParseUser player: mPlayers){
@@ -85,7 +117,7 @@ public class GameHomeActivity extends AppCompatActivity {
     }
 
     private static String removeLastChar(String str) {
-        return str.substring(0,str.length()-1);
+        return str.substring(0,str.length()-2);
     }
 
 }

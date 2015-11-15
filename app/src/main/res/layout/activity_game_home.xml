@@ -32,4 +32,21 @@
         android:id="@+id/readyToPlayTextView"
         android:layout_below="@+id/playerNamesTextView"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Join Game"
+        android:id="@+id/joinGameButton"
+        android:layout_below="@+id/readyToPlayTextView"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Begin Game"
+        android:id="@+id/beginGameButton"
+        android:layout_below="@+id/joinGameButton"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
