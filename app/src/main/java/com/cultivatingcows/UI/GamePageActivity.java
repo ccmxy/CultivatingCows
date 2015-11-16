@@ -115,8 +115,6 @@ public class GamePageActivity extends AppCompatActivity {
 
             }
         });
-
-
         mRefreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,8 +122,6 @@ public class GamePageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
        // FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -157,11 +153,11 @@ public class GamePageActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        // Do something after 3s = 3000ms
+                        // Do something after 1.5s = 1500ms
                         Intent intent = getIntent();
                         startActivity(intent);
                     }
-                }, 3000);
+                }, 1500);
 
             }
         });
@@ -217,7 +213,6 @@ public class GamePageActivity extends AppCompatActivity {
                                     public void run() {
                                       //  Intent intent = new Intent(mContext, YourGamesActivity.class);
                                         Intent intent = getIntent();
-
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);

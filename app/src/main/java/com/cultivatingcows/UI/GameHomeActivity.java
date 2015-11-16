@@ -7,19 +7,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cultivatingcows.ErrorHelper;
 import com.cultivatingcows.Models.Game;
 import com.cultivatingcows.Models.User;
 import com.cultivatingcows.R;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -190,9 +195,10 @@ public class GameHomeActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_register_login, menu);
+        getMenuInflater().inflate(R.menu.menu_game_home, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -202,22 +208,70 @@ public class GameHomeActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        if (id == R.id.action_quick_login) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(GameHomeActivity.this);
+            builder.setTitle("Quick Login");
+            final EditText userNameInpuut = new EditText(GameHomeActivity.this);
+            userNameInpuut.setHint("Username");
+            userNameInpuut.setInputType(InputType.TYPE_CLASS_TEXT);
+            builder.setView(userNameInpuut);
+            final EditText passwordInput = new EditText(GameHomeActivity.this);
+            passwordInput.setHint("Password");
+            passwordInput.setInputType(InputType.TYPE_CLASS_TEXT);
+            LinearLayout ll = new LinearLayout(GameHomeActivity.this);
+            ll.setOrientation(LinearLayout.VERTICAL);
+            ll.addView(userNameInpuut);
+            ll.addView(passwordInput);
+            builder.setView(ll);
+            builder.setMessage("Enter your login parameters.")
+                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            ParseUser currentUser = ParseUser.getCurrentUser();
+                            List<ParseUser> players = new ArrayList<ParseUser>();
+                            players.add(currentUser);
+                            String loginUserName = userNameInpuut.getText().toString();
+                            String password = passwordInput.getText().toString();
+                            if (loginUserName.isEmpty() || password.isEmpty()) {
+                                ErrorHelper.displayAlertDialog(GameHomeActivity.this, getString(R.string
+                                        .login_error_message));
+                            } else {
+                                // Login
+                                User.logIn(loginUserName, password, TAG, GameHomeActivity.this, new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intent = getIntent();
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                    }
+                                });
+                            }
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                        }
+                    });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
         if (id == R.id.action_login_page) {
-            Intent intent = new Intent(this, RegisterLoginActivity.class);
+            Intent intent = new Intent(GameHomeActivity.this, RegisterLoginActivity.class);
             startActivity(intent);
         }
+
         if (id == R.id.action_all_games_page) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
-
         if (id == R.id.action_your_games_page) {
             Intent intent = new Intent(this, YourGamesActivity.class);
             startActivity(intent);
         }
-
         return super.onOptionsItemSelected(item);
     }
-
 
 }
