@@ -26,6 +26,7 @@ public class GamePageActivity extends AppCompatActivity {
     private Game mGame;
     private List<String> mPlayerStrings;
     private List<ParseUser> mPlayers;
+    private ParseUser mWhosTurn;
 
 
     @Bind(R.id.whosTurnText)
@@ -58,8 +59,17 @@ public class GamePageActivity extends AppCompatActivity {
             public void run() {
                 mParseGame = Game.getThisGame();
                 mGame = new Game(mParseGame, mPlayers);
+                mWhosTurn = Game.getWhosTurn();
+                String thisTurn = mWhosTurn.getUsername();
+                mWhosTurnText.setText("It is " + thisTurn + "'s turn.");
+
             }
         });
+
+//        mWhosTurn = Game.getWhosTurn();
+//        String thisTurn = mWhosTurn.getUsername();
+//        mWhosTurnText.setText("It is " + thisTurn + "'s turn.");
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

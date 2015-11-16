@@ -90,8 +90,6 @@ public class User extends ParseUser {
                 } else {
                     ErrorHelper.handleError(tag, context, e.getMessage());
                 }
-
-
             }
         });
     }

@@ -20,9 +20,8 @@ public class Game extends ParseObject {
     private static List<Game> mGames;
     private static ParseObject mGame;
     private List<ParseUser> mPlayers;
-    private static List<String> mPlayerStrings;
     private String mName;
-    private ParseUser mWhosTurn;
+    private static ParseUser mWhosTurn;
 
     public Game(){
         super();
@@ -40,7 +39,20 @@ public class Game extends ParseObject {
     public Game(ParseObject game, List<ParseUser> mPlayersList){
         mName = game.getString("name");
         mPlayers = mPlayersList;
+        mWhosTurn = game.getParseUser("whosTurn");
     }
+
+//        public void nextMember(ParseUser mWhosTurn) {
+//            int idx = mPlayers.indexOf(mWhosTurn);
+//
+//            if(idx == mBandMemberArrayList.size() - 1){
+//                return mBandMemberArrayList.get(0);
+//            }
+//            else {
+//                return mBandMemberArrayList.get(idx + 1);
+//            }
+ //       }
+
 
     public String getName(){
         return mName;
@@ -49,11 +61,8 @@ public class Game extends ParseObject {
     public List<ParseUser> getPlayers(){
         return mPlayers;
     }
-    public static List<String> getPlayerStrings(){
-        return mPlayerStrings;
-    }
 
-    public ParseUser getWhosTurn(){
+    public static ParseUser getWhosTurn(){
         return mWhosTurn;
     }
 

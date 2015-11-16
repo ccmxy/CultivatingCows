@@ -42,7 +42,7 @@ public class GameHomeActivity extends AppCompatActivity {
     @Bind(R.id.refreshButton)
     Button mRefreshButton;
 
-    private ParseUser currentUser = ParseUser.getCurrentUser();
+    private static ParseUser currentUser;
     private List<ParseUser> mPlayers;
     private String mPlayerNames;
     private ParseObject mGame;
@@ -58,11 +58,10 @@ public class GameHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_home);
         ButterKnife.bind(this);
-
+        currentUser = ParseUser.getCurrentUser();
         Intent intent = getIntent();
         final String gameName = intent.getStringExtra("gameName");
         gameNameText.setText(gameName);
-
 
         User.findPlayers(gameName, TAG, GameHomeActivity.this, new Runnable() {
             @Override
@@ -98,6 +97,7 @@ public class GameHomeActivity extends AppCompatActivity {
                 } else {
                     mEnoughPlayersText += '\n' + "Let's play!";
                     mGame.put("inProgress", true);
+                    mGame.put("startingPlayer", currentUser);
                     mGame.saveInBackground();
                 }
                 mCanWePlay.setText(mEnoughPlayersText);
@@ -144,7 +144,6 @@ public class GameHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = getIntent();
-              ///  finish();
                 startActivity(intent);
             }
         });
