@@ -144,6 +144,8 @@ public class GameHomeActivity extends AppCompatActivity {
         mBeginGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                currentUser.put("hasBegan", gameName);
+                currentUser.saveInBackground();
                 Intent intent = new Intent(GameHomeActivity.this, GamePageActivity.class);
                 intent.putExtra("gameName", gameName);
                 startActivity(intent);

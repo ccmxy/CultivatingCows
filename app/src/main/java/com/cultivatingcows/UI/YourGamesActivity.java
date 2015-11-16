@@ -34,6 +34,7 @@ public class YourGamesActivity extends AppCompatActivity {
 
     private ArrayAdapter<String> mArrayAdapter;
     private ParseUser currentUser = ParseUser.getCurrentUser();
+    private String mHasBegan;
 
 
     @Override
@@ -46,6 +47,7 @@ public class YourGamesActivity extends AppCompatActivity {
             public void run() {
                 mUserGamesStrings = User.getUserGames();
                     if(mUserGamesStrings != null) {
+                        mHasBegan = currentUser.getString("hasBegan");
                         setThatList(mUserGamesStrings, mArrayAdapter, mGamesList);
                         makeListClickable(mGamesList);
                     }
@@ -59,6 +61,7 @@ public class YourGamesActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }//END OF ONCREATE
     public void setThatList(List<String> stringList, ArrayAdapter<String> arrayAdapter, ListView listView) {
         arrayAdapter = new ArrayAdapter<String>(
@@ -72,9 +75,23 @@ public class YourGamesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 final String gameName = (String) arg0.getItemAtPosition(position);
-                Intent intent = new Intent(YourGamesActivity.this, GameHomeActivity.class);
-                intent.putExtra("gameName", gameName);
-                startActivity(intent);
+                if(mHasBegan != null) {
+                    if (mHasBegan.equals(gameName)) {
+                        Intent intent = new Intent(YourGamesActivity.this, GamePageActivity.class);
+                        intent.putExtra("gameName", gameName);
+                        startActivity(intent);
+                    }
+                    else{
+                        Intent intent = new Intent(YourGamesActivity.this, GameHomeActivity.class);
+                        intent.putExtra("gameName", gameName);
+                        startActivity(intent);
+                    }
+                }
+                else {
+                    Intent intent = new Intent(YourGamesActivity.this, GameHomeActivity.class);
+                    intent.putExtra("gameName", gameName);
+                    startActivity(intent);
+                }
             }
         });
     }

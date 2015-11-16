@@ -26,6 +26,7 @@ import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<String> mArrayAdapter;
     private String mGameId;
     private ParseUser currentUser = ParseUser.getCurrentUser();
+
     private List<Game> mAllGames;
     private ParseObject mThisGame;
 
