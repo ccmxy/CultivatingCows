@@ -213,7 +213,9 @@ public class GamePageActivity extends AppCompatActivity {
                                 User.logIn(loginUserName, password, TAG, GamePageActivity.this, new Runnable() {
                                     @Override
                                     public void run() {
-                                        Intent intent = new Intent(mContext, YourGamesActivity.class);
+                                      //  Intent intent = new Intent(mContext, YourGamesActivity.class);
+                                        Intent intent = getIntent();
+
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
