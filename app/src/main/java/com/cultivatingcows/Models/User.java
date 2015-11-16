@@ -48,6 +48,7 @@ public class User extends ParseUser {
         setPassword(password);
         setEmail(email);
         mEmail = email;
+        put("score", 0);
     }
 
     public void register(final String tag, final Activity context, final Runnable runnable) {

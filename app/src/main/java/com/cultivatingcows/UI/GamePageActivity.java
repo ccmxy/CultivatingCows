@@ -17,6 +17,7 @@ import com.cultivatingcows.R;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -30,6 +31,8 @@ public class GamePageActivity extends AppCompatActivity {
     private List<ParseUser> mPlayers;
     private ParseUser mWhosTurn;
     private ParseUser currentUser = ParseUser.getCurrentUser();
+    private List<String> mScoreStrings = new ArrayList<String>();
+
 
     @Bind(R.id.whosTurnText)
     TextView mWhosTurnText;
@@ -42,6 +45,12 @@ public class GamePageActivity extends AppCompatActivity {
 
     @Bind(R.id.refreshGameButton)
     Button mRefreshButton;
+
+    @Bind(R.id.playerOneScoreTextView)
+    TextView mPlayerOneScore;
+
+    @Bind(R.id.playerTwoScoreTextView)
+    TextView mPlayerTwoScore;
 
 
     @Override
@@ -60,8 +69,18 @@ public class GamePageActivity extends AppCompatActivity {
             @Override
             public void run() {
                 mPlayers = User.getPlayers();
+                for (ParseUser player : mPlayers) {
+                    int score = player.getInt("score");
+                    String username = player.getUsername();
+                    String stringToAdd = username + ": score = " + score;
+                    mScoreStrings.add(stringToAdd);
+                }
+                mPlayerOneScore.setText(mScoreStrings.get(0));
+                mPlayerTwoScore.setText(mScoreStrings.get(1));
+
             }
         });
+
 
         Game.findGameByName(gameName, TAG, GamePageActivity.this, new Runnable() {
             @Override
