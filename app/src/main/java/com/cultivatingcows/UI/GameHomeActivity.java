@@ -144,7 +144,7 @@ public class GameHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = getIntent();
-                finish();
+              ///  finish();
                 startActivity(intent);
             }
         });

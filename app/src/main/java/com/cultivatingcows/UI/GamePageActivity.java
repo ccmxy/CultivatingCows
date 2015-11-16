@@ -46,14 +46,12 @@ public class GamePageActivity extends AppCompatActivity {
         final String gameName = intent.getStringExtra("gameName");
         gameNameText.setText(gameName);
 
-       // final String gameName, final String tag, final Activity context, final Runnable runnable)
         User.findPlayers(gameName, TAG, GamePageActivity.this, new Runnable() {
             @Override
             public void run() {
                 mPlayers = User.getPlayers();
             }
         });
-
 
         Game.findGameByName(gameName, TAG, GamePageActivity.this, new Runnable() {
             @Override
@@ -62,7 +60,7 @@ public class GamePageActivity extends AppCompatActivity {
                 mGame = new Game(mParseGame, mPlayers);
             }
         });
-        
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
