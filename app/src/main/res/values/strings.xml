@@ -4,6 +4,8 @@
     <string name="action_login_page">Login Page</string>
     <string name="action_all_games_page">Join or Create Game</string>
     <string name="action_your_games_page">Your Games</string>
+    <string name="action_quick_login">Quick Login</string>
+
 
 
 

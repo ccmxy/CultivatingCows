@@ -1,6 +1,8 @@
 package com.cultivatingcows.UI;
 
 import android.app.AlertDialog;
+import android.app.Application;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.cultivatingcows.ErrorHelper;
 import com.cultivatingcows.Models.Game;
@@ -56,11 +59,14 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Game> mAllGames;
     private ParseObject mThisGame;
+    private static Context mContext;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = getApplicationContext();
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         ParseObject.registerSubclass(User.class);
@@ -138,13 +144,14 @@ public class MainActivity extends AppCompatActivity {
         });
     } //End of onCreate
 
-        public void setThatList(List<String> stringList, ArrayAdapter<String> arrayAdapter, ListView listView) {
+    public void setThatList(List<String> stringList, ArrayAdapter<String> arrayAdapter, ListView listView) {
         arrayAdapter = new ArrayAdapter<>(
                 MainActivity.this,
                 android.R.layout.simple_list_item_1,
                 stringList);
         listView.setAdapter(arrayAdapter);
     }
+
     public void makeListClickable(ListView listView) {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -160,9 +167,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_register_login, menu);
+        getMenuInflater().inflate(R.menu.menu_game_home, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -172,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_login_page) {
+        if (id == R.id.action_quick_login) {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle("Quick Login");
             final EditText userNameInpuut = new EditText(MainActivity.this);
@@ -205,17 +213,14 @@ public class MainActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         //Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                                        Intent intent = getIntent();
+                                        //Intent intent = getIntent();
+                                        Intent intent = new Intent(mContext, YourGamesActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
                                     }
                                 });
                             }
-//                            Intent intent = getIntent();
-//                            finish();
-//                            startActivity(intent);
-//                            dialog.dismiss();
                         }
                     })
                     .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -226,9 +231,12 @@ public class MainActivity extends AppCompatActivity {
                     });
             AlertDialog dialog = builder.create();
             dialog.show();
-//            Intent intent = new Intent(MainActivity.this, RegisterLoginActivity.class);
-//            startActivity(intent);
         }
+        if (id == R.id.action_login_page) {
+            Intent intent = new Intent(MainActivity.this, RegisterLoginActivity.class);
+            startActivity(intent);
+        }
+
         if (id == R.id.action_all_games_page) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -237,42 +245,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, YourGamesActivity.class);
             startActivity(intent);
         }
-
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
-//    public void makeListClickable(ListView listView) {
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//                builder.setTitle("Join Game");
-//                final String gameName = (String) arg0.getItemAtPosition(position);
-//                builder.setMessage("By clicking okay, you are agreeing to join this game.").
-//                setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        currentUser.add("game", gameName);
-//                            currentUser.saveInBackground();
-//                            Toast.makeText(MainActivity.this, "Congratulations on joining " + gameName + "!", Toast.LENGTH_SHORT).show();
-//                        dialog.dismiss();
-//                    }
-//                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int id) {
-//                        dialog.dismiss();
-//                    }
-//                });
-//                AlertDialog dialog = builder.create();
-//                dialog.show();
-//            }
-//        });
-//
-//    }
-
 }
 
 
