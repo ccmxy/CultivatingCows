@@ -42,17 +42,15 @@ public class Game extends ParseObject {
         mWhosTurn = game.getParseUser("whosTurn");
     }
 
-//        public void nextMember(ParseUser mWhosTurn) {
-//            int idx = mPlayers.indexOf(mWhosTurn);
-//
-//            if(idx == mBandMemberArrayList.size() - 1){
-//                return mBandMemberArrayList.get(0);
-//            }
-//            else {
-//                return mBandMemberArrayList.get(idx + 1);
-//            }
- //       }
-
+    public void nextTurn() {
+        int idx = mPlayers.indexOf(mWhosTurn);
+        if(idx == mPlayers.size() - 1){
+            mWhosTurn = mPlayers.get(0);
+        }
+        else {
+            mWhosTurn = mPlayers.get(idx + 1);
+        }
+    }
 
     public String getName(){
         return mName;

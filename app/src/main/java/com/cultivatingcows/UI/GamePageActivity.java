@@ -7,9 +7,11 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.cultivatingcows.Models.Game;
+import com.cultivatingcows.Models.PairOfDice;
 import com.cultivatingcows.Models.User;
 import com.cultivatingcows.R;
 import com.parse.ParseObject;
@@ -27,13 +29,16 @@ public class GamePageActivity extends AppCompatActivity {
     private List<String> mPlayerStrings;
     private List<ParseUser> mPlayers;
     private ParseUser mWhosTurn;
-
+    private ParseUser currentUser = ParseUser.getCurrentUser();
 
     @Bind(R.id.whosTurnText)
     TextView mWhosTurnText;
 
     @Bind(R.id.gameNameGamePageText)
     TextView gameNameText;
+
+    @Bind(R.id.rollDiceButton)
+    Button mRollDiceButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +67,22 @@ public class GamePageActivity extends AppCompatActivity {
                 mWhosTurn = Game.getWhosTurn();
                 String thisTurn = mWhosTurn.getUsername();
                 mWhosTurnText.setText("It is " + thisTurn + "'s turn.");
+                if (currentUser == mWhosTurn) {
+                    mRollDiceButton.setVisibility(View.VISIBLE);
+                }
 
             }
         });
 
-//        mWhosTurn = Game.getWhosTurn();
-//        String thisTurn = mWhosTurn.getUsername();
-//        mWhosTurnText.setText("It is " + thisTurn + "'s turn.");
+        mRollDiceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PairOfDice dice = new PairOfDice();
+                dice.roll();
+                int theRoll = dice.die1;
+                currentUser.put("score", theRoll);
+            }
+        });
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
