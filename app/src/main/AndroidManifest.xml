@@ -34,6 +34,11 @@
             android:name=".UI.GameHomeActivity"
             android:label="@string/title_activity_game_home" >
         </activity>
+        <activity
+            android:name=".UI.GamePageActivity"
+            android:label="@string/title_activity_game_page"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

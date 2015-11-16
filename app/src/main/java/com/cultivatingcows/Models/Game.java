@@ -19,6 +19,9 @@ import java.util.List;
 public class Game extends ParseObject {
     private static List<Game> mGames;
     private static ParseObject mGame;
+    private List<ParseUser> mPlayers;
+    private String mName;
+    private ParseUser mWhosTurn;
 
     public Game(){
         super();
@@ -30,6 +33,25 @@ public class Game extends ParseObject {
         put("numPlayers", numPlayers);
         put("curNumPlayers", 1);
         put("inProgress", false);
+        put("whosTurn", players.get(0));
+    }
+
+    public Game(ParseObject game){
+        mName = game.getString("name");
+        mPlayers = game.getList("players");
+        mWhosTurn = mPlayers.get(0);
+    }
+
+    public String getName(){
+        return mName;
+    }
+
+    public List<ParseUser> getPlayers(){
+        return mPlayers;
+    }
+
+    public ParseUser getWhosTurn(){
+        return mWhosTurn;
     }
 
     public void saveGame() {
@@ -68,8 +90,6 @@ public class Game extends ParseObject {
                 } else {
                     ErrorHelper.handleError(tag, context, e.getMessage());
                 }
-
-
             }
         });
     }
@@ -83,7 +103,6 @@ public class Game extends ParseObject {
         return mGames;
     }
 
-    //The two below have not been tested
     public static void findGameByName(final String gameName, final String tag, final Activity context, final Runnable runnable){
         specificGameQuery(gameName).findInBackground(new FindCallback<Game>() {
             @Override

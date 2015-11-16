@@ -39,6 +39,9 @@ public class GameHomeActivity extends AppCompatActivity {
     @Bind(R.id.beginGameButton)
     Button mBeginGameButton;
 
+    @Bind(R.id.refreshButton)
+    Button mRefreshButton;
+
     private ParseUser currentUser = ParseUser.getCurrentUser();
     private List<ParseUser> mPlayers;
     private String mPlayerNames;
@@ -95,6 +98,7 @@ public class GameHomeActivity extends AppCompatActivity {
                 } else {
                     mEnoughPlayersText += '\n' + "Let's play!";
                     mGame.put("inProgress", true);
+                    mGame.saveInBackground();
                 }
                 mCanWePlay.setText(mEnoughPlayersText);
             }
@@ -106,20 +110,17 @@ public class GameHomeActivity extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(GameHomeActivity.this);
                 builder.setTitle("Join Game");
                 builder.setMessage("By clicking okay, you are agreeing to join this game.").
-                setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        currentUser.add("game", gameName);
-                        currentUser.saveInBackground();
-                        mGame.add("players", currentUser);
-                        mGame.saveInBackground();
-                        Toast.makeText(GameHomeActivity.this, "Congratulations on joining " + gameName + "!", Toast.LENGTH_SHORT).show();
-                        Intent intent = getIntent();
-                        finish();
-                        startActivity(intent);
-                        dialog.dismiss();
-                    }
-                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                currentUser.add("game", gameName);
+                                currentUser.saveInBackground();
+                                mGame.add("players", currentUser);
+                                mGame.saveInBackground();
+                                Toast.makeText(GameHomeActivity.this, "Congratulations on joining " + gameName + "!", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
@@ -127,6 +128,24 @@ public class GameHomeActivity extends AppCompatActivity {
                 });
                 AlertDialog dialog = builder.create();
                 dialog.show();
+            }
+        });
+
+        mBeginGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GameHomeActivity.this, GamePageActivity.class);
+                intent.putExtra("gameName", gameName);
+                startActivity(intent);
+            }
+        });
+
+        mRefreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
             }
         });
     }

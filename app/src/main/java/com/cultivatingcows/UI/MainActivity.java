@@ -88,8 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 ll.addView(gameNameInput);
                 ll.addView(numPlayersInput);
                 builder.setView(ll);
-
-                //builder.setView(numPlayersInput);
                 builder.setMessage("Note: This will create a new game.")
                         .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                             @Override
