@@ -135,7 +135,26 @@ public class GamePageActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                PairOfDice dice = new PairOfDice();
+                dice.roll();
+                int theRoll = dice.die1;
+                int oldScore = currentUser.getInt("score");
+                int score = oldScore + theRoll;
+                currentUser.put("score", score);
+                Game.findGameByName(gameName, TAG, GamePageActivity.this, new Runnable() {
+                    @Override
+                    public void run() {
+                        mParseGame = Game.getThisGame();
+                        mGame = new Game(mParseGame, mPlayers);
+                        mGame.nextTurn();
+                        mWhosTurn = Game.getWhosTurn();
+                        mParseGame.put("whosTurn", mWhosTurn);
+                        mParseGame.saveInBackground();
+                        mRollDiceButton.setVisibility(View.INVISIBLE);
+                    }
+                });
+
+                Snackbar.make(view, "You rolled a " + theRoll, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -158,6 +177,14 @@ public class GamePageActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_login_page) {
             Intent intent = new Intent(this, RegisterLoginActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.action_all_games_page) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.action_your_games_page) {
+            Intent intent = new Intent(this, YourGamesActivity.class);
             startActivity(intent);
         }
 
