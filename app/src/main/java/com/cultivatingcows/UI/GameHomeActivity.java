@@ -1,6 +1,7 @@
 package com.cultivatingcows.UI;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -54,6 +55,8 @@ public class GameHomeActivity extends AppCompatActivity {
     private int mMaxNumPlayers;
     private int mCurNumPlayers;
     private boolean curUserIsPlaying;
+    private static Context mContext;
+
 
 
 

@@ -212,8 +212,6 @@ public class MainActivity extends AppCompatActivity {
                                 User.logIn(loginUserName, password, TAG, MainActivity.this, new Runnable() {
                                     @Override
                                     public void run() {
-                                        //Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                                        //Intent intent = getIntent();
                                         Intent intent = new Intent(mContext, YourGamesActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

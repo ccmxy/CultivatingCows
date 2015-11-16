@@ -1,5 +1,6 @@
 package com.cultivatingcows.UI;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,6 +36,8 @@ public class YourGamesActivity extends AppCompatActivity {
     private ArrayAdapter<String> mArrayAdapter;
     private ParseUser currentUser = ParseUser.getCurrentUser();
     private String mHasBegan;
+    private static Context mContext;
+
 
 
     @Override
