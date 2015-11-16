@@ -20,6 +20,7 @@ public class Game extends ParseObject {
     private static List<Game> mGames;
     private static ParseObject mGame;
     private List<ParseUser> mPlayers;
+    private static List<String> mPlayerStrings;
     private String mName;
     private ParseUser mWhosTurn;
 
@@ -36,10 +37,9 @@ public class Game extends ParseObject {
         put("whosTurn", players.get(0));
     }
 
-    public Game(ParseObject game){
+    public Game(ParseObject game, List<ParseUser> mPlayersList){
         mName = game.getString("name");
-        mPlayers = game.getList("players");
-        mWhosTurn = mPlayers.get(0);
+        mPlayers = mPlayersList;
     }
 
     public String getName(){
@@ -48,6 +48,9 @@ public class Game extends ParseObject {
 
     public List<ParseUser> getPlayers(){
         return mPlayers;
+    }
+    public static List<String> getPlayerStrings(){
+        return mPlayerStrings;
     }
 
     public ParseUser getWhosTurn(){

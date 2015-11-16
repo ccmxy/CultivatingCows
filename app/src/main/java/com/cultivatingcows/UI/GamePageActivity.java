@@ -10,8 +10,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.cultivatingcows.Models.Game;
+import com.cultivatingcows.Models.User;
 import com.cultivatingcows.R;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -20,6 +24,9 @@ public class GamePageActivity extends AppCompatActivity {
     private static final String TAG = GamePageActivity.class.getSimpleName();
     private ParseObject mParseGame;
     private Game mGame;
+    private List<String> mPlayerStrings;
+    private List<ParseUser> mPlayers;
+
 
     @Bind(R.id.whosTurnText)
     TextView mWhosTurnText;
@@ -40,21 +47,22 @@ public class GamePageActivity extends AppCompatActivity {
         gameNameText.setText(gameName);
 
        // final String gameName, final String tag, final Activity context, final Runnable runnable)
+        User.findPlayers(gameName, TAG, GamePageActivity.this, new Runnable() {
+            @Override
+            public void run() {
+                mPlayers = User.getPlayers();
+            }
+        });
+
 
         Game.findGameByName(gameName, TAG, GamePageActivity.this, new Runnable() {
             @Override
             public void run() {
                 mParseGame = Game.getThisGame();
-                //mGame = new Game(mParseGame);
+                mGame = new Game(mParseGame, mPlayers);
             }
         });
-
-       // ParseUser whosTurn = mGame.getWhosTurn();
-
-
-
-
-
+        
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
