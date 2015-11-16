@@ -40,6 +40,10 @@ public class GamePageActivity extends AppCompatActivity {
     @Bind(R.id.rollDiceButton)
     Button mRollDiceButton;
 
+    @Bind(R.id.refreshGameButton)
+    Button mRefreshButton;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +85,27 @@ public class GamePageActivity extends AppCompatActivity {
                 dice.roll();
                 int theRoll = dice.die1;
                 currentUser.put("score", theRoll);
+                Game.findGameByName(gameName, TAG, GamePageActivity.this, new Runnable() {
+                    @Override
+                    public void run() {
+                        mParseGame = Game.getThisGame();
+                        mGame = new Game(mParseGame, mPlayers);
+                        mGame.nextTurn();
+                        mWhosTurn = Game.getWhosTurn();
+                        mParseGame.put("whosTurn", mWhosTurn);
+                        mParseGame.saveInBackground();
+                        mRollDiceButton.setVisibility(View.INVISIBLE);
+                    }
+                });
+
+            }
+        });
+
+        mRefreshButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = getIntent();
+                startActivity(intent);
             }
         });
 
