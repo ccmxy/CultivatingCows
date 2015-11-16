@@ -52,8 +52,8 @@ public class RegisterLoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         ParseObject.registerSubclass(User.class);
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "7DNaExGH9NK4AWOHPh3xg07BXQ8HvFw4fqe5gpHM", "pRFGQEEZfQ8IV0rt9soZfJqgnclLydKJAy9ENVAN");
+//        Parse.enableLocalDatastore(this);
+//        Parse.initialize(this, "7DNaExGH9NK4AWOHPh3xg07BXQ8HvFw4fqe5gpHM", "pRFGQEEZfQ8IV0rt9soZfJqgnclLydKJAy9ENVAN");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -126,10 +126,10 @@ public class RegisterLoginActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_login_page) {
+            Intent intent = new Intent(this, RegisterLoginActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
-    }
-}
+    }}
