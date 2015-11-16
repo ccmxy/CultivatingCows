@@ -103,11 +103,13 @@ public class GamePageActivity extends AppCompatActivity {
                 mGame = new Game(mParseGame, mPlayers);
                 mWhosTurn = Game.getWhosTurn();
                 String thisTurn = mWhosTurn.getUsername();
-                mWhosTurnText.setText("It is " + thisTurn + "'s turn.");
+                //mWhosTurnText.setText("It is " + thisTurn + "'s turn.");
                 if (currentUser == mWhosTurn) {
+                    mWhosTurnText.setText("It is your turn, " + thisTurn + ".");
                     fab.setVisibility(View.VISIBLE);
                 }
                 else{
+                    mWhosTurnText.setText("It is " + thisTurn + "'s turn.");
                     fab.setVisibility(View.INVISIBLE);
                 }
 
