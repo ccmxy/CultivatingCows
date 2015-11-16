@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
             ll.addView(userNameInpuut);
             ll.addView(passwordInput);
             builder.setView(ll);
-            builder.setMessage("Note: This will create a new game.")
+            builder.setMessage("Enter your login parameters.")
                     .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
@@ -204,7 +204,8 @@ public class MainActivity extends AppCompatActivity {
                                 User.logIn(loginUserName, password, TAG, MainActivity.this, new Runnable() {
                                     @Override
                                     public void run() {
-                                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                                        //Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                                        Intent intent = getIntent();
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
