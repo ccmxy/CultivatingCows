@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.cultivatingcows.ErrorHelper;
 import com.cultivatingcows.Models.Game;
 import com.cultivatingcows.Models.User;
 import com.cultivatingcows.R;
@@ -172,8 +173,60 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_login_page) {
-            Intent intent = new Intent(MainActivity.this, RegisterLoginActivity.class);
-            startActivity(intent);
+            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            builder.setTitle("Quick Login");
+            final EditText userNameInpuut = new EditText(MainActivity.this);
+            userNameInpuut.setHint("Username");
+            userNameInpuut.setInputType(InputType.TYPE_CLASS_TEXT);
+            builder.setView(userNameInpuut);
+            final EditText passwordInput = new EditText(MainActivity.this);
+            passwordInput.setHint("Password");
+            passwordInput.setInputType(InputType.TYPE_CLASS_TEXT);
+            LinearLayout ll = new LinearLayout(MainActivity.this);
+            ll.setOrientation(LinearLayout.VERTICAL);
+            ll.addView(userNameInpuut);
+            ll.addView(passwordInput);
+            builder.setView(ll);
+            builder.setMessage("Note: This will create a new game.")
+                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            ParseUser currentUser = ParseUser.getCurrentUser();
+                            List<ParseUser> players = new ArrayList<ParseUser>();
+                            players.add(currentUser);
+                            String loginUserName = userNameInpuut.getText().toString();
+                            String password = passwordInput.getText().toString();
+                            if (loginUserName.isEmpty() || password.isEmpty()) {
+                                ErrorHelper.displayAlertDialog(MainActivity.this, getString(R.string
+                                        .login_error_message));
+                            } else {
+                                // Login
+                                User.logIn(loginUserName, password, TAG, MainActivity.this, new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                    }
+                                });
+                            }
+//                            Intent intent = getIntent();
+//                            finish();
+//                            startActivity(intent);
+//                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.dismiss();
+                        }
+                    });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+//            Intent intent = new Intent(MainActivity.this, RegisterLoginActivity.class);
+//            startActivity(intent);
         }
         if (id == R.id.action_all_games_page) {
             Intent intent = new Intent(this, MainActivity.class);
