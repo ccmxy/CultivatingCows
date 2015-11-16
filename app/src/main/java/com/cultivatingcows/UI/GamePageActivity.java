@@ -2,6 +2,7 @@ package com.cultivatingcows.UI;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -158,6 +159,15 @@ public class GamePageActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
 //                Intent intent = getIntent();
 //                startActivity(intent);
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        // Do something after 3s = 3000ms
+                        Intent intent = getIntent();
+                        startActivity(intent);
+                    }
+                }, 3000);
 
             }
         });
