@@ -130,6 +130,14 @@ public class RegisterLoginActivity extends AppCompatActivity {
             Intent intent = new Intent(this, RegisterLoginActivity.class);
             startActivity(intent);
         }
+        if (id == R.id.action_all_games_page) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.action_your_games_page) {
+            Intent intent = new Intent(this, YourGamesActivity.class);
+            startActivity(intent);
+        }
 
         return super.onOptionsItemSelected(item);
     }}

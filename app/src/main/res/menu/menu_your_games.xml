@@ -6,4 +6,14 @@
           android:title="@string/action_login_page"
           android:orderInCategory="100"
           app:showAsAction="never"/>
+      <item android:id="@+id/action_all_games_page"
+            android:title="@string/action_all_games_page"
+            android:orderInCategory="100"
+            app:showAsAction="never"/>
+      <item android:id="@+id/action_your_games_page"
+            android:title="@string/action_your_games_page"
+            android:orderInCategory="100"
+            app:showAsAction="never"/>
+
 </menu>
+

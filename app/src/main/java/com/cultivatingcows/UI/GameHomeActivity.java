@@ -89,7 +89,13 @@ public class GameHomeActivity extends AppCompatActivity {
                 if (mPlayers != null) {
                     mCurNumPlayers = mPlayers.size();
                 } else {
-                    mCurNumPlayers = 0;
+                    List<ParseObject> count = mGame.getList("players");
+                    if(count != null) {
+                        mCurNumPlayers = count.size();
+                    }
+                    else {
+                        mCurNumPlayers = 0;
+                    }
                 }
                 mEnoughPlayersText = ("This game needs " + mMaxNumPlayers + " players and we have " + mCurNumPlayers + ". ");
                 mGame.put("curNumPlayers", mCurNumPlayers);
@@ -191,6 +197,15 @@ public class GameHomeActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_login_page) {
             Intent intent = new Intent(this, RegisterLoginActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.action_all_games_page) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+
+        if (id == R.id.action_your_games_page) {
+            Intent intent = new Intent(this, YourGamesActivity.class);
             startActivity(intent);
         }
 
