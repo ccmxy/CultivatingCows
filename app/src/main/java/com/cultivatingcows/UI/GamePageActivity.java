@@ -43,9 +43,6 @@ public class GamePageActivity extends AppCompatActivity {
     @Bind(R.id.gameNameGamePageText)
     TextView gameNameText;
 
-    @Bind(R.id.rollDiceButton)
-    Button mRollDiceButton;
-
     @Bind(R.id.refreshGameButton)
     Button mRefreshButton;
 
@@ -54,6 +51,10 @@ public class GamePageActivity extends AppCompatActivity {
 
     @Bind(R.id.playerTwoScoreTextView)
     TextView mPlayerTwoScore;
+
+    @Bind(R.id.fab)
+    FloatingActionButton fab;
+
 
 
     @Override
@@ -94,34 +95,15 @@ public class GamePageActivity extends AppCompatActivity {
                 String thisTurn = mWhosTurn.getUsername();
                 mWhosTurnText.setText("It is " + thisTurn + "'s turn.");
                 if (currentUser == mWhosTurn) {
-                    mRollDiceButton.setVisibility(View.VISIBLE);
+                    fab.setVisibility(View.VISIBLE);
+                }
+                else{
+                    fab.setVisibility(View.INVISIBLE);
                 }
 
             }
         });
 
-        mRollDiceButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PairOfDice dice = new PairOfDice();
-                dice.roll();
-                int theRoll = dice.die1;
-                currentUser.put("score", theRoll);
-                Game.findGameByName(gameName, TAG, GamePageActivity.this, new Runnable() {
-                    @Override
-                    public void run() {
-                        mParseGame = Game.getThisGame();
-                        mGame = new Game(mParseGame, mPlayers);
-                        mGame.nextTurn();
-                        mWhosTurn = Game.getWhosTurn();
-                        mParseGame.put("whosTurn", mWhosTurn);
-                        mParseGame.saveInBackground();
-                        mRollDiceButton.setVisibility(View.INVISIBLE);
-                    }
-                });
-
-            }
-        });
 
         mRefreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +114,7 @@ public class GamePageActivity extends AppCompatActivity {
         });
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+       // FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -151,7 +133,7 @@ public class GamePageActivity extends AppCompatActivity {
                         mWhosTurn = Game.getWhosTurn();
                         mParseGame.put("whosTurn", mWhosTurn);
                         mParseGame.saveInBackground();
-                        mRollDiceButton.setVisibility(View.INVISIBLE);
+                        fab.setVisibility(View.INVISIBLE);
                     }
                 });
 
