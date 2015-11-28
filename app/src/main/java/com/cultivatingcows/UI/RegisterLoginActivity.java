@@ -15,7 +15,6 @@ import android.widget.EditText;
 import com.cultivatingcows.ErrorHelper;
 import com.cultivatingcows.Models.User;
 import com.cultivatingcows.R;
-import com.parse.Parse;
 import com.parse.ParseObject;
 
 import butterknife.Bind;
@@ -24,20 +23,14 @@ import butterknife.ButterKnife;
 public class RegisterLoginActivity extends AppCompatActivity {
     private static final String TAG = RegisterLoginActivity.class.getSimpleName();
 
-    @Bind(R.id.usernameRegister)
-    EditText mUsernameRegister;
+    @Bind(R.id.usernameEditText)
+    EditText mUsernameEditText;
 
-    @Bind(R.id.passwordRegister)
-    EditText mPasswordRegister;
+    @Bind(R.id.passwordEditText)
+    EditText mPasswordEditText;
 
-    @Bind(R.id.emailRegister)
-    EditText mEmailRegister;
-
-    @Bind(R.id.usernameLogin)
-    EditText mUsernameLogin;
-
-    @Bind(R.id.passwordLogin)
-    EditText mPasswordLogin;
+    @Bind(R.id.emailEditText)
+    EditText mEmailEditText;
 
     @Bind(R.id.signUpButton)
     Button mSignupButton;
@@ -69,9 +62,9 @@ public class RegisterLoginActivity extends AppCompatActivity {
         mSignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = mUsernameRegister.getText().toString().trim();
-                String password = mPasswordRegister.getText().toString().trim();
-                String email = mEmailRegister.getText().toString().trim();
+                String username = mUsernameEditText.getText().toString().trim();
+                String password = mPasswordEditText.getText().toString().trim();
+                String email = mEmailEditText.getText().toString().trim();
                 User newUser = new User(username, password, email);
                 newUser.register(TAG, RegisterLoginActivity.this, new Runnable() {
                     @Override
@@ -89,8 +82,8 @@ public class RegisterLoginActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = mUsernameLogin.getText().toString().trim();
-                String password = mPasswordLogin.getText().toString().trim();
+                String username = mUsernameEditText.getText().toString().trim();
+                String password = mPasswordEditText.getText().toString().trim();
                 if (username.isEmpty() || password.isEmpty()) {
                     ErrorHelper.displayAlertDialog(RegisterLoginActivity.this, getString(R.string
                             .login_error_message));
