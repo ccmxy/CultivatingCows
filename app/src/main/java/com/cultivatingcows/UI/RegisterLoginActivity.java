@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.cultivatingcows.ErrorHelper;
 import com.cultivatingcows.Models.User;
 import com.cultivatingcows.R;
@@ -39,8 +40,18 @@ public class RegisterLoginActivity extends AppCompatActivity {
     @Bind(R.id.logInButton)
     Button mLoginButton;
 
+//    @Bind(R.id.goButton)
+//    Button mGoButton;
+
     @Bind(R.id.goButton)
-    Button mGoButton;
+            BootstrapButton mGoButton;
+
+    Button mGoButton2;
+
+//    @Bind(com.beardedhen.androidbootstrap.BootstrapButton)
+//    Button mBootstrapButton;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +65,8 @@ public class RegisterLoginActivity extends AppCompatActivity {
 //        Parse.initialize(this, "7DNaExGH9NK4AWOHPh3xg07BXQ8HvFw4fqe5gpHM", "pRFGQEEZfQ8IV0rt9soZfJqgnclLydKJAy9ENVAN");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        BootstrapButton mBootstrapButton = (BootstrapButton) findViewById(R.id.BootstrapButton);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
