@@ -67,13 +67,6 @@
             android:hint="email"
             android:visibility="gone" />
 
-        <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Go!"-->
-            <!--android:id="@+id/goButton"-->
-            <!--android:visibility="gone"/>-->
-
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,17 +79,6 @@
             android:id="@+id/goButton"
             android:visibility="gone"/>
 
-        <com.beardedhen.androidbootstrap.BootstrapButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="BootstrapButton"
-            android:id="@+id/BootstrapButton"
-            app:bootstrapBrand="success"
-            app:bootstrapSize="lg"
-            app:buttonMode="regular"
-            app:showOutline="false"
-            app:roundedCorners="true"
-            />
     </LinearLayout>
 
 

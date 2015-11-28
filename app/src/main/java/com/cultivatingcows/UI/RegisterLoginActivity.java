@@ -40,16 +40,9 @@ public class RegisterLoginActivity extends AppCompatActivity {
     @Bind(R.id.logInButton)
     Button mLoginButton;
 
-//    @Bind(R.id.goButton)
-//    Button mGoButton;
-
     @Bind(R.id.goButton)
-            BootstrapButton mGoButton;
+    BootstrapButton mGoButton;
 
-    Button mGoButton2;
-
-//    @Bind(com.beardedhen.androidbootstrap.BootstrapButton)
-//    Button mBootstrapButton;
 
 
 
@@ -65,8 +58,6 @@ public class RegisterLoginActivity extends AppCompatActivity {
 //        Parse.initialize(this, "7DNaExGH9NK4AWOHPh3xg07BXQ8HvFw4fqe5gpHM", "pRFGQEEZfQ8IV0rt9soZfJqgnclLydKJAy9ENVAN");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        BootstrapButton mBootstrapButton = (BootstrapButton) findViewById(R.id.BootstrapButton);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
