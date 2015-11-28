@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 
 public class RegisterLoginActivity extends AppCompatActivity {
     private static final String TAG = RegisterLoginActivity.class.getSimpleName();
+    private int mWhichPressed;
 
     @Bind(R.id.usernameEditText)
     EditText mUsernameEditText;
@@ -38,11 +39,15 @@ public class RegisterLoginActivity extends AppCompatActivity {
     @Bind(R.id.logInButton)
     Button mLoginButton;
 
+    @Bind(R.id.goButton)
+    Button mGoButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_login);
         ButterKnife.bind(this);
+        mWhichPressed = 2;
 
         ParseObject.registerSubclass(User.class);
 //        Parse.enableLocalDatastore(this);
@@ -62,34 +67,34 @@ public class RegisterLoginActivity extends AppCompatActivity {
         mSignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = mUsernameEditText.getText().toString().trim();
-                String password = mPasswordEditText.getText().toString().trim();
-                String email = mEmailEditText.getText().toString().trim();
-                User newUser = new User(username, password, email);
-                newUser.register(TAG, RegisterLoginActivity.this, new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(RegisterLoginActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                    }
-                });
+                mWhichPressed = 0;
+//                String username = mUsernameEditText.getText().toString().trim();
+//                String password = mPasswordEditText.getText().toString().trim();
+//                String email = mEmailEditText.getText().toString().trim();
+//                User newUser = new User(username, password, email);
+//                newUser.register(TAG, RegisterLoginActivity.this, new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Intent intent = new Intent(RegisterLoginActivity.this, MainActivity.class);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                        startActivity(intent);
+//                    }
+//                });
             }
 
         });
 
-        mLoginButton.setOnClickListener(new View.OnClickListener() {
+        mGoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username = mUsernameEditText.getText().toString().trim();
-                String password = mPasswordEditText.getText().toString().trim();
-                if (username.isEmpty() || password.isEmpty()) {
-                    ErrorHelper.displayAlertDialog(RegisterLoginActivity.this, getString(R.string
-                            .login_error_message));
-                } else {
-                    // Login
-                    User.logIn(username, password, TAG, RegisterLoginActivity.this, new Runnable() {
+                //Register was pressed:
+                if (mWhichPressed == 0){
+                    String username = mUsernameEditText.getText().toString().trim();
+                    String password = mPasswordEditText.getText().toString().trim();
+                    String email = mEmailEditText.getText().toString().trim();
+                    User newUser = new User(username, password, email);
+                    newUser.register(TAG, RegisterLoginActivity.this, new Runnable() {
                         @Override
                         public void run() {
                             Intent intent = new Intent(RegisterLoginActivity.this, MainActivity.class);
@@ -99,6 +104,51 @@ public class RegisterLoginActivity extends AppCompatActivity {
                         }
                     });
                 }
+                //Log in was pressed:
+                else if (mWhichPressed == 1){
+                    String username = mUsernameEditText.getText().toString().trim();
+                    String password = mPasswordEditText.getText().toString().trim();
+                    if (username.isEmpty() || password.isEmpty()) {
+                        ErrorHelper.displayAlertDialog(RegisterLoginActivity.this, getString(R.string
+                                .login_error_message));
+                    } else {
+                        // Login
+                        User.logIn(username, password, TAG, RegisterLoginActivity.this, new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(RegisterLoginActivity.this, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                            }
+                        });
+                    }
+
+                }
+            }
+        });
+
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                  mWhichPressed = 1;
+//                String username = mUsernameEditText.getText().toString().trim();
+//                String password = mPasswordEditText.getText().toString().trim();
+//                if (username.isEmpty() || password.isEmpty()) {
+//                    ErrorHelper.displayAlertDialog(RegisterLoginActivity.this, getString(R.string
+//                            .login_error_message));
+//                } else {
+//                    // Login
+//                    User.logIn(username, password, TAG, RegisterLoginActivity.this, new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Intent intent = new Intent(RegisterLoginActivity.this, MainActivity.class);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                            startActivity(intent);
+//                        }
+//                    });
+//                }
 
             }
         });
