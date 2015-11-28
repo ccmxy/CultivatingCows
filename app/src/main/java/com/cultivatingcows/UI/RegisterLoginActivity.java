@@ -68,19 +68,10 @@ public class RegisterLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mWhichPressed = 0;
-//                String username = mUsernameEditText.getText().toString().trim();
-//                String password = mPasswordEditText.getText().toString().trim();
-//                String email = mEmailEditText.getText().toString().trim();
-//                User newUser = new User(username, password, email);
-//                newUser.register(TAG, RegisterLoginActivity.this, new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        Intent intent = new Intent(RegisterLoginActivity.this, MainActivity.class);
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                        startActivity(intent);
-//                    }
-//                });
+                mUsernameEditText.setVisibility(View.VISIBLE);
+                mPasswordEditText.setVisibility(View.VISIBLE);
+                mEmailEditText.setVisibility(View.VISIBLE);
+                mGoButton.setVisibility(View.VISIBLE);
             }
 
         });
@@ -131,25 +122,11 @@ public class RegisterLoginActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                  mWhichPressed = 1;
-//                String username = mUsernameEditText.getText().toString().trim();
-//                String password = mPasswordEditText.getText().toString().trim();
-//                if (username.isEmpty() || password.isEmpty()) {
-//                    ErrorHelper.displayAlertDialog(RegisterLoginActivity.this, getString(R.string
-//                            .login_error_message));
-//                } else {
-//                    // Login
-//                    User.logIn(username, password, TAG, RegisterLoginActivity.this, new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            Intent intent = new Intent(RegisterLoginActivity.this, MainActivity.class);
-//                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                            startActivity(intent);
-//                        }
-//                    });
-//                }
-
+                mWhichPressed = 1;
+                mUsernameEditText.setVisibility(View.VISIBLE);
+                mPasswordEditText.setVisibility(View.VISIBLE);
+                mEmailEditText.setVisibility(View.GONE);
+                mGoButton.setVisibility(View.VISIBLE);
             }
         });
     }

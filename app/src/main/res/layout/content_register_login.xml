@@ -43,7 +43,8 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:hint="username"
-            android:layout_below="@+id/emailEditText" />
+            android:layout_below="@+id/emailEditText"
+            android:visibility="gone" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -53,7 +54,8 @@
             android:hint="password"
             android:layout_below="@+id/usernameEditText"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:visibility="gone" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -62,13 +64,15 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:inputType="textEmailAddress"
-            android:hint="email" />
+            android:hint="email"
+            android:visibility="gone" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Go!"
-            android:id="@+id/goButton" />
+            android:id="@+id/goButton"
+            android:visibility="gone" />
     </LinearLayout>
 
 
