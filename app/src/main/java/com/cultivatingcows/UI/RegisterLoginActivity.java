@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.cultivatingcows.BootstrapClass;
 import com.cultivatingcows.ErrorHelper;
 import com.cultivatingcows.Models.User;
 import com.cultivatingcows.R;
@@ -33,14 +34,17 @@ public class RegisterLoginActivity extends AppCompatActivity {
     @Bind(R.id.emailEditText)
     EditText mEmailEditText;
 
-    @Bind(R.id.signUpButton)
-    Button mSignupButton;
+//    @Bind(R.id.signUpButton)
+//    Button mSignupButton;
 
     @Bind(R.id.logInButton)
     Button mLoginButton;
 
     @Bind(R.id.goButton)
     BootstrapButton mGoButton;
+
+    @Bind(R.id.signUpButton)
+    BootstrapButton mSignupButton;
 
 
     @Override
@@ -50,6 +54,8 @@ public class RegisterLoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         mLoginButton.setActivated(false);
         mSignupButton.setActivated(false);
+
+        BootstrapClass strappy;
 
         ParseObject.registerSubclass(User.class);
 //        Parse.enableLocalDatastore(this);
@@ -66,25 +72,11 @@ public class RegisterLoginActivity extends AppCompatActivity {
             }
         });
 
-
-        mSignupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSignupButton.setActivated(true);
-                mLoginButton.setActivated(false);
-                mUsernameEditText.setVisibility(View.VISIBLE);
-                mPasswordEditText.setVisibility(View.VISIBLE);
-                mEmailEditText.setVisibility(View.VISIBLE);
-                mGoButton.setVisibility(View.VISIBLE);
-            }
-
-        });
-
         mGoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //Register was pressed:
-                if(mSignupButton.isActivated()){
+                if (mSignupButton.isActivated()) {
                     String username = mUsernameEditText.getText().toString().trim();
                     String password = mPasswordEditText.getText().toString().trim();
                     String email = mEmailEditText.getText().toString().trim();
@@ -100,7 +92,7 @@ public class RegisterLoginActivity extends AppCompatActivity {
                     });
                 }
                 //Log in was pressed:
-                else if (mLoginButton.isActivated()){
+                else if (mLoginButton.isActivated()) {
                     String username = mUsernameEditText.getText().toString().trim();
                     String password = mPasswordEditText.getText().toString().trim();
                     if (username.isEmpty() || password.isEmpty()) {
@@ -132,9 +124,25 @@ public class RegisterLoginActivity extends AppCompatActivity {
                 mPasswordEditText.setVisibility(View.VISIBLE);
                 mEmailEditText.setVisibility(View.GONE);
                 mGoButton.setVisibility(View.VISIBLE);
+                //mGoButton.setBootstrapBrand(DefaultBootstrapBrand.INFO);
             }
         });
+
+        mSignupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mSignupButton.setActivated(true);
+                mLoginButton.setActivated(false);
+                mUsernameEditText.setVisibility(View.VISIBLE);
+                mPasswordEditText.setVisibility(View.VISIBLE);
+                mEmailEditText.setVisibility(View.VISIBLE);
+                mGoButton.setVisibility(View.VISIBLE);
+            }
+
+        });
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
