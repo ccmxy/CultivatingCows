@@ -23,11 +23,15 @@ public class Player extends ParseObject {
     public Player(ParseUser thisUser, final String TAG, final Activity context) {
         put("User", thisUser);
         put("score", 0);
+        String username = thisUser.getUsername();
+        put("name", username);
     }
 
     public Player(ParseUser thisUser) {
         put("User", thisUser);
         put("score", 0);
+        String username = thisUser.getUsername();
+        put("name", username);
     }
 
 }
