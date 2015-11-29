@@ -19,6 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+
+
             <com.beardedhen.androidbootstrap.BootstrapButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,11 +53,13 @@
             android:hint="username"
             android:id="@+id/usernameEditText"
             android:layout_below="@+id/emailEditText"
+            app:roundedCorners="true"
             android:gravity="center"
             android:visibility="gone"
             />
 
         <com.beardedhen.androidbootstrap.BootstrapEditText
+            app:roundedCorners="true"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -68,6 +72,7 @@
             />
 
         <com.beardedhen.androidbootstrap.BootstrapEditText
+            app:roundedCorners="true"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
