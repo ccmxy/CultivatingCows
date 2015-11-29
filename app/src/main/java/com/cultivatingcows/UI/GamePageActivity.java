@@ -37,13 +37,11 @@ public class GamePageActivity extends AppCompatActivity {
     private static final String TAG = GamePageActivity.class.getSimpleName();
     private ParseObject mParseGame;
     private Game mGame;
-    private List<String> mPlayerStrings;
     private List<ParseUser> mPlayers;
     private ParseUser mWhosTurn;
     private ParseUser currentUser = ParseUser.getCurrentUser();
     private List<String> mScoreStrings = new ArrayList<String>();
-    private static Context mContext;
-
+    private Context mContext;
 
 
     @Bind(R.id.whosTurnText)
@@ -169,6 +167,7 @@ public class GamePageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(GamePageActivity.this, YourCardsActivity.class);
+                intent.putExtra("gameName", gameName);
                 startActivity(intent);
             }
         });
