@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        android:name="com.cultivatingcows.ParseApplication"
+        android:name=".ParseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -38,6 +38,11 @@
         <activity
             android:name=".UI.GamePageActivity"
             android:label="@string/title_activity_game_page"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".UI.YourCardsActivity"
+            android:label="@string/title_activity_your_cards"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>

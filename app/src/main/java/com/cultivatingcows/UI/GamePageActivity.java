@@ -64,6 +64,9 @@ public class GamePageActivity extends AppCompatActivity {
     @Bind(R.id.fab)
     FloatingActionButton fab;
 
+    @Bind(R.id.cards)
+    FloatingActionButton mCards;
+
 
 
     @Override
@@ -159,6 +162,14 @@ public class GamePageActivity extends AppCompatActivity {
                     }
                 }, 1500);
 
+            }
+        });
+
+        mCards.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GamePageActivity.this, YourCardsActivity.class);
+                startActivity(intent);
             }
         });
     }
