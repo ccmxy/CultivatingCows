@@ -9,9 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
 import com.cultivatingcows.BootstrapClass;
@@ -27,16 +27,13 @@ public class RegisterLoginActivity extends AppCompatActivity {
     private static final String TAG = RegisterLoginActivity.class.getSimpleName();
 
     @Bind(R.id.usernameEditText)
-    EditText mUsernameEditText;
+    BootstrapEditText mUsernameEditText;
 
     @Bind(R.id.passwordEditText)
-    EditText mPasswordEditText;
+    BootstrapEditText mPasswordEditText;
 
     @Bind(R.id.emailEditText)
-    EditText mEmailEditText;
-
-//    @Bind(R.id.signUpButton)
-//    Button mSignupButton;
+    BootstrapEditText mEmailEditText;
 
     @Bind(R.id.logInButton)
     BootstrapButton mLoginButton;

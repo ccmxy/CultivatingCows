@@ -42,39 +42,41 @@
                 android:id="@+id/logInButton"
                 android:layout_marginLeft="20dp" />
 
-
         </LinearLayout>
 
-        <EditText
-            android:layout_width="wrap_content"
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:id="@+id/usernameEditText"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
+            android:layout_margin="10dp"
             android:hint="username"
+            android:id="@+id/usernameEditText"
             android:layout_below="@+id/emailEditText"
-            android:visibility="gone" />
+            android:gravity="center"
+            android:visibility="gone"
+            />
 
-        <EditText
-            android:layout_width="wrap_content"
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="password"
             android:id="@+id/passwordEditText"
             android:inputType="textPassword"
-            android:hint="password"
-            android:layout_below="@+id/usernameEditText"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:visibility="gone" />
+            android:layout_below="@+id/usernameditText"
+            android:gravity="center"
+            android:visibility="gone"
+            />
 
-        <EditText
-            android:layout_width="wrap_content"
+        <com.beardedhen.androidbootstrap.BootstrapEditText
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:id="@+id/emailEditText"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:inputType="textEmailAddress"
+            android:layout_margin="10dp"
             android:hint="email"
-            android:visibility="gone" />
+            android:id="@+id/emailEditText"
+            android:inputType="textEmailAddress"
+            android:gravity="center"
+            android:visibility="gone"
+            />
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="wrap_content"
