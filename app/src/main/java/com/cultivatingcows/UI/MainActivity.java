@@ -1,7 +1,6 @@
 package com.cultivatingcows.UI;
 
 import android.app.AlertDialog;
-import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,10 +18,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.cultivatingcows.ErrorHelper;
 import com.cultivatingcows.Models.Game;
+import com.cultivatingcows.Models.Player;
 import com.cultivatingcows.Models.User;
 import com.cultivatingcows.R;
 import com.parse.ParseObject;
@@ -30,7 +29,6 @@ import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -70,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         ParseObject.registerSubclass(User.class);
+        ParseObject.registerSubclass(Player.class);
         ParseObject.registerSubclass(Game.class);
         setSupportActionBar(toolbar);
 
@@ -106,9 +105,24 @@ public class MainActivity extends AppCompatActivity {
                                 ParseUser currentUser = ParseUser.getCurrentUser();
                                 List<ParseUser> players = new ArrayList<ParseUser>();
                                 players.add(currentUser);
+
+                                /**/
+                                List<Player> playersList = new ArrayList<Player>();
+                                final Player startingPlayer = new Player(currentUser, TAG, MainActivity.this);
+                                //startingPlayer.saveInBackground();
+                               // public Player(ParseUser thisUser, final String TAG, final Activity context, final Runnable runnable) {
+
+                                playersList.add(startingPlayer);
+
+                                /**/
+
                                 String gameName = gameNameInput.getText().toString();
                                 int numPlayers = Integer.parseInt(numPlayersInput.getText().toString());
-                                Game newGame = new Game(gameName, players, numPlayers);
+
+                                // Game newGame = new Game(gameName, players, numPlayers);
+
+                                Game newGame = new Game(gameName, players, playersList, numPlayers);
+
                                 newGame.saveGame();
                                 currentUser.add("game", gameName);
                                 currentUser.saveInBackground();

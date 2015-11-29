@@ -9,9 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.cultivatingcows.Models.Game;
+import com.cultivatingcows.Models.User;
 import com.cultivatingcows.R;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+
+import java.util.List;
 
 public class YourCardsActivity extends AppCompatActivity {
     private static final String TAG = YourCardsActivity.class.getSimpleName();
@@ -19,6 +22,7 @@ public class YourCardsActivity extends AppCompatActivity {
     private ParseUser currentUser = ParseUser.getCurrentUser();
     private ParseObject mParseGame;
     private Game mGame;
+    private List<ParseUser> mPlayers;
 
 
     @Override
@@ -30,6 +34,19 @@ public class YourCardsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String gameName = intent.getStringExtra("gameName");
+
+        User.findPlayers(gameName, TAG, YourCardsActivity.this, new Runnable() {
+            @Override
+            public void run() {
+                mPlayers = User.getPlayers();
+                for (ParseUser player : mPlayers) {
+                    int score = player.getInt("score");
+                    String username = player.getUsername();
+                    String stringToAdd = username + ": score = " + score;
+                }
+            }
+        });
+
 
         Game.findGameByName(gameName, TAG, YourCardsActivity.this, new Runnable() {
             @Override

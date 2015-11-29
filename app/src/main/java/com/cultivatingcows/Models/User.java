@@ -59,7 +59,6 @@ public class User extends ParseUser {
                     context.runOnUiThread(runnable);
                 } else {
                     ErrorHelper.handleError(tag, context, e.getMessage());
-                    //int x = 2;
                     // Sign up didn't succeed. Look at the ParseException
                     // to figure out what went wrong
                 }
