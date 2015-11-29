@@ -20,7 +20,10 @@ public class Player extends ParseObject {
     public Player(ParseUser thisUser, final String TAG, final Activity context) {
         put("User", thisUser);
         put("score", 0);
-        //saveInBackground();
-       // context.runOnUiThread(runnable);
+    }
+
+    public Player(ParseUser thisUser) {
+        put("User", thisUser);
+        put("score", 0);
     }
 }

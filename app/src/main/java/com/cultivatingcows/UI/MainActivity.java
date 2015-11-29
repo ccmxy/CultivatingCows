@@ -109,11 +109,7 @@ public class MainActivity extends AppCompatActivity {
                                 /**/
                                 List<Player> playersList = new ArrayList<Player>();
                                 final Player startingPlayer = new Player(currentUser, TAG, MainActivity.this);
-                                //startingPlayer.saveInBackground();
-                               // public Player(ParseUser thisUser, final String TAG, final Activity context, final Runnable runnable) {
-
                                 playersList.add(startingPlayer);
-
                                 /**/
 
                                 String gameName = gameNameInput.getText().toString();

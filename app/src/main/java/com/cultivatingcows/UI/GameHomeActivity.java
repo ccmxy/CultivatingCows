@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.view.Menu;
@@ -19,6 +18,7 @@ import android.widget.Toast;
 
 import com.cultivatingcows.ErrorHelper;
 import com.cultivatingcows.Models.Game;
+import com.cultivatingcows.Models.Player;
 import com.cultivatingcows.Models.User;
 import com.cultivatingcows.R;
 import com.parse.ParseObject;
@@ -133,6 +133,8 @@ public class GameHomeActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int id) {
                                 currentUser.add("game", gameName);
                                 currentUser.saveInBackground();
+                                Player newPlayer = new Player(currentUser);
+                                mGame.add("playersList", newPlayer);
                                 mGame.add("players", currentUser);
                                 mGame.saveInBackground();
                                 Toast.makeText(GameHomeActivity.this, "Congratulations on joining " + gameName + "!", Toast.LENGTH_SHORT).show();

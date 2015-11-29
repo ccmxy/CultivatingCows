@@ -209,8 +209,8 @@ public class GamePageActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             ParseUser currentUser = ParseUser.getCurrentUser();
-                            List<ParseUser> players = new ArrayList<ParseUser>();
-                            players.add(currentUser);
+//                            List<ParseUser> players = new ArrayList<ParseUser>();
+//                            players.add(currentUser);
                             String loginUserName = userNameInpuut.getText().toString();
                             String password = passwordInput.getText().toString();
                             if (loginUserName.isEmpty() || password.isEmpty()) {
