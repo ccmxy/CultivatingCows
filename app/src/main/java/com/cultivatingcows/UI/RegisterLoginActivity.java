@@ -23,7 +23,6 @@ import butterknife.ButterKnife;
 
 public class RegisterLoginActivity extends AppCompatActivity {
     private static final String TAG = RegisterLoginActivity.class.getSimpleName();
-    private int mWhichPressed;
 
     @Bind(R.id.usernameEditText)
     EditText mUsernameEditText;
@@ -44,14 +43,13 @@ public class RegisterLoginActivity extends AppCompatActivity {
     BootstrapButton mGoButton;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_login);
         ButterKnife.bind(this);
-        mWhichPressed = 2;
+        mLoginButton.setActivated(false);
+        mSignupButton.setActivated(false);
 
         ParseObject.registerSubclass(User.class);
 //        Parse.enableLocalDatastore(this);
@@ -68,10 +66,12 @@ public class RegisterLoginActivity extends AppCompatActivity {
             }
         });
 
+
         mSignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mWhichPressed = 0;
+                mSignupButton.setActivated(true);
+                mLoginButton.setActivated(false);
                 mUsernameEditText.setVisibility(View.VISIBLE);
                 mPasswordEditText.setVisibility(View.VISIBLE);
                 mEmailEditText.setVisibility(View.VISIBLE);
@@ -84,7 +84,7 @@ public class RegisterLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Register was pressed:
-                if (mWhichPressed == 0){
+                if(mSignupButton.isActivated()){
                     String username = mUsernameEditText.getText().toString().trim();
                     String password = mPasswordEditText.getText().toString().trim();
                     String email = mEmailEditText.getText().toString().trim();
@@ -100,7 +100,7 @@ public class RegisterLoginActivity extends AppCompatActivity {
                     });
                 }
                 //Log in was pressed:
-                else if (mWhichPressed == 1){
+                else if (mLoginButton.isActivated()){
                     String username = mUsernameEditText.getText().toString().trim();
                     String password = mPasswordEditText.getText().toString().trim();
                     if (username.isEmpty() || password.isEmpty()) {
@@ -126,7 +126,8 @@ public class RegisterLoginActivity extends AppCompatActivity {
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mWhichPressed = 1;
+                mLoginButton.setActivated(true);
+                mSignupButton.setActivated(false);
                 mUsernameEditText.setVisibility(View.VISIBLE);
                 mPasswordEditText.setVisibility(View.VISIBLE);
                 mEmailEditText.setVisibility(View.GONE);
