@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.cultivatingcows.ErrorHelper;
 import com.cultivatingcows.Models.Game;
 import com.cultivatingcows.Models.PairOfDice;
+import com.cultivatingcows.Models.Player;
 import com.cultivatingcows.Models.User;
 import com.cultivatingcows.R;
 import com.parse.ParseObject;
@@ -38,6 +39,7 @@ public class GamePageActivity extends AppCompatActivity {
     private ParseObject mParseGame;
     private Game mGame;
     private List<ParseUser> mPlayers;
+    private List<Player> mPlayersList;
     private ParseUser mWhosTurn;
     private ParseUser currentUser = ParseUser.getCurrentUser();
     private List<String> mScoreStrings = new ArrayList<String>();
@@ -102,6 +104,7 @@ public class GamePageActivity extends AppCompatActivity {
             public void run() {
                 mParseGame = Game.getThisGame();
                 mGame = new Game(mParseGame, mPlayers);
+                mPlayersList = mGame.getList("playersList");
                 mWhosTurn = Game.getWhosTurn();
                 String thisTurn = mWhosTurn.getUsername();
                 //mWhosTurnText.setText("It is " + thisTurn + "'s turn.");

@@ -6,11 +6,14 @@ import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.util.List;
+
 /**
  * Created by colleenminor on 11/28/15.
  */
 @ParseClassName("Player")
 public class Player extends ParseObject {
+    private List<Player> mPlayers;
 
 
     public Player() {
@@ -26,4 +29,5 @@ public class Player extends ParseObject {
         put("User", thisUser);
         put("score", 0);
     }
+
 }
