@@ -9,10 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.cultivatingcows.BootstrapClass;
 import com.cultivatingcows.ErrorHelper;
 import com.cultivatingcows.Models.User;
@@ -38,7 +38,7 @@ public class RegisterLoginActivity extends AppCompatActivity {
 //    Button mSignupButton;
 
     @Bind(R.id.logInButton)
-    Button mLoginButton;
+    BootstrapButton mLoginButton;
 
     @Bind(R.id.goButton)
     BootstrapButton mGoButton;
@@ -124,7 +124,8 @@ public class RegisterLoginActivity extends AppCompatActivity {
                 mPasswordEditText.setVisibility(View.VISIBLE);
                 mEmailEditText.setVisibility(View.GONE);
                 mGoButton.setVisibility(View.VISIBLE);
-                //mGoButton.setBootstrapBrand(DefaultBootstrapBrand.INFO);
+                mLoginButton.setBootstrapBrand(DefaultBootstrapBrand.PRIMARY);
+                mSignupButton.setBootstrapBrand(DefaultBootstrapBrand.REGULAR);
             }
         });
 
@@ -137,6 +138,8 @@ public class RegisterLoginActivity extends AppCompatActivity {
                 mPasswordEditText.setVisibility(View.VISIBLE);
                 mEmailEditText.setVisibility(View.VISIBLE);
                 mGoButton.setVisibility(View.VISIBLE);
+                mLoginButton.setBootstrapBrand(DefaultBootstrapBrand.REGULAR);
+                mSignupButton.setBootstrapBrand(DefaultBootstrapBrand.PRIMARY);
             }
 
         });

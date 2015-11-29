@@ -31,13 +31,18 @@
                 android:id="@+id/signUpButton"
                 />
 
-            <Button
+            <com.beardedhen.androidbootstrap.BootstrapButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                app:bootstrapBrand="regular"
+                app:bootstrapSize="lg"
+                app:buttonMode="regular"
+                app:showOutline="false"
+                app:roundedCorners="true"
                 android:text="Log In"
                 android:id="@+id/logInButton"
-                android:layout_alignBottom="@+id/passwordEditText"
-                android:layout_centerHorizontal="true" />
+                />
+
 
         </LinearLayout>
 
