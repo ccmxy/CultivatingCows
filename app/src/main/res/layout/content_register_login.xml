@@ -23,25 +23,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:bootstrapBrand="regular"
-                app:bootstrapSize="lg"
+                app:bootstrapSize="md"
                 app:buttonMode="regular"
                 app:showOutline="false"
                 app:roundedCorners="true"
                 android:text="Sign Up"
-                android:id="@+id/signUpButton"
-                />
+                android:id="@+id/signUpButton" />
 
             <com.beardedhen.androidbootstrap.BootstrapButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:bootstrapBrand="regular"
-                app:bootstrapSize="lg"
+                app:bootstrapSize="md"
                 app:buttonMode="regular"
                 app:showOutline="false"
                 app:roundedCorners="true"
                 android:text="Log In"
                 android:id="@+id/logInButton"
-                />
+                android:layout_marginLeft="20dp" />
 
 
         </LinearLayout>

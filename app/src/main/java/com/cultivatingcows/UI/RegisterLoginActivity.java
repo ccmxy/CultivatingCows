@@ -13,6 +13,7 @@ import android.widget.EditText;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
+import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
 import com.cultivatingcows.BootstrapClass;
 import com.cultivatingcows.ErrorHelper;
 import com.cultivatingcows.Models.User;
@@ -126,6 +127,8 @@ public class RegisterLoginActivity extends AppCompatActivity {
                 mGoButton.setVisibility(View.VISIBLE);
                 mLoginButton.setBootstrapBrand(DefaultBootstrapBrand.PRIMARY);
                 mSignupButton.setBootstrapBrand(DefaultBootstrapBrand.REGULAR);
+                mLoginButton.setBootstrapSize(DefaultBootstrapSize.LG);
+                mSignupButton.setBootstrapSize(DefaultBootstrapSize.MD);
             }
         });
 
@@ -140,12 +143,12 @@ public class RegisterLoginActivity extends AppCompatActivity {
                 mGoButton.setVisibility(View.VISIBLE);
                 mLoginButton.setBootstrapBrand(DefaultBootstrapBrand.REGULAR);
                 mSignupButton.setBootstrapBrand(DefaultBootstrapBrand.PRIMARY);
+                mLoginButton.setBootstrapSize(DefaultBootstrapSize.MD);
+                mSignupButton.setBootstrapSize(DefaultBootstrapSize.LG);
             }
 
         });
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
