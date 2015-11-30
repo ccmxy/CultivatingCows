@@ -82,16 +82,13 @@ public class Game extends ParseObject {
     public Game(ParseObject ParseGame){
         mName = ParseGame.getString("name");
         mThePlayers = ParseGame.getList("playersList");
-        int i = 4;
-
+        mWhosTurn = ParseGame.getParseUser("whosTurn");
     }
 
     //I want it so that when I make this game constructor, it can just query for the players who r playing instead of having to send it mPlayersList
     //First thing 2 do is to change my query where I get the game itself i suppose...
     public Game(ParseObject game, List<ParseUser> mPlayersList){
-        mName = game.getString("name");
         mPlayers = mPlayersList;
-        mWhosTurn = game.getParseUser("whosTurn");
     }
 
 
