@@ -62,9 +62,6 @@ public class GameHomeActivity extends AppCompatActivity {
     private boolean curUserIsPlaying;
     private static Context mContext;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -35,6 +35,12 @@ public class Player extends ParseObject {
         put("name", username);
     }
 
+    public Player(ParseObject player){
+        String playerName = player.getString("name");
+    }
+
+
+
 
 
 }

@@ -20,10 +20,10 @@ public class Game extends ParseObject {
     private static List<Game> mGames;
     private static ParseObject mGame;
     private List<ParseUser> mPlayers;
-    private List<Player> mThePlayers;
+    private static List<ParseObject> mThePlayers;
     private String mName;
+    private static List<String> mPlayerNames;
     private static ParseUser mWhosTurn;
-
     public Game(){
         super();
     }
@@ -47,12 +47,48 @@ public class Game extends ParseObject {
         put("whosTurn", players.get(0));
     }
 
-
-
+//I want it so that when I make this game constructor, it can just query for the players who r playing instead of having to send it mPlayersList
+   //First thing 2 do is to change my query where I get the game itself i suppose...
     public Game(ParseObject game, List<ParseUser> mPlayersList){
         mName = game.getString("name");
         mPlayers = mPlayersList;
         mWhosTurn = game.getParseUser("whosTurn");
+    }
+
+    //https://github.com/ccmxy/CultivatingCows/commits/master?page=2
+        /*Here is how you would get the usernames of the owners (from the relational "owner"):
+-//                        Game.getParseObject("owner")
+-//                                .fetchIfNeededInBackground(new GetCallback<ParseUser>() {
+-//                                    public void done(ParseUser gameOwner, ParseException e) {
+-//                                        String gameOwnerName = gameOwner.getString("username");
+-//                                    }
+-//                                });
+-//                                */
+
+    /**
+     Takes in a game name and turns ParseObject mGame to it
+    **/
+    public static void findGameByName(final String gameName, final String tag, final Activity context, final Runnable runnable){
+        specificGameQuery(gameName).findInBackground(new FindCallback<Game>() {
+            @Override
+            public void done(List<Game> games, ParseException e) {
+                if (e == null) {
+                    mGame = games.get(0);
+                   List<ParseObject> thisPlayersList = mGame.getList("playersList");
+                    int i = 4;
+
+                   // ParseObject thisObject = mGame.getParseObject("playersList");
+                    context.runOnUiThread(runnable);
+                } else {
+                    ErrorHelper.handleError(tag, context, e.getMessage());
+                }
+            }
+        });
+    }
+
+    public static ParseQuery<Game> specificGameQuery(String gameName) {
+        return ParseQuery.getQuery(Game.class)
+                .whereEqualTo("name", gameName);
     }
 
     public void nextTurn() {
@@ -116,28 +152,11 @@ public class Game extends ParseObject {
         });
     }
 
-    public static ParseQuery<Game> specificGameQuery(String gameName) {
-        return ParseQuery.getQuery(Game.class)
-                .whereEqualTo("name", gameName);
-    }
 
     public static List<Game> getGames() {
         return mGames;
     }
 
-    public static void findGameByName(final String gameName, final String tag, final Activity context, final Runnable runnable){
-        specificGameQuery(gameName).findInBackground(new FindCallback<Game>() {
-            @Override
-            public void done(List<Game> games, ParseException e) {
-                if (e == null) {
-                    mGame = games.get(0);
-                    context.runOnUiThread(runnable);
-                } else {
-                    ErrorHelper.handleError(tag, context, e.getMessage());
-                }
-            }
-        });
-    }
 
     public static ParseObject getThisGame(){
         return mGame;
