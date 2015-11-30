@@ -47,14 +47,6 @@ public class Game extends ParseObject {
         put("whosTurn", players.get(0));
     }
 
-//I want it so that when I make this game constructor, it can just query for the players who r playing instead of having to send it mPlayersList
-   //First thing 2 do is to change my query where I get the game itself i suppose...
-    public Game(ParseObject game, List<ParseUser> mPlayersList){
-        mName = game.getString("name");
-        mPlayers = mPlayersList;
-        mWhosTurn = game.getParseUser("whosTurn");
-    }
-
     //https://github.com/ccmxy/CultivatingCows/commits/master?page=2
         /*Here is how you would get the usernames of the owners (from the relational "owner"):
 -//                        Game.getParseObject("owner")
@@ -74,8 +66,9 @@ public class Game extends ParseObject {
             public void done(List<Game> games, ParseException e) {
                 if (e == null) {
                     mGame = games.get(0);
-                   List<ParseObject> thisPlayersList = mGame.getList("playersList");
-                    int i = 4;
+                    Game newGame = new Game(mGame);
+//                   List<ParseObject> thisPlayersList = mGame.getList("playersList");
+//                    int i = 4;
 
                    // ParseObject thisObject = mGame.getParseObject("playersList");
                     context.runOnUiThread(runnable);
@@ -85,6 +78,22 @@ public class Game extends ParseObject {
             }
         });
     }
+
+    public Game(ParseObject ParseGame){
+        mName = ParseGame.getString("name");
+        mThePlayers = ParseGame.getList("playersList");
+        int i = 4;
+
+    }
+
+    //I want it so that when I make this game constructor, it can just query for the players who r playing instead of having to send it mPlayersList
+    //First thing 2 do is to change my query where I get the game itself i suppose...
+    public Game(ParseObject game, List<ParseUser> mPlayersList){
+        mName = game.getString("name");
+        mPlayers = mPlayersList;
+        mWhosTurn = game.getParseUser("whosTurn");
+    }
+
 
     public static ParseQuery<Game> specificGameQuery(String gameName) {
         return ParseQuery.getQuery(Game.class)
