@@ -156,14 +156,14 @@ public class MainActivity extends AppCompatActivity {
                     String numPlayers = "" + Game.getInt("numPlayers");
                     //gamesStringList.add(new String[] {gameName, numPlayers });
                     Map<String, String> datum = new HashMap<String, String>(2);
-                    datum.put(gameName, numPlayers);
+                    //datum.put(gameName, numPlayers);
                     datum.put("First Line", gameName);
                     datum.put("Second Line", numPlayers);
                     data.add(datum);
-                }
-                setThatList(gamesStringList, mArrayAdapter, mGamesList, data);
-                // makeListClickable(mGamesList);
+                    setThatList(gamesStringList, mArrayAdapter, mGamesList, data);
+                    makeListClickable(mGamesList);
 
+                }
             }
         });
     } //End of onCreate
@@ -202,7 +202,13 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                final String gameName = (String) arg0.getItemAtPosition(position);
+               // List<Map<String, String>> hashMapList = (List<Map<String, String>>) arg0.getItemAtPosition(position);
+              //  Map<String, String> datum = new HashMap<String, String>(2);
+                Map<String, String> datum = (Map<String, String>) arg0.getItemAtPosition(position);
+                Object value = datum.get("First Line");
+                final String gameName = (String) value;
+
+              //  final String gameName = (String) arg0.getItemAtPosition(position);
                 Intent intent = new Intent(MainActivity.this, GameHomeActivity.class);
                 intent.putExtra("gameName", gameName);
                 startActivity(intent);
