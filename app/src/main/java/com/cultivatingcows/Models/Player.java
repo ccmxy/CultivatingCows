@@ -20,14 +20,21 @@ public class Player extends ParseObject {
         super();
     }
 
+    //Just in case I want to use a runnable or something:
     public Player(ParseUser thisUser, final String TAG, final Activity context) {
         put("User", thisUser);
         put("score", 0);
+        String username = thisUser.getUsername();
+        put("name", username);
     }
 
     public Player(ParseUser thisUser) {
         put("User", thisUser);
         put("score", 0);
+        String username = thisUser.getUsername();
+        put("name", username);
     }
+
+
 
 }
