@@ -7,8 +7,6 @@
     <string name="action_quick_login">Quick Login</string>
 
 
-
-
     <string name="title_activity_main">MainActivity</string>
     <string name="login_error_message">Please enter a valid username and password.</string>
     <string name="title_activity_your_games">YourGamesActivity</string>
@@ -17,4 +15,8 @@
     <string name="title_activity_game_home">GameHomeActivity</string>
     <string name="title_activity_game_page">GamePage</string>
     <string name="title_activity_your_cards">YourCardsActivity</string>
+    <string name="title_activity_login_home">LoginHome</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

@@ -108,18 +108,13 @@ public class MainActivity extends AppCompatActivity {
                                 ParseUser currentUser = ParseUser.getCurrentUser();
                                 List<ParseUser> players = new ArrayList<ParseUser>();
                                 players.add(currentUser);
-
                                 /**/
                                 List<Player> playersList = new ArrayList<Player>();
                                 final Player startingPlayer = new Player(currentUser, TAG, MainActivity.this);
                                 playersList.add(startingPlayer);
                                 /**/
-
                                 String gameName = gameNameInput.getText().toString();
                                 int numPlayers = Integer.parseInt(numPlayersInput.getText().toString());
-
-                                // Game newGame = new Game(gameName, players, numPlayers);
-
                                 Game newGame = new Game(gameName, players, playersList, numPlayers);
 
                                 newGame.saveGame();
