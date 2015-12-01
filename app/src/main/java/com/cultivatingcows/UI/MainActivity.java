@@ -163,7 +163,6 @@ public class MainActivity extends AppCompatActivity {
                     data.add(datum);
                     setThatList(gamesStringList, mArrayAdapter, mGamesList, data);
                     makeListClickable(mGamesList);
-
                 }
             }
         });
