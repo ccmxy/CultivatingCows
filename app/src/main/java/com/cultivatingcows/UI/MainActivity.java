@@ -152,10 +152,13 @@ public class MainActivity extends AppCompatActivity {
 
                 for (ParseObject Game : mAllGames) {
                     String gameName = Game.getString("name");
-                    String numPlayers = "" + Game.getInt("numPlayers");
+                    int numPlayers = Game.getInt("numPlayers");
+                    int curNumPlayers = Game.getInt("curNumPlayers");
+                    int spacesRemaining = (numPlayers - curNumPlayers);
+
                     Map<String, String> datum = new HashMap<String, String>(2);
                     datum.put("Game Name", gameName);
-                    datum.put("Number Players", numPlayers);
+                    datum.put("Number Players", numPlayers + " player game. Spaces remaining: " + spacesRemaining);
                     data.add(datum);
                     setThatList(gamesStringList, mArrayAdapter, mGamesList, data);
                     makeListClickable(mGamesList);
@@ -170,11 +173,10 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this,
                 data,
                 android.R.layout.simple_list_item_2,
-                new String[] {"Game Name", "Number Players" },
-                new int[] {android.R.id.text1, android.R.id.text2 });
+                new String[] {"Game Name", "Number Players"},
+                new int[] {android.R.id.text1, android.R.id.text2});
                 listView.setAdapter(simpleAdapter);
         }
-
 
     public void makeListClickable(ListView listView) {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
