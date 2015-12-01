@@ -156,9 +156,10 @@ public class MainActivity extends AppCompatActivity {
                     int curNumPlayers = Game.getInt("curNumPlayers");
                     int spacesRemaining = (numPlayers - curNumPlayers);
 
-                    Map<String, String> datum = new HashMap<String, String>(2);
+                    Map<String, String> datum = new HashMap<String, String>(3);
                     datum.put("Game Name", gameName);
-                    datum.put("Number Players", numPlayers + " player game. Spaces remaining: " + spacesRemaining);
+                    datum.put("Number Players", numPlayers + " player game.\n"   + "Spaces remaining: " + spacesRemaining);
+                    datum.put("Tester", "tester");
                     data.add(datum);
                     setThatList(gamesStringList, mArrayAdapter, mGamesList, data);
                     makeListClickable(mGamesList);
@@ -173,8 +174,8 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this,
                 data,
                 android.R.layout.simple_list_item_2,
-                new String[] {"Game Name", "Number Players"},
-                new int[] {android.R.id.text1, android.R.id.text2});
+                new String[] {"Game Name", "Number Players", "Tester"},
+                new int[] {android.R.id.text1, android.R.id.text2, android.R.id.custom});
                 listView.setAdapter(simpleAdapter);
         }
 
