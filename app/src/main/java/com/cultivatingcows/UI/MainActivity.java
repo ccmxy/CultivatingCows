@@ -150,15 +150,12 @@ public class MainActivity extends AppCompatActivity {
 
                 List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 
-
                 for (ParseObject Game : mAllGames) {
                     String gameName = Game.getString("name");
                     String numPlayers = "" + Game.getInt("numPlayers");
-                    //gamesStringList.add(new String[] {gameName, numPlayers });
                     Map<String, String> datum = new HashMap<String, String>(2);
-                    //datum.put(gameName, numPlayers);
-                    datum.put("First Line", gameName);
-                    datum.put("Second Line", numPlayers);
+                    datum.put("Game Name", gameName);
+                    datum.put("Number Players", numPlayers);
                     data.add(datum);
                     setThatList(gamesStringList, mArrayAdapter, mGamesList, data);
                     makeListClickable(mGamesList);
@@ -169,30 +166,11 @@ public class MainActivity extends AppCompatActivity {
     } //End of onCreate
 
     public void setThatList(List<String[]> stringList, ArrayAdapter<String> arrayAdapter, ListView listView,  List<Map<String, String>> data) {
-//        arrayAdapter = new ArrayAdapter<>(
-//                MainActivity.this,
-//                android.R.layout.simple_list_item_2,
-//                stringList);
-//        listView.setAdapter(arrayAdapter);
-//    }
-
-//        SimpleAdapter adapter = new SimpleAdapter(this,
-//                data,
-//                android.R.layout.simple_list_item_2,
-//                new String[] {"First Line", "Second Line" },
-//                new int[] {android.R.id.text1, android.R.id.text2 });
-
-        List<Map<String, String>> tata = new ArrayList<Map<String, String>>();
-        Map<String, String> datum = new HashMap<String, String>(2);
-        datum.put("First Line", "First line of text");
-        datum.put("Second Line", "Second line of text");
-        tata.add(datum);
-
         SimpleAdapter simpleAdapter = new SimpleAdapter(
         MainActivity.this,
                 data,
                 android.R.layout.simple_list_item_2,
-                new String[] {"First Line", "Second Line" },
+                new String[] {"Game Name", "Number Players" },
                 new int[] {android.R.id.text1, android.R.id.text2 });
                 listView.setAdapter(simpleAdapter);
         }
@@ -202,13 +180,9 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-               // List<Map<String, String>> hashMapList = (List<Map<String, String>>) arg0.getItemAtPosition(position);
-              //  Map<String, String> datum = new HashMap<String, String>(2);
                 Map<String, String> datum = (Map<String, String>) arg0.getItemAtPosition(position);
-                Object value = datum.get("First Line");
+                Object value = datum.get("Game Name");
                 final String gameName = (String) value;
-
-              //  final String gameName = (String) arg0.getItemAtPosition(position);
                 Intent intent = new Intent(MainActivity.this, GameHomeActivity.class);
                 intent.putExtra("gameName", gameName);
                 startActivity(intent);
