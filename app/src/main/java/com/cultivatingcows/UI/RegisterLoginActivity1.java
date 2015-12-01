@@ -4,15 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
@@ -20,7 +16,6 @@ import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
 import com.cultivatingcows.BootstrapClass;
 import com.cultivatingcows.ErrorHelper;
-import com.cultivatingcows.Models.Player;
 import com.cultivatingcows.Models.User;
 import com.cultivatingcows.R;
 import com.parse.ParseObject;
@@ -28,9 +23,8 @@ import com.parse.ParseObject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class RegisterLoginActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-    private static final String TAG = RegisterLoginActivity.class.getSimpleName();
+public class RegisterLoginActivity1 extends AppCompatActivity {
+    private static final String TAG = RegisterLoginActivity1.class.getSimpleName();
 
     @Bind(R.id.usernameEditText)
     BootstrapEditText mUsernameEditText;
@@ -54,18 +48,18 @@ public class RegisterLoginActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_home);
+        setContentView(R.layout.activity_register_login1);
         ButterKnife.bind(this);
         mLoginButton.setActivated(false);
         mSignupButton.setActivated(false);
+
         BootstrapClass strappy;
+
         ParseObject.registerSubclass(User.class);
-        ParseObject.registerSubclass(Player.class);
-
-
+//        Parse.enableLocalDatastore(this);
+//        Parse.initialize(this, "7DNaExGH9NK4AWOHPh3xg07BXQ8HvFw4fqe5gpHM", "pRFGQEEZfQ8IV0rt9soZfJqgnclLydKJAy9ENVAN");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -76,14 +70,48 @@ public class RegisterLoginActivity extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+        mGoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Register was pressed:
+                if (mSignupButton.isActivated()) {
+                    String username = mUsernameEditText.getText().toString().trim();
+                    String password = mPasswordEditText.getText().toString().trim();
+                    String email = mEmailEditText.getText().toString().trim();
+                    User newUser = new User(username, password, email);
+                    newUser.register(TAG, RegisterLoginActivity1.this, new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(RegisterLoginActivity1.this, MainActivity.class);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            startActivity(intent);
+                        }
+                    });
+                }
+                //Log in was pressed:
+                else if (mLoginButton.isActivated()) {
+                    String username = mUsernameEditText.getText().toString().trim();
+                    String password = mPasswordEditText.getText().toString().trim();
+                    if (username.isEmpty() || password.isEmpty()) {
+                        ErrorHelper.displayAlertDialog(RegisterLoginActivity1.this, getString(R.string
+                                .login_error_message));
+                    } else {
+                        // Login
+                        User.logIn(username, password, TAG, RegisterLoginActivity1.this, new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(RegisterLoginActivity1.this, MainActivity.class);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                startActivity(intent);
+                            }
+                        });
+                    }
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
+                }
+            }
+        });
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,64 +145,6 @@ public class RegisterLoginActivity extends AppCompatActivity
             }
 
         });
-
-
-        mGoButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Register was pressed:
-                if (mSignupButton.isActivated()) {
-                    String username = mUsernameEditText.getText().toString().trim();
-                    String password = mPasswordEditText.getText().toString().trim();
-                    String email = mEmailEditText.getText().toString().trim();
-                    User newUser = new User(username, password, email);
-                    newUser.register(TAG, RegisterLoginActivity.this, new Runnable() {
-                        @Override
-                        public void run() {
-                            Intent intent = new Intent(RegisterLoginActivity.this, MainActivity.class);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(intent);
-                        }
-                    });
-                }
-                //Log in was pressed:
-                else if (mLoginButton.isActivated()) {
-                    String username = mUsernameEditText.getText().toString().trim();
-                    String password = mPasswordEditText.getText().toString().trim();
-                    if (username.isEmpty() || password.isEmpty()) {
-                        ErrorHelper.displayAlertDialog(RegisterLoginActivity.this, getString(R.string
-                                .login_error_message));
-                    } else {
-                        // Login
-                        User.logIn(username, password, TAG, RegisterLoginActivity.this, new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(RegisterLoginActivity.this, MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                startActivity(intent);
-                            }
-                        });
-                    }
-
-                }
-            }
-        });
-
-
-
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
     }
 
     @Override
@@ -192,35 +162,18 @@ public class RegisterLoginActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_login_page) {
+            Intent intent = new Intent(this, RegisterLoginActivity1.class);
+            startActivity(intent);
+        }
+        if (id == R.id.action_all_games_page) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.action_your_games_page) {
+            Intent intent = new Intent(this, YourGamesActivity.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
-    }
-}
+    }}
