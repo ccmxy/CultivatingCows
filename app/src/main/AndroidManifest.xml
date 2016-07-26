@@ -60,7 +60,7 @@
             android:name=".UI.MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".UI.Main2Activity"
+            android:name=".UI.UserLatlongActivity"
             android:label="@string/title_activity_main2" />
         <activity
             android:name=".UI.YourMapsActivity"

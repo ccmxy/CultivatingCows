@@ -64,10 +64,6 @@ public class GamePageActivity extends AppCompatActivity {
     @Bind(R.id.fab)
     FloatingActionButton fab;
 
-    @Bind(R.id.cards)
-    FloatingActionButton mCards;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,14 +163,6 @@ public class GamePageActivity extends AppCompatActivity {
             }
         });
 
-        mCards.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(GamePageActivity.this, YourCardsActivity.class);
-                intent.putExtra("gameName", gameName);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override

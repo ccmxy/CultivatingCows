@@ -14,7 +14,7 @@ import com.yayandroid.locationmanager.constants.FailType;
 import com.yayandroid.locationmanager.constants.LogType;
 import com.yayandroid.locationmanager.constants.ProviderType;
 
-public class Main2Activity extends LocationBaseActivity {
+public class UserLatlongActivity extends LocationBaseActivity {
 
     private ProgressDialog progressDialog;
     private TextView locationText;
