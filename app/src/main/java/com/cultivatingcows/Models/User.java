@@ -46,7 +46,8 @@ public class User extends ParseUser {
         return mUserGames;
     }
 
-    public static List<String> getUserMaps() {
+    //This gets passed into the runnable
+    public static List<String> getUserMapNames() {
         return mUserMaps;
     }
 
