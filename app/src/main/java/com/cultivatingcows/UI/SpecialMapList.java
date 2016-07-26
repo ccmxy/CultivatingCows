@@ -21,8 +21,8 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.cultivatingcows.ErrorHelper;
-import com.cultivatingcows.Models.SpecialMap;
 import com.cultivatingcows.Models.Player;
+import com.cultivatingcows.Models.SpecialMap;
 import com.cultivatingcows.Models.User;
 import com.cultivatingcows.R;
 import com.parse.ParseObject;
@@ -153,13 +153,16 @@ public class SpecialMapList extends AppCompatActivity {
 
                 for (ParseObject SpecialMap : mAllSpecialMaps) {
                     String name = SpecialMap.getString("name");
-                    String latitude = SpecialMap.getString("latitude");
-                    String longitude = SpecialMap.getString("longitude");
+                    int latitude = SpecialMap.getInt("latitude");
+                    String latitudeString = latitude + "";
+                    int longitude = SpecialMap.getInt("longitude");
+                    String longitudeString = longitude + "";
 
                     Map<String, String> datum = new HashMap<String, String>(3);
                     datum.put("SpecialMap Name", name);
-                    datum.put("latitude",latitude);
-                    datum.put("longitude", longitude);
+//                    Toast.makeText(getApplicationContext(), latitudeString, Toast.LENGTH_SHORT).show();
+                    datum.put("Latitude", latitudeString);
+                    datum.put("Longitude", longitudeString);
                     data.add(datum);
                     setThatList(gamesStringList, mArrayAdapter, mSpecialMapsList, data);
                     makeListClickable(mSpecialMapsList);
