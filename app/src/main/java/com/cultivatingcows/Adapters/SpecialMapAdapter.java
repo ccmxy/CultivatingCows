@@ -17,9 +17,9 @@ public class SpecialMapAdapter extends BaseAdapter{
     protected Context mContext;
     protected List<SpecialMap> mSpecialMaps;
 
-    public SpecialMapAdapter(Context context, List<SpecialMap> games) {
+    public SpecialMapAdapter(Context context, List<SpecialMap> specialMaps) {
         mContext = context;
-        mSpecialMaps = games;
+        mSpecialMaps = specialMaps;
     }
 
     @Override
@@ -48,7 +48,7 @@ public class SpecialMapAdapter extends BaseAdapter{
             holder = (ViewHolder) convertView.getTag();
         }
 
-        SpecialMap game = mSpecialMaps.get(position);
+        SpecialMap specialMap = mSpecialMaps.get(position);
         return convertView;
     }
 

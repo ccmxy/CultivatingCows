@@ -23,26 +23,26 @@ public class SpecialMap extends ParseObject {
     private List<ParseUser> mPlayers;
     private List<Player> mThePlayers;
     private String mName;
+    private int mLatitude;
+    private int mLongitude;
     private static ParseUser mWhosTurn;
 
     public SpecialMap(){
         super();
     }
 
-    public SpecialMap(String gameName, List<ParseUser> players, List<Player> playersList, int numPlayers){
-        put("name", gameName);
-        put("players", players);
-        put("playersList", playersList);
-        put("numPlayers", numPlayers);
-        put("curNumPlayers", 1);
-        put("inProgress", false);
-        put("whosTurn", players.get(0));
+    public SpecialMap(String name, int latitude, int longitude, String msg){
+        put("name", name);
+        put("latitude", latitude); //was players
+        put("longitude", longitude); //was playerList
+        put("msg", msg); //was numPlayers
     }
 
-    public SpecialMap(ParseObject game, List<ParseUser> mPlayersList){
-        mName = game.getString("name");
-        mPlayers = mPlayersList;
-        mWhosTurn = game.getParseUser("whosTurn");
+    //THE PLAYERSLIST AS PARSEUSER MAY HAVE BEEN THE ISSUE THE WHOLE TIME
+    public SpecialMap(ParseObject SpecialMap){
+        mName = SpecialMap.getString("name");
+        mLatitude = SpecialMap.getInt("latitude");
+        mLongitude = SpecialMap.getInt("longitude");
     }
 
     public void nextTurn() {
@@ -71,17 +71,17 @@ public class SpecialMap extends ParseObject {
         saveInBackground();
     }
 
-    public static ParseQuery<SpecialMap> gamesListQuery() {
+    public static ParseQuery<SpecialMap> specialMapsListQuery() {
         return ParseQuery.getQuery(SpecialMap.class)
                 .orderByAscending("name");
     }
 
     public static void findAllSpecialMaps(final String tag, final Activity context, final Runnable runnable) {
-        gamesListQuery().findInBackground(new FindCallback<SpecialMap>() {
+        specialMapsListQuery().findInBackground(new FindCallback<SpecialMap>() {
             @Override
-            public void done(List<SpecialMap> games, com.parse.ParseException e) {
+            public void done(List<SpecialMap> specialMaps, com.parse.ParseException e) {
                 if (e == null) {
-                    mSpecialMaps = games;
+                    mSpecialMaps = specialMaps;
                     context.runOnUiThread(runnable);
                 } else {
                     ErrorHelper.handleError(tag, context, e.getMessage());
@@ -93,11 +93,11 @@ public class SpecialMap extends ParseObject {
     }
 
     public static void findAllSpecialMapsNotInProgress(final String tag, final Activity context, final Runnable runnable) {
-        gamesListQuery().whereEqualTo("inProgress", false).findInBackground(new FindCallback<SpecialMap>() {
+        specialMapsListQuery().whereEqualTo("inProgress", false).findInBackground(new FindCallback<SpecialMap>() {
             @Override
-            public void done(List<SpecialMap> games, com.parse.ParseException e) {
+            public void done(List<SpecialMap> specialMaps, com.parse.ParseException e) {
                 if (e == null) {
-                    mSpecialMaps = games;
+                    mSpecialMaps = specialMaps;
                     context.runOnUiThread(runnable);
                 } else {
                     ErrorHelper.handleError(tag, context, e.getMessage());
@@ -106,21 +106,21 @@ public class SpecialMap extends ParseObject {
         });
     }
 
-    public static ParseQuery<SpecialMap> specificSpecialMapQuery(String gameName) {
+    public static ParseQuery<SpecialMap> specificSpecialMapQuery(String specialMapName) {
         return ParseQuery.getQuery(SpecialMap.class)
-                .whereEqualTo("name", gameName);
+                .whereEqualTo("name", specialMapName);
     }
 
     public static List<SpecialMap> getSpecialMaps() {
         return mSpecialMaps;
     }
 
-    public static void findSpecialMapByName(final String gameName, final String tag, final Activity context, final Runnable runnable){
-        specificSpecialMapQuery(gameName).findInBackground(new FindCallback<SpecialMap>() {
+    public static void findSpecialMapByName(final String specialMapName, final String tag, final Activity context, final Runnable runnable){
+        specificSpecialMapQuery(specialMapName).findInBackground(new FindCallback<SpecialMap>() {
             @Override
-            public void done(List<SpecialMap> games, ParseException e) {
+            public void done(List<SpecialMap> specialMaps, ParseException e) {
                 if (e == null) {
-                    mSpecialMap = games.get(0);
+                    mSpecialMap = specialMaps.get(0);
                     context.runOnUiThread(runnable);
                 } else {
                     ErrorHelper.handleError(tag, context, e.getMessage());

@@ -21,7 +21,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.cultivatingcows.ErrorHelper;
-import com.cultivatingcows.Models.Game;
+import com.cultivatingcows.Models.SpecialMap;
 import com.cultivatingcows.Models.Player;
 import com.cultivatingcows.Models.User;
 import com.cultivatingcows.R;
@@ -40,13 +40,13 @@ public class SpecialMapList extends AppCompatActivity {
     private static final String TAG = SpecialMapList.class.getSimpleName();
 
     @Bind(R.id.yourGamesButton)
-    Button mYourGamesButton;
+    Button mYourSpecialMapsButton;
 
     @Bind(R.id.newGameButton)
-    Button mNewGameButton;
+    Button mNewSpecialMapButton;
 
     @Bind(R.id.listView)
-    ListView mGamesList;
+    ListView mSpecialMapsList;
 
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -55,11 +55,11 @@ public class SpecialMapList extends AppCompatActivity {
     FloatingActionButton fab;
 
     private ArrayAdapter<String> mArrayAdapter;
-    private String mGameId;
+    private String mSpecialMapId;
     private ParseUser currentUser = ParseUser.getCurrentUser();
 
-    private List<Game> mAllGames;
-    private ParseObject mThisGame;
+    private List<SpecialMap> mAllSpecialMaps;
+    private ParseObject mThisSpecialMap;
     private static Context mContext;
 
 
@@ -72,11 +72,11 @@ public class SpecialMapList extends AppCompatActivity {
         ButterKnife.bind(this);
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Player.class);
-        ParseObject.registerSubclass(Game.class);
+        ParseObject.registerSubclass(SpecialMap.class);
         setSupportActionBar(toolbar);
 
 
-        mYourGamesButton.setOnClickListener(new View.OnClickListener() {
+        mYourSpecialMapsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SpecialMapList.this, YourGamesActivity.class);
@@ -84,22 +84,22 @@ public class SpecialMapList extends AppCompatActivity {
             }
         });
 
-        mNewGameButton.setOnClickListener(new View.OnClickListener() {
+        mNewSpecialMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SpecialMapList.this);
-                builder.setTitle("New Game");
+                builder.setTitle("New Map");
                 final EditText gameNameInput = new EditText(SpecialMapList.this);
-                gameNameInput.setHint("Name your new game");
+                gameNameInput.setHint("Name your new map");
                 gameNameInput.setInputType(InputType.TYPE_CLASS_TEXT);
                 builder.setView(gameNameInput);
-                final EditText numPlayersInput = new EditText(SpecialMapList.this);
-                numPlayersInput.setHint("Number of players for this game (2-4)");
-                numPlayersInput.setInputType(InputType.TYPE_CLASS_NUMBER);
+                final EditText latitudeInput = new EditText(SpecialMapList.this);
+                latitudeInput.setHint("Number of players for this game (2-4)");
+                latitudeInput.setInputType(InputType.TYPE_CLASS_NUMBER);
                 LinearLayout ll = new LinearLayout(SpecialMapList.this);
                 ll.setOrientation(LinearLayout.VERTICAL);
                 ll.addView(gameNameInput);
-                ll.addView(numPlayersInput);
+                ll.addView(latitudeInput);
                 builder.setView(ll);
                 builder.setMessage("Note: This will create a new game.")
                         .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
@@ -115,15 +115,16 @@ public class SpecialMapList extends AppCompatActivity {
                                 playersList.add(startingPlayer);
                                 /**/
 
-                                String gameName = gameNameInput.getText().toString();
-                                int numPlayers = Integer.parseInt(numPlayersInput.getText().toString());
+                                String specialMapName = gameNameInput.getText().toString();
+//                                int latitude = Integer.parseInt(latitudeInput.getText().toString());
+//                                int longitude = Integer.parseInt(latitudeInput.getText().toString());
+                                int latitude = 151;
+                                int longitude = -34;
 
-                                // Game newGame = new Game(gameName, players, numPlayers);
+                                SpecialMap newSpecialMap = new SpecialMap(specialMapName, latitude, longitude, "Hooo");
 
-                                Game newGame = new Game(gameName, players, playersList, numPlayers);
-
-                                newGame.saveGame();
-                                currentUser.add("game", gameName);
+                                newSpecialMap.saveSpecialMap();
+                                currentUser.add("specialMap", specialMapName);
                                 currentUser.saveInBackground();
                                 Intent intent = getIntent();
                                 finish();
@@ -142,27 +143,26 @@ public class SpecialMapList extends AppCompatActivity {
             }
         });
 
-        Game.findAllGamesNotInProgress(TAG, SpecialMapList.this, new Runnable() {
+        SpecialMap.findAllSpecialMaps(TAG, SpecialMapList.this, new Runnable() {
             @Override
             public void run() {
-                mAllGames = Game.getGames();
+                mAllSpecialMaps = SpecialMap.getSpecialMaps();
                 List<String[]> gamesStringList = new ArrayList<>();
 
                 List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 
-                for (ParseObject Game : mAllGames) {
-                    String gameName = Game.getString("name");
-                    int numPlayers = Game.getInt("numPlayers");
-                    int curNumPlayers = Game.getInt("curNumPlayers");
-                    int spacesRemaining = (numPlayers - curNumPlayers);
+                for (ParseObject SpecialMap : mAllSpecialMaps) {
+                    String name = SpecialMap.getString("name");
+                    String latitude = SpecialMap.getString("latitude");
+                    String longitude = SpecialMap.getString("longitude");
 
                     Map<String, String> datum = new HashMap<String, String>(3);
-                    datum.put("Game Name", gameName);
-                    datum.put("Number Players", numPlayers + " player game.\n"   + "Spaces remaining: " + spacesRemaining);
-                    datum.put("Tester", "tester");
+                    datum.put("SpecialMap Name", name);
+                    datum.put("latitude",latitude);
+                    datum.put("longitude", longitude);
                     data.add(datum);
-                    setThatList(gamesStringList, mArrayAdapter, mGamesList, data);
-                    makeListClickable(mGamesList);
+                    setThatList(gamesStringList, mArrayAdapter, mSpecialMapsList, data);
+                    makeListClickable(mSpecialMapsList);
                 }
             }
         });
@@ -173,7 +173,7 @@ public class SpecialMapList extends AppCompatActivity {
                 SpecialMapList.this,
                 data,
                 android.R.layout.simple_list_item_2,
-                new String[] {"Game Name", "Number Players", "Tester"},
+                new String[] {"SpecialMap Name", "Latitude", "Longitude"},
                 new int[] {android.R.id.text1, android.R.id.text2, android.R.id.custom});
         listView.setAdapter(simpleAdapter);
     }
@@ -183,10 +183,16 @@ public class SpecialMapList extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 Map<String, String> datum = (Map<String, String>) arg0.getItemAtPosition(position);
-                Object value = datum.get("Game Name");
-                final String gameName = (String) value;
-                Intent intent = new Intent(SpecialMapList.this, GameHomeActivity.class);
-                intent.putExtra("gameName", gameName);
+                Object nameObj = datum.get("SpecialMap Name");
+                final String name = (String) nameObj;
+                Object latObj = datum.get("Latitude");
+                final String latitude = (String) latObj;
+                Object longObj = datum.get("Longitude");
+                final String longitude = (String) longObj;
+                Intent intent = new Intent(SpecialMapList.this, MapsActivity.class);
+                intent.putExtra("name", name);
+                intent.putExtra("latitude", latitude);
+                intent.putExtra("longitude", longitude);
                 startActivity(intent);
             }
         });
@@ -240,7 +246,7 @@ public class SpecialMapList extends AppCompatActivity {
                                 User.logIn(loginUserName, password, TAG, SpecialMapList.this, new Runnable() {
                                     @Override
                                     public void run() {
-                                        //  Intent intent = new Intent(mContext, YourGamesActivity.class);
+                                        //  Intent intent = new Intent(mContext, YourSpecialMapsActivity.class);
                                         Intent intent = getIntent();
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -264,12 +270,11 @@ public class SpecialMapList extends AppCompatActivity {
             startActivity(intent);
         }
 
-        if (id == R.id.action_all_games_page) {
-            Intent intent = new Intent(this, SpecialMapList.class);
-            startActivity(intent);
-        }
+//        if (id == R.id.action_all_games_page) {
+//            startActivity(intent);
+//        }
         if (id == R.id.action_your_games_page) {
-            Intent intent = new Intent(this, YourGamesActivity.class);
+            Intent intent = new Intent(this,YourGamesActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
