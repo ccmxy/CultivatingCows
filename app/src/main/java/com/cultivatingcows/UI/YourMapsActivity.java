@@ -57,15 +57,17 @@ public class YourMapsActivity extends AppCompatActivity {
 
                 if(mUserMapsStrings != null) {
                     //mHasBegan = currentUser.getString("hasBegan");
-                    Map<String, String> datum = new HashMap<String, String>(4);
-                    datum.put("SpecialMap Name", "ThisMap");
+                    for (String thisMap: mUserMapsStrings) {
+                        Map<String, String> datum = new HashMap<String, String>(4);
+                        datum.put("SpecialMap Name", "ThisMap");
 //                    Toast.makeText(getApplicationContext(), latitudeString, Toast.LENGTH_SHORT).show();
-                    datum.put("Latitude", "45");
-                    datum.put("Longitude", "-122");
-                    datum.put("Msg", "helllo hello hello hello");
-                    data.add(datum);
-                    setThatList(mUserMapsStrings, mArrayAdapter, mMapsList, data);
-                    makeListClickable(mMapsList);
+                        datum.put("Latitude", "45");
+                        datum.put("Longitude", "-122");
+                        datum.put("Msg", "helllo hello hello hello");
+                        data.add(datum);
+                        setThatList(mUserMapsStrings, mArrayAdapter, mMapsList, data);
+                        makeListClickable(mMapsList);
+                    }
                 }
             }
         });
