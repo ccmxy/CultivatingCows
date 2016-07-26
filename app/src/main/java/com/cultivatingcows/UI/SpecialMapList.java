@@ -89,17 +89,30 @@ public class SpecialMapList extends AppCompatActivity {
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SpecialMapList.this);
                 builder.setTitle("New Map");
+
                 final EditText gameNameInput = new EditText(SpecialMapList.this);
                 gameNameInput.setHint("Name your new map");
                 gameNameInput.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder.setView(gameNameInput);
+             //   builder.setView(gameNameInput);
+
                 final EditText latitudeInput = new EditText(SpecialMapList.this);
-                latitudeInput.setHint("Number of players for this game (2-4)");
-                latitudeInput.setInputType(InputType.TYPE_CLASS_NUMBER);
+                latitudeInput.setHint("Latitude");
+                latitudeInput.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_CLASS_NUMBER);
+
+                final EditText longitudeInput = new EditText(SpecialMapList.this);
+                longitudeInput.setHint("Longitude");
+                longitudeInput.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_CLASS_NUMBER);
+
+//                final EditText gameNameInput = new EditText(SpecialMapList.this);
+//                gameNameInput.setHint("Name your new map");
+//                gameNameInput.setInputType(InputType.TYPE_CLASS_TEXT);
+
+
                 LinearLayout ll = new LinearLayout(SpecialMapList.this);
                 ll.setOrientation(LinearLayout.VERTICAL);
                 ll.addView(gameNameInput);
                 ll.addView(latitudeInput);
+                ll.addView(longitudeInput);
                 builder.setView(ll);
                 builder.setMessage("Note: This will create a new game.")
                         .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
@@ -116,10 +129,14 @@ public class SpecialMapList extends AppCompatActivity {
                                 /**/
 
                                 String specialMapName = gameNameInput.getText().toString();
+                                int longitude = Integer.parseInt(longitudeInput.getText().toString());
+                                int latitude = Integer.parseInt(latitudeInput.getText().toString());
+
 //                                int latitude = Integer.parseInt(latitudeInput.getText().toString());
 //                                int longitude = Integer.parseInt(latitudeInput.getText().toString());
-                                int latitude = 151;
-                                int longitude = -34;
+
+//                                int longitude = 151;
+//                                int latitude = -34;
 
                                 SpecialMap newSpecialMap = new SpecialMap(specialMapName, latitude, longitude, "Hooo");
 

@@ -3,7 +3,6 @@ package com.cultivatingcows.UI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.widget.Toast;
 
 import com.cultivatingcows.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -57,12 +56,12 @@ public class MapsActivity extends FragmentActivity {
 //        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         int latInt = Integer.parseInt(latitude);
         int longInt = Integer.parseInt(longitude);
-        Toast.makeText(MapsActivity.this, "Latitude: " + latitude, Toast.LENGTH_SHORT).show();
-        Toast.makeText(MapsActivity.this, "Longitude: " + longitude, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(MapsActivity.this, "Latitude: " + latitude, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(MapsActivity.this, "Longitude: " + longitude, Toast.LENGTH_SHORT).show();
 
 
        // LatLng sydney = new LatLng(-34, 151);
-       LatLng sydney = new LatLng(longInt, latInt);
+       LatLng sydney = new LatLng(latInt, longInt);
 
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
