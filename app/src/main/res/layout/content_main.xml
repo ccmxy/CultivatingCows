@@ -39,4 +39,5 @@
         android:id="@+id/listView"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

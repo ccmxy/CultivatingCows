@@ -3,6 +3,7 @@ package com.cultivatingcows.Models;
 import android.app.Activity;
 
 import com.cultivatingcows.ErrorHelper;
+import com.google.android.gms.location.LocationRequest;
 import com.parse.FindCallback;
 import com.parse.ParseClassName;
 import com.parse.ParseException;
@@ -26,6 +27,8 @@ public class SpecialMap extends ParseObject {
     private int mLatitude;
     private int mLongitude;
     private static ParseUser mWhosTurn;
+    private LocationRequest mLocationRequest;
+
 
     public SpecialMap(){
         super();

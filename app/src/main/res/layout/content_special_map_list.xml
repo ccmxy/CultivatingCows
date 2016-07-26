@@ -7,7 +7,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/activity_special_map_list" tools:context="com.cultivatingcows.UI.MainActivity">
+    tools:showIn="@layout/activity_special_map_list" tools:context="com.cultivatingcows.UI.SpecialMapList">
 
     <Button
         android:layout_width="wrap_content"
@@ -22,8 +22,9 @@
         android:layout_height="wrap_content"
         android:text="Start New Game"
         android:id="@+id/newGameButton"
-        android:layout_below="@+id/yourGamesButton"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignTop="@+id/getLocation"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,4 +40,14 @@
         android:id="@+id/listView"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="getLocation"
+        android:id="@+id/getLocation"
+        android:layout_below="@+id/yourGamesButton"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
 </RelativeLayout>

@@ -35,6 +35,7 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+//import im.delight.android.location.SimpleLocation;
 
 public class SpecialMapList extends AppCompatActivity {
     private static final String TAG = SpecialMapList.class.getSimpleName();
@@ -54,6 +55,10 @@ public class SpecialMapList extends AppCompatActivity {
     @Bind(R.id.fab)
     FloatingActionButton fab;
 
+    @Bind(R.id.getLocation)
+    Button mGetLocation;
+
+
     private ArrayAdapter<String> mArrayAdapter;
     private String mSpecialMapId;
     private ParseUser currentUser = ParseUser.getCurrentUser();
@@ -61,25 +66,41 @@ public class SpecialMapList extends AppCompatActivity {
     private List<SpecialMap> mAllSpecialMaps;
     private ParseObject mThisSpecialMap;
     private static Context mContext;
-
+//    private SimpleLocation location;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getApplicationContext();
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_special_map_list);
         ButterKnife.bind(this);
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Player.class);
         ParseObject.registerSubclass(SpecialMap.class);
         setSupportActionBar(toolbar);
 
+        // construct a new instance of SimpleLocation
+//        location = new SimpleLocation(this);
+
+//        // if we can't access the location yet
+//        if (!location.hasLocationEnabled()) {
+//            // ask the user to enable location access
+//            SimpleLocation.openSettings(this);
+//        }
 
         mYourSpecialMapsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SpecialMapList.this, YourGamesActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        mGetLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SpecialMapList.this, Main2Activity.class);
                 startActivity(intent);
             }
         });
@@ -106,11 +127,6 @@ public class SpecialMapList extends AppCompatActivity {
                 final EditText msgInput = new EditText(SpecialMapList.this);
                 msgInput.setHint("Post a message to the world");
                 msgInput.setInputType(InputType.TYPE_CLASS_TEXT);
-
-
-//                final EditText gameNameInput = new EditText(SpecialMapList.this);
-//                gameNameInput.setHint("Name your new map");
-//                gameNameInput.setInputType(InputType.TYPE_CLASS_TEXT);
 
 
                 LinearLayout ll = new LinearLayout(SpecialMapList.this);
