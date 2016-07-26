@@ -164,7 +164,9 @@ public class SpecialMapList extends AppCompatActivity {
                                 SpecialMap newSpecialMap = new SpecialMap(specialMapName, latitude, longitude, msg);
 
                                 newSpecialMap.saveSpecialMap();
-                                currentUser.add("specialMap", specialMapName);
+
+                                String accessList = specialMapName + "+" + longitude + "+" + latitude + "+" + msg;
+                                currentUser.add("specialMap", accessList);
                                 currentUser.saveInBackground();
                                 Intent intent = getIntent();
                                 finish();
@@ -201,7 +203,6 @@ public class SpecialMapList extends AppCompatActivity {
 
                     Map<String, String> datum = new HashMap<String, String>(4);
                     datum.put("SpecialMap Name", name);
-//                    Toast.makeText(getApplicationContext(), latitudeString, Toast.LENGTH_SHORT).show();
                     datum.put("Latitude", latitudeString);
                     datum.put("Longitude", longitudeString);
                     datum.put("Msg", msg);

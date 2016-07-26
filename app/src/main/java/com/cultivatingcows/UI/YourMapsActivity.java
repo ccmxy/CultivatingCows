@@ -57,13 +57,14 @@ public class YourMapsActivity extends AppCompatActivity {
 
                 if(mUserMapsStrings != null) {
                     //mHasBegan = currentUser.getString("hasBegan");
-                    for (String thisMap: mUserMapsStrings) {
+                    for (String thisMapString: mUserMapsStrings) {
                         Map<String, String> datum = new HashMap<String, String>(4);
-                        datum.put("SpecialMap Name", "ThisMap");
-//                    Toast.makeText(getApplicationContext(), latitudeString, Toast.LENGTH_SHORT).show();
-                        datum.put("Latitude", "45");
-                        datum.put("Longitude", "-122");
-                        datum.put("Msg", "helllo hello hello hello");
+                        String[] thisMapArray = thisMapString.split("\\+");
+
+                        datum.put("SpecialMap Name", thisMapArray[0]);
+                        datum.put("Latitude", thisMapArray[1]);
+                        datum.put("Longitude", thisMapArray[2]);
+                        datum.put("Msg", thisMapArray[3]);
                         data.add(datum);
                         setThatList(mUserMapsStrings, mArrayAdapter, mMapsList, data);
                         makeListClickable(mMapsList);
