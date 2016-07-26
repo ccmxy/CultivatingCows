@@ -27,6 +27,8 @@ public class User extends ParseUser {
     private String mUsername;
     private String[] mGameNameStringArray;
     private static List<String> mUserGames;
+    private static List<String> mUserMaps;
+
 
     public User() {
         super();
@@ -36,12 +38,18 @@ public class User extends ParseUser {
         mUsername = thisUser.getUsername();
         mEmail = thisUser.getEmail();
         mUserGames = thisUser.getList("game");
+        mUserMaps = thisUser.getList("specialMap");
         context.runOnUiThread(runnable);
     }
 
     public static List<String> getUserGames() {
         return mUserGames;
     }
+
+    public static List<String> getUserMaps() {
+        return mUserMaps;
+    }
+
 
     public User(String username, String password, String email) {
         setUsername(username);

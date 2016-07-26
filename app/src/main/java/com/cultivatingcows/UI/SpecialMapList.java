@@ -92,7 +92,7 @@ public class SpecialMapList extends AppCompatActivity {
         mYourSpecialMapsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SpecialMapList.this, YourGamesActivity.class);
+                Intent intent = new Intent(SpecialMapList.this, YourMapsActivity.class);
                 startActivity(intent);
             }
         });

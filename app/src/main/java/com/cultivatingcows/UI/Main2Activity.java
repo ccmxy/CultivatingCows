@@ -36,8 +36,8 @@ public class Main2Activity extends LocationBaseActivity {
 //        mFetchAddressButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-                LocationManager.setLogType(LogType.GENERAL);
-                getLocation();
+        LocationManager.setLogType(LogType.GENERAL);
+        getLocation();
 //            }
 //        });
 
@@ -138,7 +138,7 @@ public class Main2Activity extends LocationBaseActivity {
 //        if (!TextUtils.isEmpty(current)) {
 //            newValue = current + appendValue;
 //        } else {
-            newValue = appendValue;
+        newValue = appendValue;
 //        }
 //
         locationText.setText(newValue);
