@@ -13,23 +13,23 @@ import com.parse.ParseUser;
 import java.util.List;
 
 /**
- * Created by Guest on 11/12/15.
+ * Created by Guest on 7/26/16.
  */
-@ParseClassName("Game")
-public class Game extends ParseObject {
-    private static List<Game> mGames;
+@ParseClassName("SpecialMap")
+public class SpecialMap extends ParseObject {
+    private static List<SpecialMap> mSpecialMaps;
     public static List<String> mWordsList;
-    private static ParseObject mGame;
+    private static ParseObject mSpecialMap;
     private List<ParseUser> mPlayers;
     private List<Player> mThePlayers;
     private String mName;
     private static ParseUser mWhosTurn;
 
-    public Game(){
+    public SpecialMap(){
         super();
     }
 
-    public Game(String gameName, List<ParseUser> players, List<Player> playersList, int numPlayers){
+    public SpecialMap(String gameName, List<ParseUser> players, List<Player> playersList, int numPlayers){
         put("name", gameName);
         put("players", players);
         put("playersList", playersList);
@@ -39,7 +39,7 @@ public class Game extends ParseObject {
         put("whosTurn", players.get(0));
     }
 
-    public Game(ParseObject game, List<ParseUser> mPlayersList){
+    public SpecialMap(ParseObject game, List<ParseUser> mPlayersList){
         mName = game.getString("name");
         mPlayers = mPlayersList;
         mWhosTurn = game.getParseUser("whosTurn");
@@ -67,21 +67,21 @@ public class Game extends ParseObject {
         return mWhosTurn;
     }
 
-    public void saveGame() {
+    public void saveSpecialMap() {
         saveInBackground();
     }
 
-    public static ParseQuery<Game> gamesListQuery() {
-        return ParseQuery.getQuery(Game.class)
+    public static ParseQuery<SpecialMap> gamesListQuery() {
+        return ParseQuery.getQuery(SpecialMap.class)
                 .orderByAscending("name");
     }
 
-    public static void findAllGames(final String tag, final Activity context, final Runnable runnable) {
-        gamesListQuery().findInBackground(new FindCallback<Game>() {
+    public static void findAllSpecialMaps(final String tag, final Activity context, final Runnable runnable) {
+        gamesListQuery().findInBackground(new FindCallback<SpecialMap>() {
             @Override
-            public void done(List<Game> games, com.parse.ParseException e) {
+            public void done(List<SpecialMap> games, com.parse.ParseException e) {
                 if (e == null) {
-                    mGames = games;
+                    mSpecialMaps = games;
                     context.runOnUiThread(runnable);
                 } else {
                     ErrorHelper.handleError(tag, context, e.getMessage());
@@ -92,12 +92,12 @@ public class Game extends ParseObject {
         });
     }
 
-    public static void findAllGamesNotInProgress(final String tag, final Activity context, final Runnable runnable) {
-        gamesListQuery().whereEqualTo("inProgress", false).findInBackground(new FindCallback<Game>() {
+    public static void findAllSpecialMapsNotInProgress(final String tag, final Activity context, final Runnable runnable) {
+        gamesListQuery().whereEqualTo("inProgress", false).findInBackground(new FindCallback<SpecialMap>() {
             @Override
-            public void done(List<Game> games, com.parse.ParseException e) {
+            public void done(List<SpecialMap> games, com.parse.ParseException e) {
                 if (e == null) {
-                    mGames = games;
+                    mSpecialMaps = games;
                     context.runOnUiThread(runnable);
                 } else {
                     ErrorHelper.handleError(tag, context, e.getMessage());
@@ -106,21 +106,21 @@ public class Game extends ParseObject {
         });
     }
 
-    public static ParseQuery<Game> specificGameQuery(String gameName) {
-        return ParseQuery.getQuery(Game.class)
+    public static ParseQuery<SpecialMap> specificSpecialMapQuery(String gameName) {
+        return ParseQuery.getQuery(SpecialMap.class)
                 .whereEqualTo("name", gameName);
     }
 
-    public static List<Game> getGames() {
-        return mGames;
+    public static List<SpecialMap> getSpecialMaps() {
+        return mSpecialMaps;
     }
 
-    public static void findGameByName(final String gameName, final String tag, final Activity context, final Runnable runnable){
-        specificGameQuery(gameName).findInBackground(new FindCallback<Game>() {
+    public static void findSpecialMapByName(final String gameName, final String tag, final Activity context, final Runnable runnable){
+        specificSpecialMapQuery(gameName).findInBackground(new FindCallback<SpecialMap>() {
             @Override
-            public void done(List<Game> games, ParseException e) {
+            public void done(List<SpecialMap> games, ParseException e) {
                 if (e == null) {
-                    mGame = games.get(0);
+                    mSpecialMap = games.get(0);
                     context.runOnUiThread(runnable);
                 } else {
                     ErrorHelper.handleError(tag, context, e.getMessage());
@@ -129,8 +129,8 @@ public class Game extends ParseObject {
         });
     }
 
-    public static ParseObject getThisGame(){
-        return mGame;
+    public static ParseObject getThisSpecialMap(){
+        return mSpecialMap;
     }
 
 }

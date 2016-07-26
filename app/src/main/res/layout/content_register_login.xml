@@ -12,7 +12,8 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:weightSum="1">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -44,6 +45,18 @@
                 android:id="@+id/logInButton"
                 android:layout_marginLeft="20dp" />
 
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:bootstrapBrand="regular"
+                app:bootstrapSize="md"
+                app:buttonMode="regular"
+                app:showOutline="false"
+                app:roundedCorners="true"
+                android:text="View Map of Players"
+                android:id="@+id/viewMapButton"
+                android:layout_marginLeft="20dp"/>
+
         </LinearLayout>
 
         <com.beardedhen.androidbootstrap.BootstrapEditText
@@ -55,8 +68,9 @@
             android:layout_below="@+id/emailEditText"
             app:roundedCorners="true"
             android:gravity="center"
-            android:visibility="gone"
-            />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"/>
 
         <com.beardedhen.androidbootstrap.BootstrapEditText
             app:roundedCorners="true"
@@ -68,8 +82,8 @@
             android:inputType="textPassword"
             android:layout_below="@+id/usernameditText"
             android:gravity="center"
-            android:visibility="gone"
-            />
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"/>
 
         <com.beardedhen.androidbootstrap.BootstrapEditText
             app:roundedCorners="true"
@@ -80,8 +94,8 @@
             android:id="@+id/emailEditText"
             android:inputType="textEmailAddress"
             android:gravity="center"
-            android:visibility="gone"
-            />
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"/>
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="wrap_content"
@@ -93,9 +107,9 @@
             app:roundedCorners="true"
             android:text="Go!"
             android:id="@+id/goButton"
+            android:layout_gravity="center_horizontal"
             android:visibility="gone"/>
 
     </LinearLayout>
-
 
 </RelativeLayout>

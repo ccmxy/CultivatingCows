@@ -44,6 +44,10 @@ public class RegisterLoginActivity extends AppCompatActivity {
     @Bind(R.id.signUpButton)
     BootstrapButton mSignupButton;
 
+    @Bind(R.id.viewMapButton)
+    BootstrapButton mViewMapButton;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +114,17 @@ public class RegisterLoginActivity extends AppCompatActivity {
                     }
 
                 }
+            }
+        });
+
+        mViewMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterLoginActivity.this, SpecialMapList.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+
             }
         });
 

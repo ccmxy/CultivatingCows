@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cultivatingcows" >
+    package="com.cultivatingcows">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -11,11 +11,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name=".UI.RegisterLoginActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,26 +25,25 @@
         <activity
             android:name=".UI.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".UI.YourGamesActivity"
-            android:label="@string/title_activity_your_games" >
-        </activity>
+            android:label="@string/title_activity_your_games"></activity>
         <activity
             android:name=".UI.GameHomeActivity"
-            android:label="@string/title_activity_game_home" >
-        </activity>
+            android:label="@string/title_activity_game_home"></activity>
         <activity
             android:name=".UI.GamePageActivity"
             android:label="@string/title_activity_game_page"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".UI.YourCardsActivity"
             android:label="@string/title_activity_your_cards"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".UI.SpecialMapList"
+            android:label="@string/title_activity_special_map_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
