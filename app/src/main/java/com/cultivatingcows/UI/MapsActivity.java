@@ -25,9 +25,10 @@ public class MapsActivity extends FragmentActivity {
         final String name = intent.getStringExtra("name");
         final String latitude = intent.getStringExtra("latitude");
         final String longitude = intent.getStringExtra("longitude");
+        final String msg = intent.getStringExtra("msg");
 //        Toast.makeText(MapsActivity.this, name, Toast.LENGTH_SHORT).show();
 //        Toast.makeText(MapsActivity.this, latitude, Toast.LENGTH_SHORT).show();
-        setUpMapIfNeeded(latitude, longitude);
+        setUpMapIfNeeded(latitude, longitude, msg);
     }
 
 //    @Override
@@ -37,7 +38,7 @@ public class MapsActivity extends FragmentActivity {
 //    }
 
 
-    private void setUpMapIfNeeded(String latitude, String longitude) {
+    private void setUpMapIfNeeded(String latitude, String longitude, String msg) {
         // Do a null check to confirm that we have not already instantiated the map.
         if (mMap == null) {
             // Try to obtain the map from the SupportMapFragment.
@@ -45,25 +46,22 @@ public class MapsActivity extends FragmentActivity {
                     .getMap();
             // Check if we were successful in obtaining the map.
             if (mMap != null) {
-                setUpMap(latitude, longitude);
+                setUpMap(latitude, longitude, msg);
             }
         }
     }
 
 
-    private void setUpMap(String latitude, String longitude) {
+    private void setUpMap(String latitude, String longitude, String msg) {
 
-//        mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         int latInt = Integer.parseInt(latitude);
         int longInt = Integer.parseInt(longitude);
-//        Toast.makeText(MapsActivity.this, "Latitude: " + latitude, Toast.LENGTH_SHORT).show();
-//        Toast.makeText(MapsActivity.this, "Longitude: " + longitude, Toast.LENGTH_SHORT).show();
 
+        LatLng sydney = new LatLng(latInt, longInt);
 
-       // LatLng sydney = new LatLng(-34, 151);
-       LatLng sydney = new LatLng(latInt, longInt);
+//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.addMarker(new MarkerOptions().position(sydney).title(msg));
 
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
 
 

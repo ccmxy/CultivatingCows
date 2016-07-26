@@ -90,9 +90,9 @@ public class SpecialMapList extends AppCompatActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SpecialMapList.this);
                 builder.setTitle("New Map");
 
-                final EditText gameNameInput = new EditText(SpecialMapList.this);
-                gameNameInput.setHint("Name your new map");
-                gameNameInput.setInputType(InputType.TYPE_CLASS_TEXT);
+                final EditText mapNameInput = new EditText(SpecialMapList.this);
+                mapNameInput.setHint("Name your new map");
+                mapNameInput.setInputType(InputType.TYPE_CLASS_TEXT);
              //   builder.setView(gameNameInput);
 
                 final EditText latitudeInput = new EditText(SpecialMapList.this);
@@ -103,6 +103,11 @@ public class SpecialMapList extends AppCompatActivity {
                 longitudeInput.setHint("Longitude");
                 longitudeInput.setInputType(InputType.TYPE_NUMBER_FLAG_SIGNED | InputType.TYPE_CLASS_NUMBER);
 
+                final EditText msgInput = new EditText(SpecialMapList.this);
+                msgInput.setHint("Post a message to the world");
+                msgInput.setInputType(InputType.TYPE_CLASS_TEXT);
+
+
 //                final EditText gameNameInput = new EditText(SpecialMapList.this);
 //                gameNameInput.setHint("Name your new map");
 //                gameNameInput.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -110,9 +115,10 @@ public class SpecialMapList extends AppCompatActivity {
 
                 LinearLayout ll = new LinearLayout(SpecialMapList.this);
                 ll.setOrientation(LinearLayout.VERTICAL);
-                ll.addView(gameNameInput);
+                ll.addView(mapNameInput);
                 ll.addView(latitudeInput);
                 ll.addView(longitudeInput);
+                ll.addView(msgInput);
                 builder.setView(ll);
                 builder.setMessage("Note: This will create a new game.")
                         .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
@@ -128,9 +134,10 @@ public class SpecialMapList extends AppCompatActivity {
                                 playersList.add(startingPlayer);
                                 /**/
 
-                                String specialMapName = gameNameInput.getText().toString();
+                                String specialMapName = mapNameInput.getText().toString();
                                 int longitude = Integer.parseInt(longitudeInput.getText().toString());
                                 int latitude = Integer.parseInt(latitudeInput.getText().toString());
+                                String msg = msgInput.getText().toString();
 
 //                                int latitude = Integer.parseInt(latitudeInput.getText().toString());
 //                                int longitude = Integer.parseInt(latitudeInput.getText().toString());
@@ -138,7 +145,7 @@ public class SpecialMapList extends AppCompatActivity {
 //                                int longitude = 151;
 //                                int latitude = -34;
 
-                                SpecialMap newSpecialMap = new SpecialMap(specialMapName, latitude, longitude, "Hooo");
+                                SpecialMap newSpecialMap = new SpecialMap(specialMapName, latitude, longitude, msg);
 
                                 newSpecialMap.saveSpecialMap();
                                 currentUser.add("specialMap", specialMapName);
@@ -174,12 +181,14 @@ public class SpecialMapList extends AppCompatActivity {
                     String latitudeString = latitude + "";
                     int longitude = SpecialMap.getInt("longitude");
                     String longitudeString = longitude + "";
+                    String msg = SpecialMap.getString("msg");
 
-                    Map<String, String> datum = new HashMap<String, String>(3);
+                    Map<String, String> datum = new HashMap<String, String>(4);
                     datum.put("SpecialMap Name", name);
 //                    Toast.makeText(getApplicationContext(), latitudeString, Toast.LENGTH_SHORT).show();
                     datum.put("Latitude", latitudeString);
                     datum.put("Longitude", longitudeString);
+                    datum.put("Msg", msg);
                     data.add(datum);
                     setThatList(gamesStringList, mArrayAdapter, mSpecialMapsList, data);
                     makeListClickable(mSpecialMapsList);
@@ -193,7 +202,7 @@ public class SpecialMapList extends AppCompatActivity {
                 SpecialMapList.this,
                 data,
                 android.R.layout.simple_list_item_2,
-                new String[] {"SpecialMap Name", "Latitude", "Longitude"},
+                new String[] {"SpecialMap Name", "Latitude", "Longitude", "Msg"},
                 new int[] {android.R.id.text1, android.R.id.text2, android.R.id.custom});
         listView.setAdapter(simpleAdapter);
     }
@@ -209,10 +218,13 @@ public class SpecialMapList extends AppCompatActivity {
                 final String latitude = (String) latObj;
                 Object longObj = datum.get("Longitude");
                 final String longitude = (String) longObj;
+                Object msgObj = datum.get("Msg");
+                final String msg = (String) msgObj;
                 Intent intent = new Intent(SpecialMapList.this, MapsActivity.class);
                 intent.putExtra("name", name);
                 intent.putExtra("latitude", latitude);
                 intent.putExtra("longitude", longitude);
+                intent.putExtra("msg", msg);
                 startActivity(intent);
             }
         });
