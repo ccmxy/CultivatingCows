@@ -44,10 +44,6 @@
             android:name=".UI.YourCardsActivity"
             android:label="@string/title_activity_your_cards"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".UI.SpecialMapList"
-            android:label="@string/title_activity_special_map_list"
-            android:theme="@style/AppTheme.NoActionBar" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

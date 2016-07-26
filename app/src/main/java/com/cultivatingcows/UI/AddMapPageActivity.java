@@ -35,15 +35,7 @@ public class AddMapPageActivity extends AppCompatActivity {
 
     @Bind(R.id.goToMapButton)
     BootstrapButton mGoToMap;
-//
-//    @Bind(R.id.goButton)
-//    BootstrapButton mGoButton;
-//
-//    @Bind(R.id.signUpButton)
-//    BootstrapButton mSignupButton;
-//
-//    @Bind(R.id.communityMapButton)
-//    BootstrapButton mCommunityMapButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +60,7 @@ public class AddMapPageActivity extends AppCompatActivity {
                 mMessageEditText.setVisibility(View.GONE);
 
 
-                SpecialMap newSpecialMap = new SpecialMap("doesntMatter", latitude, longitude, msg);
+                SpecialMap newSpecialMap = new SpecialMap(latitude, longitude, msg);
 
                 newSpecialMap.saveSpecialMap();
 

@@ -30,45 +30,17 @@ public class SpecialMap extends ParseObject {
     private LocationRequest mLocationRequest;
 
 
-    public SpecialMap(){
-        super();
-    }
 
-    public SpecialMap(String name, int latitude, int longitude, String msg){
-        put("name", name);
+    public SpecialMap(int latitude, int longitude, String msg){
         put("latitude", latitude); //was players
         put("longitude", longitude); //was playerList
         put("msg", msg); //was numPlayers
-    }
-
-    //THE PLAYERSLIST AS PARSEUSER MAY HAVE BEEN THE ISSUE THE WHOLE TIME
-    public SpecialMap(ParseObject SpecialMap){
-        mName = SpecialMap.getString("name");
-        mLatitude = SpecialMap.getInt("latitude");
-        mLongitude = SpecialMap.getInt("longitude");
-    }
-
-    public void nextTurn() {
-        int idx = mPlayers.indexOf(mWhosTurn);
-        if(idx == mPlayers.size() - 1){
-            mWhosTurn = mPlayers.get(0);
-        }
-        else {
-            mWhosTurn = mPlayers.get(idx + 1);
-        }
     }
 
     public String getName(){
         return mName;
     }
 
-    public List<ParseUser> getPlayers(){
-        return mPlayers;
-    }
-
-    public static ParseUser getWhosTurn(){
-        return mWhosTurn;
-    }
 
     public void saveSpecialMap() {
         saveInBackground();

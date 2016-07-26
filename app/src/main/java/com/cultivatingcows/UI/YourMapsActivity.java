@@ -73,14 +73,6 @@ public class YourMapsActivity extends AppCompatActivity {
             }
         });
 
-//        mAllMapsButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(YourMapsActivity.this, SpecialMapList.class);
-//                startActivity(intent);
-//            }
-//        });
-
     }//END OF ONCREATE
     public void setThatList(List<String> stringList, ArrayAdapter<String> arrayAdapter, ListView listView, List<Map<String, String>> data) {
         SimpleAdapter simpleAdapter = new SimpleAdapter(
@@ -114,31 +106,6 @@ public class YourMapsActivity extends AppCompatActivity {
             }
         });
     }
-//    public void makeListClickable(ListView listView) {
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-//                final String mapName = (String) arg0.getItemAtPosition(position);
-//                if(mHasBegan != null) {
-//                    if (mHasBegan.equals(mapName)) {
-//                        Intent intent = new Intent(YourMapsActivity.this, MapPageActivity.class);
-//                        intent.putExtra("mapName", mapName);
-//                        startActivity(intent);
-//                    }
-//                    else{
-//                        Intent intent = new Intent(YourMapsActivity.this, MapHomeActivity.class);
-//                        intent.putExtra("mapName", mapName);
-//                        startActivity(intent);
-//                    }
-//                }
-//                else {
-//                    Intent intent = new Intent(YourMapsActivity.this, MapHomeActivity.class);
-//                    intent.putExtra("mapName", mapName);
-//                    startActivity(intent);
-//                }
-//            }
-//        });
-//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -159,14 +126,6 @@ public class YourMapsActivity extends AppCompatActivity {
             Intent intent = new Intent(this, RegisterLoginActivity.class);
             startActivity(intent);
         }
-//        if (id == R.id.action_all_maps_page) {
-//            Intent intent = new Intent(this, MainActivity.class);
-//            startActivity(intent);
-//        }
-//        if (id == R.id.action_your_maps_page) {
-//            Intent intent = new Intent(this, YourMapsActivity.class);
-//            startActivity(intent);
-//        }
         return super.onOptionsItemSelected(item);
     }
 
