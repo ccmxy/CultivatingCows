@@ -53,8 +53,8 @@
                 app:buttonMode="regular"
                 app:showOutline="false"
                 app:roundedCorners="true"
-                android:text="View Map of Players"
-                android:id="@+id/viewMapButton"
+                android:text="Community Map"
+                android:id="@+id/communityMapButton"
                 android:layout_marginLeft="20dp"/>
 
         </LinearLayout>

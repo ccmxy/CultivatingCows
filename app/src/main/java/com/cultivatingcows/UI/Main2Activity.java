@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.cultivatingcows.R;
@@ -15,15 +14,10 @@ import com.yayandroid.locationmanager.constants.FailType;
 import com.yayandroid.locationmanager.constants.LogType;
 import com.yayandroid.locationmanager.constants.ProviderType;
 
-import butterknife.Bind;
-
 public class Main2Activity extends LocationBaseActivity {
 
     private ProgressDialog progressDialog;
     private TextView locationText;
-    @Bind(R.id.fetch_address_button)
-    Button mFetchAddressButton;
-
 
 
     @Override
@@ -33,13 +27,8 @@ public class Main2Activity extends LocationBaseActivity {
 
         locationText = (TextView) findViewById(R.id.locationText);
 
-//        mFetchAddressButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
         LocationManager.setLogType(LogType.GENERAL);
         getLocation();
-//            }
-//        });
 
     }
 

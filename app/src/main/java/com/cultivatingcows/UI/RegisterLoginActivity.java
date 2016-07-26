@@ -14,7 +14,6 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapBrand;
 import com.beardedhen.androidbootstrap.api.defaults.DefaultBootstrapSize;
-import com.cultivatingcows.BootstrapClass;
 import com.cultivatingcows.ErrorHelper;
 import com.cultivatingcows.Models.User;
 import com.cultivatingcows.R;
@@ -44,10 +43,8 @@ public class RegisterLoginActivity extends AppCompatActivity {
     @Bind(R.id.signUpButton)
     BootstrapButton mSignupButton;
 
-    @Bind(R.id.viewMapButton)
-    BootstrapButton mViewMapButton;
-
-
+    @Bind(R.id.communityMapButton)
+    BootstrapButton mCommunityMapButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +54,7 @@ public class RegisterLoginActivity extends AppCompatActivity {
         mLoginButton.setActivated(false);
         mSignupButton.setActivated(false);
 
-        BootstrapClass strappy;
-
         ParseObject.registerSubclass(User.class);
-//        Parse.enableLocalDatastore(this);
-//        Parse.initialize(this, "7DNaExGH9NK4AWOHPh3xg07BXQ8HvFw4fqe5gpHM", "pRFGQEEZfQ8IV0rt9soZfJqgnclLydKJAy9ENVAN");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -117,16 +110,18 @@ public class RegisterLoginActivity extends AppCompatActivity {
             }
         });
 
-        mViewMapButton.setOnClickListener(new View.OnClickListener() {
+        mCommunityMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegisterLoginActivity.this, SpecialMapList.class);
+                Intent intent = new Intent(RegisterLoginActivity.this, AddMapPageActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 
             }
         });
+
+
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
