@@ -1,7 +1,7 @@
 package com.cultivatingcows.Models;
 
 /**
- * Created by colleenminor on 11/15/15.
+ * Created by colleenminor on 7/25/16.
  */
 public class PairOfDice {
         public int die1;   // Number showing on the first die.

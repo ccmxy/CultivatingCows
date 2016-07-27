@@ -15,7 +15,7 @@ import java.util.List;
 
 
 /**
- * Created by colleenminor on 11/11/15.
+ * Created by colleenminor on 7/20/16.
  */
 
 @ParseClassName("_User")
@@ -28,7 +28,6 @@ public class User extends ParseUser {
     private String[] mGameNameStringArray;
     private static List<String> mUserGames;
     private static List<String> mUserMaps;
-
 
     public User() {
         super();

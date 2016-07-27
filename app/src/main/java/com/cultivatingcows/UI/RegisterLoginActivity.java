@@ -53,6 +53,7 @@ public class RegisterLoginActivity extends AppCompatActivity {
         mSignupButton.setActivated(false);
 
         ParseObject.registerSubclass(User.class);
+        //ParseObject.registerSubclass(SpecialMap.class);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

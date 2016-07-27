@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Player.class);
         ParseObject.registerSubclass(Game.class);
+
         setSupportActionBar(toolbar);
 
 

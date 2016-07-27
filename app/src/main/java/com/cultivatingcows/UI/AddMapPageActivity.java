@@ -1,5 +1,6 @@
 package com.cultivatingcows.UI;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,13 +9,13 @@ import android.view.View;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
-import com.cultivatingcows.Models.SpecialMap;
 import com.cultivatingcows.R;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.parse.ParseObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
 
 public class AddMapPageActivity extends AppCompatActivity {
     private static final String TAG = AddMapPageActivity.class.getSimpleName();
@@ -40,15 +41,21 @@ public class AddMapPageActivity extends AppCompatActivity {
     BootstrapButton mGoToMap;
 
     private GoogleApiClient client;
+    private static Context mContext;
+    private ParseObject mThisGame;
+//    ParseObject.registerSubclass(SpecialMap.class);
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mContext = getApplicationContext();
 
         setContentView(R.layout.activity_add_map_page);
         ButterKnife.bind(this);
-        ParseObject.registerSubclass(SpecialMap.class);
+        //ParseObject.registerSubclass(SpecialMap.class);
+      //  ParseObject.registerSubclass(SpecialMap.class);
+
 
         mNewMapButton.setActivated(false);
 
@@ -69,14 +76,19 @@ public class AddMapPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                int longitude = Integer.valueOf(mLatitudeEditText.getText().toString().trim());
-                int latitude = Integer.valueOf(mLongitudeEditText.getText().toString().trim());
+                int latitude = Integer.valueOf(mLatitudeEditText.getText().toString().trim());
+                int longitude = Integer.valueOf(mLongitudeEditText.getText().toString().trim());
                 String msg = mMessageEditText.getText().toString().trim();
                 mLatitudeEditText.setVisibility(View.GONE);
                 mLongitudeEditText.setVisibility(View.GONE);
                 mMessageEditText.setVisibility(View.GONE);
-                SpecialMap newSpecialMap = new SpecialMap(latitude, longitude, msg);
-                newSpecialMap.saveSpecialMap();
+                mNewMapButton.setVisibility(View.GONE);
+                ParseObject specialMap = new ParseObject("SpecialMap");
+                specialMap.put("latitude", latitude);
+                specialMap.put("longitude", longitude);
+                specialMap.put("msg", msg);
+                specialMap.saveInBackground();
+
 
             }
 
@@ -86,8 +98,6 @@ public class AddMapPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddMapPageActivity.this, UserLatlongActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -96,8 +106,6 @@ public class AddMapPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddMapPageActivity.this, MapsActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });

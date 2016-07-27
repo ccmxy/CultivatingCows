@@ -9,7 +9,7 @@ import com.parse.ParseUser;
 import java.util.List;
 
 /**
- * Created by colleenminor on 11/28/15.
+ * Created by colleenminor on 7/20/16.
  */
 @ParseClassName("Player")
 public class Player extends ParseObject {
