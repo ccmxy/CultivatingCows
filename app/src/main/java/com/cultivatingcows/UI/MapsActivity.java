@@ -1,6 +1,5 @@
 package com.cultivatingcows.UI;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
@@ -26,11 +25,6 @@ public class MapsActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        Intent intent = getIntent();
-//        final String name = intent.getStringExtra("name");
-//        final String latitude = intent.getStringExtra("latitude");
-//        final String longitude = intent.getStringExtra("longitude");
-//        final String msg = intent.getStringExtra("msg");
         setUpMapIfNeeded();
     }
 
@@ -48,18 +42,8 @@ public class MapsActivity extends FragmentActivity {
     }
 
 
+    //Set up the map with all markers and zoom in on the last one:
     private void setUpMap() {
-
-//
-//        int latInt = Integer.parseInt(latitude);
-//        int longInt = Integer.parseInt(longitude);
-//
-//        LatLng sydney = new LatLng(latInt, longInt);
-//
-//        mMap.addMarker(new MarkerOptions().position(sydney).title(msg));
-//
-//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-
         SpecialMap.findAllSpecialMaps(TAG, MapsActivity.this, new Runnable() {
             @Override
             public void run() {
@@ -68,9 +52,9 @@ public class MapsActivity extends FragmentActivity {
                     int latitude = SpecialMap.getInt("latitude");
                     int longitude = SpecialMap.getInt("longitude");
                     String msg = SpecialMap.getString("msg");
-                    LatLng sydney = new LatLng(latitude, longitude);
-                    mMap.addMarker(new MarkerOptions().position(sydney).title(msg));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                    LatLng marker = new LatLng(latitude, longitude);
+                    mMap.addMarker(new MarkerOptions().position(marker).title(msg));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
                 }
             }
         });

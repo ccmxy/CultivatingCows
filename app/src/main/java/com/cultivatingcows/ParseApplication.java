@@ -5,9 +5,7 @@ import android.app.Application;
 import com.beardedhen.androidbootstrap.TypefaceProvider;
 import com.parse.Parse;
 
-/**
- * Created by Guest on 11/16/15.
- */
+
 public class ParseApplication extends Application {
 
     @Override

@@ -9,8 +9,9 @@ import com.parse.ParseUser;
 import java.util.List;
 
 /**
- * Created by colleenminor on 7/20/16.
+Not very used class.
  */
+
 @ParseClassName("Player")
 public class Player extends ParseObject {
     private List<Player> mPlayers;
@@ -20,7 +21,7 @@ public class Player extends ParseObject {
         super();
     }
 
-    //Just in case I want to use a runnable or something:
+    //Just in case...
     public Player(ParseUser thisUser, final String TAG, final Activity context) {
         put("User", thisUser);
         put("score", 0);

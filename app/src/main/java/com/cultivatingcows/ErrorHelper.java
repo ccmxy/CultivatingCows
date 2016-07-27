@@ -4,9 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 
-/**
- * Created by colleenminor on 11/11/15.
- */
 public class ErrorHelper {
 
     public static void displayAlertDialog(Context context, String message) {

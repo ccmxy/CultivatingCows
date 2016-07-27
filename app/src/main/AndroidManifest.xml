@@ -63,10 +63,6 @@
             android:name=".UI.UserLatlongActivity"
             android:label="@string/title_activity_main2" />
         <activity
-            android:name=".UI.YourMapsActivity"
-            android:label="@string/title_activity_your_maps"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".UI.AddMapPageActivity"
             android:label="@string/title_activity_add_map_page"
             android:theme="@style/AppTheme.NoActionBar"></activity>

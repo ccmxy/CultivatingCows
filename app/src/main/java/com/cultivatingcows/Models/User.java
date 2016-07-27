@@ -14,10 +14,7 @@ import com.parse.SignUpCallback;
 import java.util.List;
 
 
-/**
- * Created by colleenminor on 7/20/16.
- */
-
+//User is a built-in Parse.com object that is useful for loggin in:
 @ParseClassName("_User")
 public class User extends ParseUser {
     private static List<ParseUser> mPlayers;
@@ -29,28 +26,12 @@ public class User extends ParseUser {
     private static List<String> mUserGames;
     private static List<String> mUserMaps;
 
+    //This is needed for Parse.com to create an object:
     public User() {
         super();
     }
 
-    public User(ParseUser thisUser, final String TAG, final Activity context, final Runnable runnable) {
-        mUsername = thisUser.getUsername();
-        mEmail = thisUser.getEmail();
-        mUserGames = thisUser.getList("game");
-        mUserMaps = thisUser.getList("specialMap");
-        context.runOnUiThread(runnable);
-    }
-
-    public static List<String> getUserGames() {
-        return mUserGames;
-    }
-
-    //This gets passed into the runnable
-    public static List<String> getUserMapNames() {
-        return mUserMaps;
-    }
-
-
+    //Constructor for creating a new ParseUser:
     public User(String username, String password, String email) {
         setUsername(username);
         mUsername = username;
@@ -60,7 +41,28 @@ public class User extends ParseUser {
         put("score", 0);
     }
 
+    //Constructor for creating a local User object from a retrieved ParseUser for accessing variables:
+    public User(ParseUser thisUser, final String TAG, final Activity context, final Runnable runnable) {
+        mUsername = thisUser.getUsername();
+        mEmail = thisUser.getEmail();
+        mUserGames = thisUser.getList("game");
+        context.runOnUiThread(runnable);
+    }
+
+    //Getters to call during queries:
+    public static List<String> getUserGames() {
+        return mUserGames;
+    }
+
+    public static List<ParseUser> getPlayers() {
+        return mPlayers;
+    }
+
+
+
+    //The runnable here is used to start the MainActivity page:
     public void register(final String tag, final Activity context, final Runnable runnable) {
+        //Sign up functionality built into the Parse.com _User class:
         signUpInBackground(new SignUpCallback() {
             @Override
             public void done(ParseException e) {
@@ -76,7 +78,9 @@ public class User extends ParseUser {
         });
     }
 
+    //The runnable here is used to start the MainActivity page:
     public static void logIn(final String username, final String password, final String tag, final Activity context, final Runnable runnable) {
+        //logInInBackground is inherent to the Parse.com _User class:
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser parseUser, ParseException e) {
@@ -89,6 +93,7 @@ public class User extends ParseUser {
         });
     }
 
+    //findPlayers is in the User class because it wasn't any easier to do from the Game class:
     public static void findPlayers(final String gameName, final String tag, final Activity context, final Runnable runnable) {
         playersListQuery(gameName).findInBackground(new FindCallback<ParseUser>() {
             @Override
@@ -103,13 +108,9 @@ public class User extends ParseUser {
         });
     }
 
+    //This is the query used with findPlayers:
     public static ParseQuery<ParseUser> playersListQuery(String gameName) {
         ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
         return userQuery.whereEqualTo("game", gameName);
     }
-
-    public static List<ParseUser> getPlayers() {
-        return mPlayers;
-    }
-
 }

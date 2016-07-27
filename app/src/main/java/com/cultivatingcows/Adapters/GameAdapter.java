@@ -10,9 +10,6 @@ import com.cultivatingcows.Models.Game;
 
 import java.util.List;
 
-/**
- * Created by Guest on 11/12/15.
- */
 public class GameAdapter extends BaseAdapter{
         protected Context mContext;
         protected List<Game> mGames;

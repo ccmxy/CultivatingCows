@@ -35,6 +35,8 @@ import java.util.Map;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/***** This is not actually the Main Activity, but is instead an activity which inflates a ListView
+ * with all of the games that are in need of players. *****/
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -50,9 +52,6 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
-//    @Bind(R.id.fab)
-//    FloatingActionButton fab;
-
     private ArrayAdapter<String> mArrayAdapter;
     private String mGameId;
     private ParseUser currentUser = ParseUser.getCurrentUser();
@@ -60,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
     private List<Game> mAllGames;
     private ParseObject mThisGame;
     private static Context mContext;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        //This creates a pop-up for creating a new game:
         mNewGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,23 +103,24 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 ParseUser currentUser = ParseUser.getCurrentUser();
+                                //The reason for both a list of ParseUsers called
+                                // players and a list of Players called playersList is
+                                // that I was going to seperate the User from the player
+                                // agent so their activity in one game wouldn't effect another.
                                 List<ParseUser> players = new ArrayList<ParseUser>();
                                 players.add(currentUser);
 
-                                /**/
                                 List<Player> playersList = new ArrayList<Player>();
                                 final Player startingPlayer = new Player(currentUser, TAG, MainActivity.this);
                                 playersList.add(startingPlayer);
-                                /**/
 
                                 String gameName = gameNameInput.getText().toString();
                                 int numPlayers = Integer.parseInt(numPlayersInput.getText().toString());
-
-                                // Game newGame = new Game(gameName, players, numPlayers);
-
+                                //Create a new Game object:
                                 Game newGame = new Game(gameName, players, playersList, numPlayers);
-
+                                //Save game:
                                 newGame.saveGame();
+                                //Add this game to the user's list of games:
                                 currentUser.add("game", gameName);
                                 currentUser.saveInBackground();
                                 Intent intent = getIntent();
@@ -147,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 mAllGames = Game.getGames();
                 List<String[]> gamesStringList = new ArrayList<>();
-
                 List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 
                 for (ParseObject Game : mAllGames) {
@@ -157,9 +154,12 @@ public class MainActivity extends AppCompatActivity {
                     int spacesRemaining = (numPlayers - curNumPlayers);
 
                     Map<String, String> datum = new HashMap<String, String>(3);
+
+                    //The "Game Name" value is later set to be passed to the GameHomeActivity
+                    // intent in setOnClickListener:
                     datum.put("Game Name", gameName);
+                    //I just use this one to show the number of players and spaces below the list item:
                     datum.put("Number Players", numPlayers + " player game.\n"   + "Spaces remaining: " + spacesRemaining);
-                    datum.put("Tester", "tester");
                     data.add(datum);
                     setThatList(gamesStringList, mArrayAdapter, mGamesList, data);
                     makeListClickable(mGamesList);
@@ -168,6 +168,7 @@ public class MainActivity extends AppCompatActivity {
         });
     } //End of onCreate
 
+    //Set the list view:
     public void setThatList(List<String[]> stringList, ArrayAdapter<String> arrayAdapter, ListView listView,  List<Map<String, String>> data) {
         SimpleAdapter simpleAdapter = new SimpleAdapter(
         MainActivity.this,
@@ -178,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 listView.setAdapter(simpleAdapter);
         }
 
+    //Make each item in the list view take the user to the right game page:
     public void makeListClickable(ListView listView) {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

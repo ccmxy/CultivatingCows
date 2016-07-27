@@ -12,7 +12,7 @@ import java.util.List;
 
 
 /**
- * Created by colleenminor on 7/26/16.
+ * SpecialMaps are markers for the community map.
  */
 @ParseClassName("SpecialMap")
 public class SpecialMap extends ParseObject {
@@ -24,7 +24,7 @@ public class SpecialMap extends ParseObject {
                 .orderByAscending("name");
     }
 
-    //This function is always run with a runnable which executes the retreived objects:
+    //This function is always run with a runnable which manipulates the retrieved objects:
     public static void findAllSpecialMaps(final String tag, final Activity context, final Runnable runnable) {
         specialMapsListQuery().findInBackground(new FindCallback<SpecialMap>() {
             @Override

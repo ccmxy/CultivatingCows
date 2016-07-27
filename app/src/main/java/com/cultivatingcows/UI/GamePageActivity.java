@@ -78,6 +78,7 @@ public class GamePageActivity extends AppCompatActivity {
         final String gameName = intent.getStringExtra("gameName");
         gameNameText.setText(gameName);
 
+        //The findPlayers method is in the User method instead of the Game method:
         User.findPlayers(gameName, TAG, GamePageActivity.this, new Runnable() {
             @Override
             public void run() {
@@ -94,14 +95,20 @@ public class GamePageActivity extends AppCompatActivity {
             }
         });
 
-
+        //This is not a function. I put a runnable in so it's a very long call
+        // to findGameByName in the Game class.
         Game.findGameByName(gameName, TAG, GamePageActivity.this, new Runnable() {
             @Override
             public void run() {
+                //At this point Game can access the Parse Object
+                // it searched for in mParseGame because mParseGame
+                // was retrieved and set as a static member of the class
+                // before the runnable began.
                 mParseGame = Game.getThisGame();
+
+                //The new Game here is making a local game object to access variables from:
                 mGame = new Game(mParseGame, mPlayers);
-                List<String> mPlayersStringList = new ArrayList<String>();
-                mPlayersStringList = mParseGame.getList("playersList");
+
                 mWhosTurn = Game.getWhosTurn();
                 String thisTurn = mWhosTurn.getUsername();
                 mWhosTurnText.setText("It is " + thisTurn + "'s turn.");
@@ -123,7 +130,7 @@ public class GamePageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-       // FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -138,23 +145,26 @@ public class GamePageActivity extends AppCompatActivity {
                     public void run() {
                         mParseGame = Game.getThisGame();
                         mGame = new Game(mParseGame, mPlayers);
+                        //Switch current turn in game class:
                         mGame.nextTurn();
+                        //Get current turn in game class:
                         mWhosTurn = Game.getWhosTurn();
+                        //Update the Game ParseObject and save:
                         mParseGame.put("whosTurn", mWhosTurn);
                         mParseGame.saveInBackground();
+                        //Set the dice to invisible when it is not the player's turn:
                         fab.setVisibility(View.INVISIBLE);
                     }
                 });
-
+                //Alert the user how they rolled with a brief snackbar pop up:
                 Snackbar.make(view, "You rolled a " + theRoll, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-//                Intent intent = getIntent();
-//                startActivity(intent);
+                //Add a handler to snackbar to refresh when it's done:
                 final Handler handler = new Handler();
+                //Refresh the page about a 1.5 second delay:
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        // Do something after 1.5s = 1500ms
                         Intent intent = getIntent();
                         startActivity(intent);
                     }
@@ -180,7 +190,8 @@ public class GamePageActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //This creates a builder, a pop-up dialoge that the user can create a
+        // new Game object with.
         if (id == R.id.action_quick_login) {
             AlertDialog.Builder builder = new AlertDialog.Builder(GamePageActivity.this);
             builder.setTitle("Quick Login");
@@ -200,9 +211,8 @@ public class GamePageActivity extends AppCompatActivity {
                     .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
+                            //Get the user currently logged in. getCurrentUser() is build-in to Parse.com.
                             ParseUser currentUser = ParseUser.getCurrentUser();
-//                            List<ParseUser> players = new ArrayList<ParseUser>();
-//                            players.add(currentUser);
                             String loginUserName = userNameInpuut.getText().toString();
                             String password = passwordInput.getText().toString();
                             if (loginUserName.isEmpty() || password.isEmpty()) {
@@ -213,7 +223,6 @@ public class GamePageActivity extends AppCompatActivity {
                                 User.logIn(loginUserName, password, TAG, GamePageActivity.this, new Runnable() {
                                     @Override
                                     public void run() {
-                                      //  Intent intent = new Intent(mContext, YourGamesActivity.class);
                                         Intent intent = getIntent();
                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);

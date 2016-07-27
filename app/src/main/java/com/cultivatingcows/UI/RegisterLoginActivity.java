@@ -53,7 +53,6 @@ public class RegisterLoginActivity extends AppCompatActivity {
         mSignupButton.setActivated(false);
 
         ParseObject.registerSubclass(User.class);
-        //ParseObject.registerSubclass(SpecialMap.class);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -162,7 +161,6 @@ public class RegisterLoginActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_login_page) {
             Intent intent = new Intent(this, RegisterLoginActivity.class);
             startActivity(intent);

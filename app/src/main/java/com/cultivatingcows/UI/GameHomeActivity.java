@@ -30,6 +30,11 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/**** This screen is shown when a game has not been begun by any user yet, and it shows
+ * how many players need to sign up in order for the game to begin, and if not enough
+ * users have signed up it shows a "Join Game" button, and if enough users have sigend up
+ * it shows "Begin Game" button to users who are playing.
+ * ****/
 public class GameHomeActivity extends AppCompatActivity {
     private static final String TAG = GameHomeActivity.class.getSimpleName();
 
@@ -51,7 +56,6 @@ public class GameHomeActivity extends AppCompatActivity {
     @Bind(R.id.refreshButton)
     Button mRefreshButton;
 
-
     private static ParseUser currentUser;
     private List<ParseUser> mPlayers;
     private String mPlayerNames;
@@ -62,19 +66,17 @@ public class GameHomeActivity extends AppCompatActivity {
     private boolean curUserIsPlaying;
     private static Context mContext;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_home);
         ButterKnife.bind(this);
+        //Get the user:
         currentUser = ParseUser.getCurrentUser();
         Intent intent = getIntent();
+        //The gameName was passed here from MainActivity with Intent.PutExtra:
         final String gameName = intent.getStringExtra("gameName");
         gameNameText.setText(gameName);
-
         User.findPlayers(gameName, TAG, GameHomeActivity.this, new Runnable() {
             @Override
             public void run() {
@@ -90,7 +92,10 @@ public class GameHomeActivity extends AppCompatActivity {
             }
         });
 
-
+        //Test the numPlayers against
+        // the number of players currently signed up to
+        // see if there is still room, display
+        // different output depending on the answer:
         Game.findGameByName(gameName, TAG, GameHomeActivity.this, new Runnable() {
             @Override
             public void run() {
@@ -122,6 +127,7 @@ public class GameHomeActivity extends AppCompatActivity {
             }
         });
 
+        //Button for the user to join a game:
         mJoinGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +137,8 @@ public class GameHomeActivity extends AppCompatActivity {
                         setPositiveButton("Okay", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
+                                //Game is added to the string array of games in
+                                // the ParseUser:
                                 currentUser.add("game", gameName);
                                 currentUser.saveInBackground();
                                 Player newPlayer = new Player(currentUser);

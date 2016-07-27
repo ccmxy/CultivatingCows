@@ -22,9 +22,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class YourGamesActivity extends AppCompatActivity {
-    /*2Delete later*/
     private List<String> mUserGamesStrings;
-    //private List<Game> mUserGames;
     private static final String TAG = YourGamesActivity.class.getSimpleName();
 
     @Bind(R.id.yourGamesList)
