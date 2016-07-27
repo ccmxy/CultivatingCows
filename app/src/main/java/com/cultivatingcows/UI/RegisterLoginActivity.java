@@ -173,6 +173,10 @@ public class RegisterLoginActivity extends AppCompatActivity {
             Intent intent = new Intent(this, YourGamesActivity.class);
             startActivity(intent);
         }
+        if (id == R.id.action_community_map_page) {
+            Intent intent = new Intent(this, MapsActivity.class);
+            startActivity(intent);
+        }
 
         return super.onOptionsItemSelected(item);
     }}

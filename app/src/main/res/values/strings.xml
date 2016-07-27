@@ -5,6 +5,7 @@
     <string name="action_all_games_page">Join or Create Game</string>
     <string name="action_your_games_page">Your Games</string>
     <string name="action_quick_login">Quick Login</string>
+    <string name="action_community_map_page">Community Map</string>
 
 
     <string name="title_activity_main">MainActivity</string>

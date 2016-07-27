@@ -14,6 +14,10 @@
             android:title="@string/action_your_games_page"
             android:orderInCategory="100"
             app:showAsAction="never"/>
+    <item android:id="@+id/action_community_map_page"
+        android:title="@string/action_community_map_page"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
 
 </menu>
 
