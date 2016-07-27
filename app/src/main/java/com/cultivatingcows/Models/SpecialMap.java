@@ -52,7 +52,6 @@ public class SpecialMap extends ParseObject {
         put("msg", msg);
     }
 
-
     public void saveSpecialMap() {
         saveInBackground();
     }
