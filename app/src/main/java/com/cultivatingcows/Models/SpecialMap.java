@@ -55,6 +55,4 @@ public class SpecialMap extends ParseObject {
     public void saveSpecialMap() {
         saveInBackground();
     }
-
-
 }

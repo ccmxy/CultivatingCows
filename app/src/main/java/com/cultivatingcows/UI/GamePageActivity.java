@@ -34,6 +34,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/****** The main game page, where users take turns rolling dice. ****/
 public class GamePageActivity extends AppCompatActivity {
     private static final String TAG = GamePageActivity.class.getSimpleName();
     private ParseObject mParseGame;

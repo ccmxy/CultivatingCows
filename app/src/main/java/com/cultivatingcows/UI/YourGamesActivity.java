@@ -36,8 +36,6 @@ public class YourGamesActivity extends AppCompatActivity {
     private String mHasBegan;
     private static Context mContext;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

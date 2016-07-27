@@ -56,7 +56,6 @@ public class RegisterLoginActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         mGoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,8 +109,6 @@ public class RegisterLoginActivity extends AppCompatActivity {
 
             }
         });
-
-
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override

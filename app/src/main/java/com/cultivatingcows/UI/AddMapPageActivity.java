@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
@@ -18,7 +19,6 @@ import butterknife.ButterKnife;
 
 ////******* Activity where there are options to either get geolocation, add a marker
 // to the community map, or view the community map. All take you to new activities.********/////
-
 public class AddMapPageActivity extends AppCompatActivity {
     private static final String TAG = AddMapPageActivity.class.getSimpleName();
     @Bind(R.id.latitudeEditText)
@@ -45,7 +45,6 @@ public class AddMapPageActivity extends AppCompatActivity {
     private GoogleApiClient client;
     private static Context mContext;
     private ParseObject mThisGame;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +85,9 @@ public class AddMapPageActivity extends AppCompatActivity {
                 mLongitudeEditText.setVisibility(View.GONE);
                 mMessageEditText.setVisibility(View.GONE);
                 mNewMapButton.setVisibility(View.GONE);
+                //Hide the keyboard:
+                InputMethodManager mgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                mgr.hideSoftInputFromWindow(mNewMapButton.getWindowToken(), 0);
                 //Create the new SpecialMap object:
                 ParseObject specialMap = new ParseObject("SpecialMap");
                 specialMap.put("latitude", latitude);
@@ -113,5 +115,4 @@ public class AddMapPageActivity extends AppCompatActivity {
             }
         });
     }
-
 }

@@ -5,7 +5,7 @@ import android.app.Application;
 import com.beardedhen.androidbootstrap.TypefaceProvider;
 import com.parse.Parse;
 
-
+/**** Class for using a Parse.com database in application. *****/
 public class ParseApplication extends Application {
 
     @Override
