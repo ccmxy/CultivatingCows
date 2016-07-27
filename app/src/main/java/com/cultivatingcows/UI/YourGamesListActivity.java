@@ -21,6 +21,9 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/************ Activity for displaying a list of games that the
+ * currently logged in user is signed up for.
+ **********/
 public class YourGamesListActivity extends AppCompatActivity {
     private List<String> mUserGamesStrings;
     private static final String TAG = YourGamesListActivity.class.getSimpleName();

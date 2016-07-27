@@ -56,7 +56,7 @@ public class AddMapPageActivity extends AppCompatActivity {
 
         //Really a newMarkerButton. Adds
         // user-customized marker to the community map.
-        mNewMapButton.setActivated(false);
+        mRevealAddMarkFormButton.setActivated(false);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -69,14 +69,15 @@ public class AddMapPageActivity extends AppCompatActivity {
                 mLatitudeEditText.setVisibility(View.VISIBLE);
                 mMessageEditText.setVisibility(View.VISIBLE);
                 mNewMapButton.setVisibility(View.VISIBLE);
+                //Just for styling:
+                mRevealAddMarkFormButton.setActivated(true);
+
             }
         });
 
         mNewMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Just for styling:
-                mNewMapButton.setActivated(true);
                 //Get the user's values out of the EditTexts:
                 int latitude = Integer.valueOf(mLatitudeEditText.getText().toString().trim());
                 int longitude = Integer.valueOf(mLongitudeEditText.getText().toString().trim());

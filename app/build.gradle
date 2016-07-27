@@ -30,5 +30,4 @@ dependencies {
     compile 'com.beardedhen:androidbootstrap:2.0.0'
     compile 'com.google.android.gms:play-services:8.4.0'
     compile 'com.yayandroid:LocationManager:1.1.2'
-
 }

@@ -14,6 +14,9 @@ import com.parse.ParseObject;
 
 import java.util.List;
 
+/*This is the activity that shows a full-screen map of all of the markers that Users
+have added to the community map.
+ */
 public class MapsActivity extends FragmentActivity {
     private static final String TAG =MapsActivity.class.getSimpleName();
 
