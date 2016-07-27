@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/locationText"
         android:layout_centerVertical="true"
+        android:textSize="50dp"
         android:layout_centerHorizontal="true" />
 
     <TextView
