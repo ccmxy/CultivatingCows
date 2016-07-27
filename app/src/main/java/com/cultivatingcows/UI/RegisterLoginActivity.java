@@ -20,6 +20,7 @@ import com.parse.ParseObject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
+/*The register and log in page, where the app opens up to.*/
 public class RegisterLoginActivity extends AppCompatActivity {
     private static final String TAG = RegisterLoginActivity.class.getSimpleName();
 
@@ -68,7 +69,7 @@ public class RegisterLoginActivity extends AppCompatActivity {
                     newUser.register(TAG, RegisterLoginActivity.this, new Runnable() {
                         @Override
                         public void run() {
-                            Intent intent = new Intent(RegisterLoginActivity.this, MainActivity.class);
+                            Intent intent = new Intent(RegisterLoginActivity.this, GamesListActivity.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(intent);
@@ -87,7 +88,7 @@ public class RegisterLoginActivity extends AppCompatActivity {
                         User.logIn(username, password, TAG, RegisterLoginActivity.this, new Runnable() {
                             @Override
                             public void run() {
-                                Intent intent = new Intent(RegisterLoginActivity.this, MainActivity.class);
+                                Intent intent = new Intent(RegisterLoginActivity.this, GamesListActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 startActivity(intent);
@@ -103,8 +104,6 @@ public class RegisterLoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RegisterLoginActivity.this, AddMapPageActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
 
             }
@@ -163,11 +162,11 @@ public class RegisterLoginActivity extends AppCompatActivity {
             startActivity(intent);
         }
         if (id == R.id.action_all_games_page) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, GamesListActivity.class);
             startActivity(intent);
         }
         if (id == R.id.action_your_games_page) {
-            Intent intent = new Intent(this, YourGamesActivity.class);
+            Intent intent = new Intent(this, YourGamesListActivity.class);
             startActivity(intent);
         }
         if (id == R.id.action_community_map_page) {

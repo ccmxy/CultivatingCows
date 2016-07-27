@@ -35,8 +35,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /****** The main game page, where users take turns rolling dice. ****/
-public class GamePageActivity extends AppCompatActivity {
-    private static final String TAG = GamePageActivity.class.getSimpleName();
+public class PlayGamePageActivity extends AppCompatActivity {
+    private static final String TAG = PlayGamePageActivity.class.getSimpleName();
     private ParseObject mParseGame;
     private Game mGame;
     private List<ParseUser> mPlayers;
@@ -70,7 +70,7 @@ public class GamePageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getApplicationContext();
-        setContentView(R.layout.activity_game_page);
+        setContentView(R.layout.activity_play_game_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
@@ -80,7 +80,7 @@ public class GamePageActivity extends AppCompatActivity {
         gameNameText.setText(gameName);
 
         //The findPlayers method is in the User method instead of the Game method:
-        User.findPlayers(gameName, TAG, GamePageActivity.this, new Runnable() {
+        User.findPlayers(gameName, TAG, PlayGamePageActivity.this, new Runnable() {
             @Override
             public void run() {
                 mPlayers = User.getPlayers();
@@ -98,7 +98,7 @@ public class GamePageActivity extends AppCompatActivity {
 
         //This is not a function. I put a runnable in so it's a very long call
         // to findGameByName in the Game class.
-        Game.findGameByName(gameName, TAG, GamePageActivity.this, new Runnable() {
+        Game.findGameByName(gameName, TAG, PlayGamePageActivity.this, new Runnable() {
             @Override
             public void run() {
                 //At this point Game can access the Parse Object
@@ -141,7 +141,7 @@ public class GamePageActivity extends AppCompatActivity {
                 int oldScore = currentUser.getInt("score");
                 int score = oldScore + theRoll;
                 currentUser.put("score", score);
-                Game.findGameByName(gameName, TAG, GamePageActivity.this, new Runnable() {
+                Game.findGameByName(gameName, TAG, PlayGamePageActivity.this, new Runnable() {
                     @Override
                     public void run() {
                         mParseGame = Game.getThisGame();
@@ -194,16 +194,16 @@ public class GamePageActivity extends AppCompatActivity {
         //This creates a builder, a pop-up dialoge that the user can create a
         // new Game object with.
         if (id == R.id.action_quick_login) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(GamePageActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(PlayGamePageActivity.this);
             builder.setTitle("Quick Login");
-            final EditText userNameInpuut = new EditText(GamePageActivity.this);
+            final EditText userNameInpuut = new EditText(PlayGamePageActivity.this);
             userNameInpuut.setHint("Username");
             userNameInpuut.setInputType(InputType.TYPE_CLASS_TEXT);
             builder.setView(userNameInpuut);
-            final EditText passwordInput = new EditText(GamePageActivity.this);
+            final EditText passwordInput = new EditText(PlayGamePageActivity.this);
             passwordInput.setHint("Password");
             passwordInput.setInputType(InputType.TYPE_CLASS_TEXT);
-            LinearLayout ll = new LinearLayout(GamePageActivity.this);
+            LinearLayout ll = new LinearLayout(PlayGamePageActivity.this);
             ll.setOrientation(LinearLayout.VERTICAL);
             ll.addView(userNameInpuut);
             ll.addView(passwordInput);
@@ -217,11 +217,11 @@ public class GamePageActivity extends AppCompatActivity {
                             String loginUserName = userNameInpuut.getText().toString();
                             String password = passwordInput.getText().toString();
                             if (loginUserName.isEmpty() || password.isEmpty()) {
-                                ErrorHelper.displayAlertDialog(GamePageActivity.this, getString(R.string
+                                ErrorHelper.displayAlertDialog(PlayGamePageActivity.this, getString(R.string
                                         .login_error_message));
                             } else {
                                 // Login
-                                User.logIn(loginUserName, password, TAG, GamePageActivity.this, new Runnable() {
+                                User.logIn(loginUserName, password, TAG, PlayGamePageActivity.this, new Runnable() {
                                     @Override
                                     public void run() {
                                         Intent intent = getIntent();
@@ -243,16 +243,16 @@ public class GamePageActivity extends AppCompatActivity {
             dialog.show();
         }
         if (id == R.id.action_login_page) {
-            Intent intent = new Intent(GamePageActivity.this, RegisterLoginActivity.class);
+            Intent intent = new Intent(PlayGamePageActivity.this, RegisterLoginActivity.class);
             startActivity(intent);
         }
 
         if (id == R.id.action_all_games_page) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, GamesListActivity.class);
             startActivity(intent);
         }
         if (id == R.id.action_your_games_page) {
-            Intent intent = new Intent(this, YourGamesActivity.class);
+            Intent intent = new Intent(this, YourGamesListActivity.class);
             startActivity(intent);
         }
         if (id == R.id.action_community_map_page) {

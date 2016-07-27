@@ -37,8 +37,8 @@ import butterknife.ButterKnife;
 
 /***** This is not actually the Main Activity, but is instead an activity which inflates a ListView
  * with all of the games that are in need of players. *****/
-public class MainActivity extends AppCompatActivity {
-    private static final String TAG = MainActivity.class.getSimpleName();
+public class GamesListActivity extends AppCompatActivity {
+    private static final String TAG = GamesListActivity.class.getSimpleName();
 
     @Bind(R.id.yourGamesButton)
     Button mYourGamesButton;
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getApplicationContext();
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_games_list);
         ButterKnife.bind(this);
         ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Player.class);
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         mYourGamesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, YourGamesActivity.class);
+                Intent intent = new Intent(GamesListActivity.this, YourGamesListActivity.class);
                 startActivity(intent);
             }
         });
@@ -84,16 +84,16 @@ public class MainActivity extends AppCompatActivity {
         mNewGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(GamesListActivity.this);
                 builder.setTitle("New Game");
-                final EditText gameNameInput = new EditText(MainActivity.this);
+                final EditText gameNameInput = new EditText(GamesListActivity.this);
                 gameNameInput.setHint("Name your new game");
                 gameNameInput.setInputType(InputType.TYPE_CLASS_TEXT);
                 builder.setView(gameNameInput);
-                final EditText numPlayersInput = new EditText(MainActivity.this);
+                final EditText numPlayersInput = new EditText(GamesListActivity.this);
                 numPlayersInput.setHint("Number of players for this game (2-4)");
                 numPlayersInput.setInputType(InputType.TYPE_CLASS_NUMBER);
-                LinearLayout ll = new LinearLayout(MainActivity.this);
+                LinearLayout ll = new LinearLayout(GamesListActivity.this);
                 ll.setOrientation(LinearLayout.VERTICAL);
                 ll.addView(gameNameInput);
                 ll.addView(numPlayersInput);
@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                                 players.add(currentUser);
 
                                 List<Player> playersList = new ArrayList<Player>();
-                                final Player startingPlayer = new Player(currentUser, TAG, MainActivity.this);
+                                final Player startingPlayer = new Player(currentUser, TAG, GamesListActivity.this);
                                 playersList.add(startingPlayer);
 
                                 String gameName = gameNameInput.getText().toString();
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Game.findAllGamesNotInProgress(TAG, MainActivity.this, new Runnable() {
+        Game.findAllGamesNotInProgress(TAG, GamesListActivity.this, new Runnable() {
             @Override
             public void run() {
                 mAllGames = Game.getGames();
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     //Set the list view:
     public void setThatList(List<String[]> stringList, ArrayAdapter<String> arrayAdapter, ListView listView,  List<Map<String, String>> data) {
         SimpleAdapter simpleAdapter = new SimpleAdapter(
-        MainActivity.this,
+        GamesListActivity.this,
                 data,
                 android.R.layout.simple_list_item_2,
                 new String[] {"Game Name", "Number Players", "Tester"},
@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                 Map<String, String> datum = (Map<String, String>) arg0.getItemAtPosition(position);
                 Object value = datum.get("Game Name");
                 final String gameName = (String) value;
-                Intent intent = new Intent(MainActivity.this, GameHomeActivity.class);
+                Intent intent = new Intent(GamesListActivity.this, GameHomeActivity.class);
                 intent.putExtra("gameName", gameName);
                 startActivity(intent);
             }
@@ -211,16 +211,16 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_quick_login) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(GamesListActivity.this);
             builder.setTitle("Quick Login");
-            final EditText userNameInpuut = new EditText(MainActivity.this);
+            final EditText userNameInpuut = new EditText(GamesListActivity.this);
             userNameInpuut.setHint("Username");
             userNameInpuut.setInputType(InputType.TYPE_CLASS_TEXT);
             builder.setView(userNameInpuut);
-            final EditText passwordInput = new EditText(MainActivity.this);
+            final EditText passwordInput = new EditText(GamesListActivity.this);
             passwordInput.setHint("Password");
             passwordInput.setInputType(InputType.TYPE_CLASS_TEXT);
-            LinearLayout ll = new LinearLayout(MainActivity.this);
+            LinearLayout ll = new LinearLayout(GamesListActivity.this);
             ll.setOrientation(LinearLayout.VERTICAL);
             ll.addView(userNameInpuut);
             ll.addView(passwordInput);
@@ -235,11 +235,11 @@ public class MainActivity extends AppCompatActivity {
                             String loginUserName = userNameInpuut.getText().toString();
                             String password = passwordInput.getText().toString();
                             if (loginUserName.isEmpty() || password.isEmpty()) {
-                                ErrorHelper.displayAlertDialog(MainActivity.this, getString(R.string
+                                ErrorHelper.displayAlertDialog(GamesListActivity.this, getString(R.string
                                         .login_error_message));
                             } else {
                                 // Login
-                                User.logIn(loginUserName, password, TAG, MainActivity.this, new Runnable() {
+                                User.logIn(loginUserName, password, TAG, GamesListActivity.this, new Runnable() {
                                     @Override
                                     public void run() {
                                       //  Intent intent = new Intent(mContext, YourGamesActivity.class);
@@ -262,16 +262,20 @@ public class MainActivity extends AppCompatActivity {
             dialog.show();
         }
         if (id == R.id.action_login_page) {
-            Intent intent = new Intent(MainActivity.this, RegisterLoginActivity.class);
+            Intent intent = new Intent(GamesListActivity.this, RegisterLoginActivity.class);
             startActivity(intent);
         }
 
         if (id == R.id.action_all_games_page) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, GamesListActivity.class);
             startActivity(intent);
         }
         if (id == R.id.action_your_games_page) {
-            Intent intent = new Intent(this, YourGamesActivity.class);
+            Intent intent = new Intent(this, YourGamesListActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.action_community_map_page) {
+            Intent intent = new Intent(this, MapsActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);

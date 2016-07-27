@@ -42,7 +42,7 @@ public class UserLatlongActivity extends LocationBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_user_lat_long);
 
         locationText = (TextView) findViewById(R.id.locationText);
 
@@ -191,11 +191,11 @@ public class UserLatlongActivity extends LocationBaseActivity {
         }
 
         if (id == R.id.action_all_games_page) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, GamesListActivity.class);
             startActivity(intent);
         }
         if (id == R.id.action_your_games_page) {
-            Intent intent = new Intent(this, YourGamesActivity.class);
+            Intent intent = new Intent(this, YourGamesListActivity.class);
             startActivity(intent);
         }
         if (id == R.id.action_community_map_page) {

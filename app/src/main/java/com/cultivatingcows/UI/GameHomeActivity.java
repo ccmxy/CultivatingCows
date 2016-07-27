@@ -164,7 +164,7 @@ public class GameHomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 currentUser.put("hasBegan", gameName);
                 currentUser.saveInBackground();
-                Intent intent = new Intent(GameHomeActivity.this, GamePageActivity.class);
+                Intent intent = new Intent(GameHomeActivity.this, PlayGamePageActivity.class);
                 intent.putExtra("gameName", gameName);
                 startActivity(intent);
             }
@@ -274,11 +274,11 @@ public class GameHomeActivity extends AppCompatActivity {
         }
 
         if (id == R.id.action_all_games_page) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, GamesListActivity.class);
             startActivity(intent);
         }
         if (id == R.id.action_your_games_page) {
-            Intent intent = new Intent(this, YourGamesActivity.class);
+            Intent intent = new Intent(this, YourGamesListActivity.class);
             startActivity(intent);
         }
         if (id == R.id.action_community_map_page) {

@@ -21,9 +21,9 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class YourGamesActivity extends AppCompatActivity {
+public class YourGamesListActivity extends AppCompatActivity {
     private List<String> mUserGamesStrings;
-    private static final String TAG = YourGamesActivity.class.getSimpleName();
+    private static final String TAG = YourGamesListActivity.class.getSimpleName();
 
     @Bind(R.id.yourGamesList)
     ListView mGamesList;
@@ -39,9 +39,9 @@ public class YourGamesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_your_games);
+        setContentView(R.layout.activity_your_games_list);
         ButterKnife.bind(this);
-        User theUser = new User(currentUser, TAG, YourGamesActivity.this, new Runnable() {
+        User theUser = new User(currentUser, TAG, YourGamesListActivity.this, new Runnable() {
             @Override
             public void run() {
                 mUserGamesStrings = User.getUserGames();
@@ -56,7 +56,7 @@ public class YourGamesActivity extends AppCompatActivity {
         mAllGamesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(YourGamesActivity.this, MainActivity.class);
+                Intent intent = new Intent(YourGamesListActivity.this, GamesListActivity.class);
                 startActivity(intent);
             }
         });
@@ -64,7 +64,7 @@ public class YourGamesActivity extends AppCompatActivity {
     }//END OF ONCREATE
     public void setThatList(List<String> stringList, ArrayAdapter<String> arrayAdapter, ListView listView) {
         arrayAdapter = new ArrayAdapter<String>(
-                YourGamesActivity.this,
+                YourGamesListActivity.this,
                 android.R.layout.simple_list_item_1,
                 stringList);
         listView.setAdapter(arrayAdapter);
@@ -76,18 +76,18 @@ public class YourGamesActivity extends AppCompatActivity {
                 final String gameName = (String) arg0.getItemAtPosition(position);
                 if(mHasBegan != null) {
                     if (mHasBegan.equals(gameName)) {
-                        Intent intent = new Intent(YourGamesActivity.this, GamePageActivity.class);
+                        Intent intent = new Intent(YourGamesListActivity.this, PlayGamePageActivity.class);
                         intent.putExtra("gameName", gameName);
                         startActivity(intent);
                     }
                     else{
-                        Intent intent = new Intent(YourGamesActivity.this, GameHomeActivity.class);
+                        Intent intent = new Intent(YourGamesListActivity.this, GameHomeActivity.class);
                         intent.putExtra("gameName", gameName);
                         startActivity(intent);
                     }
                 }
                 else {
-                    Intent intent = new Intent(YourGamesActivity.this, GameHomeActivity.class);
+                    Intent intent = new Intent(YourGamesListActivity.this, GameHomeActivity.class);
                     intent.putExtra("gameName", gameName);
                     startActivity(intent);
                 }
@@ -115,11 +115,15 @@ public class YourGamesActivity extends AppCompatActivity {
             startActivity(intent);
         }
         if (id == R.id.action_all_games_page) {
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, GamesListActivity.class);
             startActivity(intent);
         }
         if (id == R.id.action_your_games_page) {
-            Intent intent = new Intent(this, YourGamesActivity.class);
+            Intent intent = new Intent(this, YourGamesListActivity.class);
+            startActivity(intent);
+        }
+        if (id == R.id.action_community_map_page) {
+            Intent intent = new Intent(this, MapsActivity.class);
             startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
