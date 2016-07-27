@@ -29,6 +29,9 @@ public class SpecialMap extends ParseObject {
     private static ParseUser mWhosTurn;
     private LocationRequest mLocationRequest;
 
+    public SpecialMap(){
+        super();
+    }
 
 
     public SpecialMap(int latitude, int longitude, String msg){

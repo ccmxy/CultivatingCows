@@ -16,9 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="1"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -26,7 +26,44 @@
             android:layout_height="wrap_content"
             android:weightSum="1">
 
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:bootstrapBrand="regular"
+                app:bootstrapSize="md"
+                app:buttonMode="regular"
+                app:showOutline="false"
+                app:roundedCorners="true"
+                android:text="Get Geolocation"
+                android:id="@+id/getLocationButton"
+                />
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:bootstrapBrand="regular"
+                app:bootstrapSize="md"
+                app:buttonMode="regular"
+                app:showOutline="false"
+                app:roundedCorners="true"
+                android:text="Add Marker"
+                android:id="@+id/reavealAddMarkFormButton"
+                android:layout_marginLeft="20dp" />
+
+
+            <com.beardedhen.androidbootstrap.BootstrapButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:bootstrapBrand="regular"
+                app:bootstrapSize="md"
+                app:buttonMode="regular"
+                app:showOutline="false"
+                app:roundedCorners="true"
+                android:text="View Map"
+                android:id="@+id/goToMapButton"
+                android:layout_marginLeft="20dp"/>
         </LinearLayout>
+
 
         <com.beardedhen.androidbootstrap.BootstrapEditText
             android:layout_width="150dp"
@@ -37,8 +74,10 @@
             android:layout_below="@+id/longitudeEditText"
             app:roundedCorners="true"
             android:gravity="center"
+            android:inputType="numberSigned"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
+            android:visibility="gone"
             />
 
         <com.beardedhen.androidbootstrap.BootstrapEditText
@@ -48,9 +87,11 @@
             android:layout_margin="10dp"
             android:hint="Longitude"
             android:id="@+id/longitudeEditText"
+            android:inputType="numberSigned"
             android:layout_below="@+id/messageEditText"
             android:gravity="center"
             android:layout_gravity="center_horizontal"
+            android:visibility="gone"
             />
 
         <com.beardedhen.androidbootstrap.BootstrapEditText
@@ -60,48 +101,27 @@
             android:layout_margin="10dp"
             android:hint="Message"
             android:id="@+id/messageEditText"
+            android:inputType="text"
             android:gravity="center"
             android:layout_gravity="center_horizontal"
+            android:visibility="gone"
             />
 
         <com.beardedhen.androidbootstrap.BootstrapButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:bootstrapBrand="regular"
-            app:bootstrapSize="md"
+            app:bootstrapBrand="success"
+            app:bootstrapSize="lg"
             app:buttonMode="regular"
             app:showOutline="false"
             app:roundedCorners="true"
-            android:text="Add New Marker"
+            android:text="Go!"
             android:id="@+id/newMarkerButton"
-            android:layout_below="@+id/get"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            />
 
-        <com.beardedhen.androidbootstrap.BootstrapButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:bootstrapBrand="regular"
-            app:bootstrapSize="md"
-            app:buttonMode="regular"
-            app:showOutline="false"
-            app:roundedCorners="true"
-            android:text="Get Your Geocoordinates"
-            android:id="@+id/getLocationButton"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="0.03" />
 
-        <com.beardedhen.androidbootstrap.BootstrapButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:bootstrapBrand="regular"
-            app:bootstrapSize="md"
-            app:buttonMode="regular"
-            app:showOutline="false"
-            app:roundedCorners="true"
-            android:text="Go to map"
-            android:id="@+id/goToMapButton"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="0.03" />
 
     </LinearLayout>
 

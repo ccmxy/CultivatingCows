@@ -104,23 +104,6 @@ public class User extends ParseUser {
         });
     }
 
-//    public static void findPlayers2(final String gameName, final String tag, final Activity context, final Runnable runnable) {
-//        playersListQuery2(gameName).findInBackground(new FindCallback<Player>() {
-//            @Override
-//            public void done(List<Player> players, com.parse.ParseException e) {
-//                if (e == null) {
-//                    mPlayersList = players;
-//                    context.runOnUiThread(runnable);
-//                } else {
-//                    ErrorHelper.handleError(tag, context, e.getMessage());
-//                }
-//            }
-//        });
-//    }
-//    public static ParseQuery<ParseUser> playersListQuery2(String gameName) {
-//        ParseQuery<Player> userQuery = Player.getQuery();
-//        return userQuery.whereEqualTo("game", gameName);
-//    }
     public static ParseQuery<ParseUser> playersListQuery(String gameName) {
         ParseQuery<ParseUser> userQuery = ParseUser.getQuery();
         return userQuery.whereEqualTo("game", gameName);

@@ -10,6 +10,8 @@ import com.beardedhen.androidbootstrap.BootstrapButton;
 import com.beardedhen.androidbootstrap.BootstrapEditText;
 import com.cultivatingcows.Models.SpecialMap;
 import com.cultivatingcows.R;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.parse.ParseObject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,6 +27,9 @@ public class AddMapPageActivity extends AppCompatActivity {
     @Bind(R.id.messageEditText)
     BootstrapEditText mMessageEditText;
 
+    @Bind(R.id.reavealAddMarkFormButton)
+    BootstrapButton mRevealAddMarkFormButton;
+
     @Bind(R.id.newMarkerButton)
     BootstrapButton mNewMapButton;
 
@@ -34,6 +39,8 @@ public class AddMapPageActivity extends AppCompatActivity {
     @Bind(R.id.goToMapButton)
     BootstrapButton mGoToMap;
 
+    private GoogleApiClient client;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,10 +48,22 @@ public class AddMapPageActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_add_map_page);
         ButterKnife.bind(this);
+        ParseObject.registerSubclass(SpecialMap.class);
+
         mNewMapButton.setActivated(false);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        mRevealAddMarkFormButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mLongitudeEditText.setVisibility(View.VISIBLE);
+                mLatitudeEditText.setVisibility(View.VISIBLE);
+                mMessageEditText.setVisibility(View.VISIBLE);
+                mNewMapButton.setVisibility(View.VISIBLE);
+            }
+        });
 
         mNewMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,10 +75,7 @@ public class AddMapPageActivity extends AppCompatActivity {
                 mLatitudeEditText.setVisibility(View.GONE);
                 mLongitudeEditText.setVisibility(View.GONE);
                 mMessageEditText.setVisibility(View.GONE);
-
-
                 SpecialMap newSpecialMap = new SpecialMap(latitude, longitude, msg);
-
                 newSpecialMap.saveSpecialMap();
 
             }
@@ -85,7 +101,6 @@ public class AddMapPageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 
 }
