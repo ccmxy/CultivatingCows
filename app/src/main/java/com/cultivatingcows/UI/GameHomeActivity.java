@@ -51,6 +51,8 @@ public class GameHomeActivity extends AppCompatActivity {
     @Bind(R.id.refreshButton)
     Button mRefreshButton;
 
+    @Bind(R.id.deleteGameButton)
+    Button mDeleteGameButton;
 
     private static ParseUser currentUser;
     private List<ParseUser> mPlayers;
@@ -100,10 +102,9 @@ public class GameHomeActivity extends AppCompatActivity {
                     mCurNumPlayers = mPlayers.size();
                 } else {
                     List<ParseObject> count = mGame.getList("players");
-                    if(count != null) {
+                    if (count != null) {
                         mCurNumPlayers = count.size();
-                    }
-                    else {
+                    } else {
                         mCurNumPlayers = 0;
                     }
                 }
@@ -150,6 +151,31 @@ public class GameHomeActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
+
+        mDeleteGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(GameHomeActivity.this);
+                builder.setTitle("Join Game");
+                builder.setMessage("WARNING: THIS WILL DELETE THIS GAME!").
+                        setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                Intent intent = new Intent(GameHomeActivity.this, DeleteGameIntermissionActivity.class);
+                                intent.putExtra("gameName", gameName);
+                                startActivity(intent);
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
 
         mBeginGameButton.setOnClickListener(new View.OnClickListener() {
             @Override
