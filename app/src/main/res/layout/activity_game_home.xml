@@ -65,4 +65,13 @@
         android:id="@+id/deleteGameButton"
         android:layout_above="@+id/refreshButton"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Update Name"
+        android:layout_below="@+id/refreshButton"
+        android:id="@+id/updateGameButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="57dp" />
 </RelativeLayout>

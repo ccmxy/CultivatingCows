@@ -28,14 +28,6 @@ public class Game extends ParseObject {
         super();
     }
 
-//    public Game(String gameName, List<ParseUser> players, int numPlayers){
-//        put("name", gameName);
-//        put("players", players);
-//        put("numPlayers", numPlayers);
-//        put("curNumPlayers", 1);
-//        put("inProgress", false);
-//        put("whosTurn", players.get(0));
-//    }
 
     public Game(String gameName, List<ParseUser> players, List<Player> playersList, int numPlayers){
         put("name", gameName);

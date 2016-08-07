@@ -54,6 +54,10 @@ public class GameHomeActivity extends AppCompatActivity {
     @Bind(R.id.deleteGameButton)
     Button mDeleteGameButton;
 
+    @Bind(R.id.updateGameButton)
+    Button mUpdateGameButton;
+
+
     private static ParseUser currentUser;
     private List<ParseUser> mPlayers;
     private String mPlayerNames;
@@ -156,14 +160,44 @@ public class GameHomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(GameHomeActivity.this);
-                builder.setTitle("Join Game");
+                builder.setTitle("Delete Game");
                 builder.setMessage("WARNING: THIS WILL DELETE THIS GAME!").
-                        setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        setPositiveButton("Delete this game", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 Intent intent = new Intent(GameHomeActivity.this, DeleteGameIntermissionActivity.class);
                                 intent.putExtra("gameName", gameName);
                                 startActivity(intent);
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
+
+        mUpdateGameButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(GameHomeActivity.this);
+                final EditText gameNameInput = new EditText(GameHomeActivity.this);
+                gameNameInput.setHint("Update the name of this game");
+                LinearLayout ll = new LinearLayout(GameHomeActivity.this);
+                ll.setOrientation(LinearLayout.VERTICAL);
+                builder.setView(ll);
+                ll.addView(gameNameInput);
+                builder.setTitle("Update Game Name");
+                builder.setMessage("Update Game").
+                        setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                String gameName = gameNameInput.getText().toString();
+                                mGame.put("name", gameName);
+                                mGame.saveInBackground();
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     @Override

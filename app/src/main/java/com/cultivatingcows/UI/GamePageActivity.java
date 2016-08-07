@@ -153,8 +153,6 @@ public class GamePageActivity extends AppCompatActivity {
 
                 Snackbar.make(view, "You rolled a " + theRoll, Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-//                Intent intent = getIntent();
-//                startActivity(intent);
                 final Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
